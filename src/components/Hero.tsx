@@ -3,7 +3,6 @@ import Image from 'next/image'
 export default function Hero() {
   return (
     <section className="relative flex flex-col w-full max-w-[1512px] mx-auto min-h-[500px] lg:h-[850px] px-4 lg:px-0 py-16 lg:py-0 overflow-hidden">
-
       {/* 
         TEXT CONTENT
         On Desktop: Absolutely centered over the flex layout.
@@ -54,10 +53,8 @@ export default function Hero() {
         Mobile: stacks columns vertically below the text.
       */}
       <div className="relative w-full h-full flex flex-col lg:flex-row justify-between items-center lg:items-stretch z-0 mt-16 lg:mt-0 gap-16 lg:gap-0 lg:px-0">
-
         {/* ================= LEFT COLUMN ================= */}
         <div className="flex flex-col items-center lg:items-start w-full lg:w-auto gap-16 lg:gap-0 lg:pl-[65px] lg:pt-[31px]">
-
           {/* Top-Left Group (Star Image + Green Vector + Yellow Blob) */}
           <div className="relative w-fit mx-auto lg:mx-0">
             <Image
@@ -79,7 +76,6 @@ export default function Hero() {
                 width={70}
               />
             </div>
-
           </div>
 
           {/* Bottom-Left Group (Event Crowd + Yellow Blob) */}
@@ -108,7 +104,6 @@ export default function Hero() {
 
         {/* ================= RIGHT COLUMN ================= */}
         <div className="flex flex-col items-center lg:items-start w-full lg:w-auto gap-16 lg:gap-0 lg:pr-[92px] lg:pt-[0px]">
-
           {/* Top-Right Group (Round Image + Red Vector) */}
           <div className="relative w-fit mx-auto lg:mx-0 lg:-mt-[50px]">
             <Image
@@ -155,7 +150,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   )
