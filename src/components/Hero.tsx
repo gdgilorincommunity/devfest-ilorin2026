@@ -3,11 +3,6 @@ import Image from 'next/image'
 export default function Hero() {
   return (
     <section className="relative flex flex-col w-full max-w-[1512px] mx-auto min-h-[500px] lg:h-[850px] px-4 lg:px-0 py-16 lg:py-0 overflow-hidden">
-      {/* 
-        TEXT CONTENT
-        On Desktop: Absolutely centered over the flex layout.
-        On Mobile: Flows normally at the top. 
-      */}
       <div className="lg:absolute lg:inset-0 flex flex-col items-center justify-center w-full z-10 pointer-events-none gap-8 lg:gap-[32px] mt-8 lg:-mt-[60px]">
         <div className="flex items-center justify-center w-full max-w-[1018px] pointer-events-auto">
           <h1 className="w-full lg:w-[1010px] font-sans font-bold text-5xl lg:text-[74px] leading-[110%] lg:leading-[100%] text-center text-[#1E1E1E]">
@@ -47,15 +42,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 
-        IMAGES LAYOUT (FLEX)
-        Desktop: justify-between splits columns to far left and right.
-        Mobile: stacks columns vertically below the text.
-      */}
       <div className="relative w-full h-full flex flex-col lg:flex-row justify-between items-center lg:items-stretch z-0 mt-16 lg:mt-0 gap-16 lg:gap-0 lg:px-0">
-        {/* ================= LEFT COLUMN ================= */}
         <div className="flex flex-col items-center lg:items-start w-full lg:w-auto gap-16 lg:gap-0 lg:pl-[65px] lg:pt-[31px]">
-          {/* Top-Left Group (Star Image + Green Vector + Yellow Blob) */}
           <div className="relative w-fit mx-auto lg:mx-0">
             <Image
               alt="Star Event Image"
@@ -64,8 +52,6 @@ export default function Hero() {
               src="/images/star-img.png"
               width={289}
             />
-
-            {/* Green Vector (Attached to Star Image) */}
             <div className="absolute top-[24px] left-[195px] z-20">
               <Image
                 alt="Green Decoration"
@@ -78,7 +64,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Bottom-Left Group (Event Crowd + Yellow Blob) */}
           <div className="relative w-fit mx-auto lg:mx-0 mt-16 lg:mt-[170px] lg:ml-[115px]">
             <Image
               alt="DevFest event crowd"
@@ -87,8 +72,6 @@ export default function Hero() {
               src="/images/left-blob.png"
               width={331}
             />
-
-            {/* Yellow Blob (Attached to Bottom Left Blob) */}
             <div className="absolute top-[-32px] left-[68px] z-20">
               <Image
                 alt="Yellow Blob Decoration"
@@ -102,9 +85,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ================= RIGHT COLUMN ================= */}
         <div className="flex flex-col items-center lg:items-start w-full lg:w-auto gap-16 lg:gap-0 lg:pr-[92px] lg:pt-[0px]">
-          {/* Top-Right Group (Round Image + Red Vector) */}
           <div className="relative w-fit mx-auto lg:mx-0 lg:-mt-[50px]">
             <Image
               alt="Right Blob Event Image"
@@ -113,8 +94,6 @@ export default function Hero() {
               src="/images/round-img.png"
               width={340}
             />
-
-            {/* Red Vector (Attached to Round Image) */}
             <div className="absolute top-[80px] left-[19px] z-20">
               <Image
                 alt="Red Decoration"
@@ -127,7 +106,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Bottom-Right Group (Blob + Blue Vector) */}
           <div className="relative w-fit mx-auto lg:mx-0 lg:mt-[200px] lg:-ml-[70px]">
             <Image
               alt="Bottom Right Blob Event Image"
@@ -136,8 +114,6 @@ export default function Hero() {
               src="/images/right-blob.png"
               width={360}
             />
-
-            {/* Blue Vector (Attached to Bottom Right Blob) */}
             <div className="absolute top-[56px] -left-[20px] z-20">
               <Image
                 alt="Blue Decoration"
