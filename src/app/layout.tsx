@@ -19,7 +19,7 @@ const appName = config.appName
 const appUrl = config.appUrl
 const appMetaTitle = `${appName} - The Biggest Tech Conference In North Central`
 const imageAlt = 'Google Developer Group Ilorin'
-const appMetaDescription = `The official ${appName}. Mark your calendars for November 2026. Join Ilorin's biggest tech conference for innovation, networking, and learning. Register now: ${config.ticketUrl} #devfestilorin26 #DevFest2026 #devfest`
+const appMetaDescription = `The official ${appName}. Mark your calendars for November 2026. Join Ilorin's biggest tech conference for innovation, networking, and learning. #devfestilorin26 #DevFest2026 #devfest`
 
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
