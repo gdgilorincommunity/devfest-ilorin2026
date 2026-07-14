@@ -10,15 +10,15 @@ export default function Hero() {
           </h1>
         </div>
 
-        <div className="flex justify-center pointer-events-auto">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 pointer-events-auto">
           <button
-            className="flex items-center justify-center gap-[10px] w-[186px] h-[65px] px-[27px] py-[20px] rounded-[40px] hover:scale-105 transition-transform duration-300 shadow-lg cursor-pointer"
+            className="flex items-center justify-center gap-[10px] w-auto min-w-[176px] h-[65px] px-[27px] py-[20px] rounded-[40px] hover:scale-105 transition-transform duration-300 shadow-lg cursor-pointer"
             style={{
               background:
                 'radial-gradient(85.98% 85.98% at 50% 17.07%, #3186FF 52%, #6D97FF 76%, #A9A8FF 100%)',
             }}
           >
-            <span className="w-[100px] h-[19px] font-sans font-bold text-[16px] leading-[120%] text-center align-middle text-white">
+            <span className="font-sans font-bold text-[16px] leading-[120%] text-center text-white whitespace-nowrap">
               Sponsor Us
             </span>
             <div className="flex items-center justify-center w-[32px] h-[26px] bg-white rounded-[34px]">
@@ -39,6 +39,20 @@ export default function Hero() {
               />
             </div>
           </button>
+
+          <a
+            className="flex items-center justify-center gap-[10px] w-auto min-w-[176px] h-[65px] px-[27px] py-[20px] bg-black rounded-[40px] hover:scale-105 transition-transform duration-300 shadow-sm cursor-pointer"
+            href="https://gdg.community.dev/events/details/google-gdg-ilorin-presents-devfest-ilorin-2026/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span className="font-sans font-bold text-[16px] leading-[120%] text-center text-white whitespace-nowrap">
+              Register
+            </span>
+            <div className="flex items-center justify-center w-[32px] h-[26px] bg-white rounded-[34px]">
+              <Image alt="Arrow Icon" height={10} src="/svg/now.svg" width={10} />
+            </div>
+          </a>
         </div>
       </div>
 
