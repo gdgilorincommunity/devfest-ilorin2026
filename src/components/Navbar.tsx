@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 
 export default function Navbar() {
   return (
-    <nav className="w-full max-w-[1512px] mx-auto flex justify-between items-center px-4 md:px-[64px] lg:px-[128px] py-4 md:py-[40px]">
+    <nav className="mx-auto flex w-full max-w-[1512px] shrink-0 items-center justify-between px-4 py-4 md:px-[64px] md:py-[40px] lg:px-[128px]">
       <div className="flex w-[120px] items-center sm:w-[150px] lg:w-[180px]">
         <Image
           priority

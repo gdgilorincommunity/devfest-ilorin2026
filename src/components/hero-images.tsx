@@ -13,8 +13,8 @@ type HeroImageConfig = {
 }
 
 const HERO_IMAGE_SIZE = {
-  mobile: 300,
-  desktop: 400,
+  mobile: 200,
+  desktop: 380,
 } as const
 
 const heroImageConfigs: HeroImageConfig[] = [
@@ -85,7 +85,7 @@ function HeroImage({
 export function HeroImages() {
   return (
     <>
-      <div className="relative mt-16 w-full lg:hidden">
+      <div className="relative mt-auto w-full pb-4 lg:hidden">
         <HeroImageScroller direction="left" speed="medium">
           {heroImageConfigs.map((config, index) => (
             <li
