@@ -1,16 +1,16 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
 export default function Navbar() {
   return (
-    <nav className="w-full max-w-[1512px] mx-auto flex justify-between items-center px-[128px] py-[40px]">
+    <nav className="w-full max-w-[1512px] mx-auto flex justify-between items-center px-4 md:px-[64px] lg:px-[128px] py-4 md:py-[40px]">
       <div className="flex items-center">
         <Image
-          src="/svg/logo.svg"
-          alt="DevFest Ilorin Logo"
-          width={180}
-          height={60}
-          className="h-auto w-auto"
           priority
+          alt="DevFest Ilorin Logo"
+          className="h-auto w-auto"
+          height={60}
+          src="/svg/logo.svg"
+          width={180}
         />
       </div>
 
@@ -19,12 +19,7 @@ export default function Navbar() {
           View 2026
         </span>
         <div className="flex items-center justify-center w-[32px] h-[26px] bg-white rounded-[34px]">
-          <Image
-            src="/svg/now.svg"
-            alt="Arrow Icon"
-            width={10}
-            height={10}
-          />
+          <Image alt="Arrow Icon" height={10} src="/svg/now.svg" width={10} />
         </div>
       </button>
     </nav>

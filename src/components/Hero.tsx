@@ -12,7 +12,7 @@ export default function Hero() {
 
         <div className="flex justify-center pointer-events-auto">
           <button
-            className="flex items-center justify-center gap-[10px] w-[182px] h-[66px] px-[27px] py-[20px] rounded-[40px] hover:scale-105 transition-transform duration-300 shadow-lg cursor-pointer"
+            className="flex items-center justify-center gap-[10px] w-[186px] h-[65px] px-[27px] py-[20px] rounded-[40px] hover:scale-105 transition-transform duration-300 shadow-lg cursor-pointer"
             style={{
               background:
                 'radial-gradient(85.98% 85.98% at 50% 17.07%, #3186FF 52%, #6D97FF 76%, #A9A8FF 100%)',
