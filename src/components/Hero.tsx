@@ -13,7 +13,12 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 pointer-events-auto">
-          <Button showArrow className="min-w-[176px]" size="pill" variant="gradient">
+          <Button
+            showArrow
+            className="min-w-[176px]"
+            size="pill"
+            variant="gradient"
+          >
             Sponsor Us
           </Button>
 

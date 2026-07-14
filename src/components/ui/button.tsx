@@ -1,5 +1,4 @@
 import { isValidElement } from 'react'
-
 import { Button as ButtonPrimitive } from '@base-ui/react/button'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { MoveUpRight } from 'lucide-react'
@@ -67,8 +66,7 @@ function Button({
   ...props
 }: ButtonProps) {
   const isButtonRender =
-    render === undefined ||
-    (isValidElement(render) && render.type === 'button')
+    render === undefined || (isValidElement(render) && render.type === 'button')
   const resolvedNativeButton = nativeButton ?? isButtonRender
 
   return (
