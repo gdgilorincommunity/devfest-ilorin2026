@@ -50,6 +50,14 @@ body {
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --animate-scroll: scroll var(--animation-duration, 40s)
+    var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate3d(calc(-50% - 0.5rem), 0, 0);
+    }
+  }
 }
 
 :root {

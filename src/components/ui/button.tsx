@@ -21,9 +21,9 @@ const buttonVariants = cva(
           'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40',
         link: 'text-primary underline-offset-4 hover:underline',
         black:
-          'rounded-full bg-black text-white shadow-sm transition-transform duration-300 hover:scale-105',
+          'rounded-full bg-black text-white transition-transform duration-300 hover:scale-105',
         gradient:
-          'rounded-full text-white shadow-lg transition-transform duration-300 hover:scale-105 bg-[radial-gradient(85.98%_85.98%_at_50%_17.07%,#3186FF_52%,#6D97FF_76%,#A9A8FF_100%)]',
+          'rounded-full text-white transition-transform duration-300 hover:scale-105 bg-[radial-gradient(85.98%_85.98%_at_50%_17.07%,#3186FF_52%,#6D97FF_76%,#A9A8FF_100%)]',
       },
       size: {
         default:
@@ -31,7 +31,7 @@ const buttonVariants = cva(
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: 'h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
-        pill: 'h-[65px] gap-[10px] px-[27px] py-[20px] text-[16px] font-bold',
+        pill: 'h-[48px] min-w-[152px] justify-center gap-2 px-5 py-3 text-sm font-bold lg:h-[65px] lg:min-w-[176px] lg:gap-[10px] lg:px-[27px] lg:py-[20px] lg:text-[16px]',
         icon: 'size-8',
         'icon-xs':
           "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
@@ -79,7 +79,7 @@ function Button({
     >
       {children}
       {showArrow && (
-        <span className="flex h-[26px] w-[32px] items-center justify-center rounded-full bg-white">
+        <span className="flex h-[22px] w-[28px] items-center justify-center rounded-full bg-white lg:h-[26px] lg:w-[32px]">
           <MoveUpRight
             className={cn(
               'size-2.5',

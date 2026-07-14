@@ -10,7 +10,7 @@ export default function Navbar() {
         <Image
           priority
           alt="DevFest Ilorin Logo"
-          className="h-auto w-auto"
+          className="h-auto w-[120px] sm:w-[150px] lg:w-[180px]"
           height={60}
           src="/svg/logo.svg"
           width={180}
@@ -22,9 +22,7 @@ export default function Navbar() {
         target="_blank"
       >
         <Button showArrow size="pill" variant="black">
-          <span className="w-fit whitespace-normal text-center leading-[120%]">
-            View 2025
-          </span>
+          View 2025
         </Button>
       </Link>
     </nav>
