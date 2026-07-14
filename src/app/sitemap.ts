@@ -1,33 +1,37 @@
 import type { MetadataRoute } from 'next'
 
+import config from '@/config'
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const siteUrl = config.appUrl.replace(/\/$/, '')
+
   return [
     {
-      url: 'https://devfestilorin.com',
+      url: siteUrl,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1.0,
     },
     {
-      url: 'https://devfestilorin.com/speakers',
+      url: `${siteUrl}/speakers`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,
     },
     {
-      url: 'https://devfestilorin.com/schedule',
+      url: `${siteUrl}/schedule`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.5,
     },
     {
-      url: 'https://devfestilorin.com/sponsors',
+      url: `${siteUrl}/sponsors`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
-      url: 'https://devfestilorin.com/teams',
+      url: `${siteUrl}/teams`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,

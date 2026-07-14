@@ -1,24 +1,64 @@
 import type { Metadata } from 'next'
 
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Google_Sans } from 'next/font/google'
+
+import config from '@/config'
 
 import { Providers } from './providers'
 
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const googleSans = Google_Sans({
   subsets: ['latin'],
+  variable: '--font-google-sans',
+  display: 'swap',
+  adjustFontFallback: false,
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
+const appName = config.appName
+const appUrl = config.appUrl
+const appMetaTitle = `${appName} - The Biggest Tech Conference In North Central`
+const imageAlt = 'Google Developer Group Ilorin'
+const appMetaDescription = `The official ${appName}. Mark your calendars for November 2026. Join Ilorin's biggest tech conference for innovation, networking, and learning. Register now: ${config.ticketUrl} #devfestilorin26 #DevFest2026 #devfest`
 
 export const metadata: Metadata = {
-  title: 'DevFest Ilorin 2026',
-  description: 'DevFest Ilorin 2026',
+  metadataBase: new URL(appUrl),
+  title: appMetaTitle,
+  description: appMetaDescription,
+  authors: {
+    url: appUrl,
+    name: appName,
+  },
+  openGraph: {
+    type: 'website',
+    url: appUrl,
+    title: appMetaTitle,
+    description: appMetaDescription,
+    images: [
+      {
+        url: '/devfest-social-meta.svg',
+        alt: imageAlt,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: appMetaTitle,
+    description: appMetaDescription,
+    images: [
+      {
+        url: '/devfest-social-meta.svg',
+        alt: imageAlt,
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
@@ -27,10 +67,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      lang="en"
-    >
+    <html className={`${googleSans.variable} h-full antialiased`} lang="en">
       <body className="min-h-full flex flex-col bg-[#fcf4f4]">
         <Providers>{children}</Providers>
       </body>
