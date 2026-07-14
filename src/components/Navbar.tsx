@@ -13,6 +13,7 @@ export default function Navbar() {
           className="h-auto w-[120px] sm:w-[150px] lg:w-[180px]"
           height={60}
           src="/svg/logo.svg"
+          style={{ height: 'auto' }}
           width={180}
         />
       </div>
