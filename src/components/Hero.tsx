@@ -13,7 +13,12 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 pointer-events-auto">
-          <Button showArrow className="min-w-[176px]" size="pill" variant="gradient">
+          <Button
+            showArrow
+            className="min-w-[176px]"
+            size="pill"
+            variant="gradient"
+          >
             Sponsor Us
           </Button>
 
@@ -39,10 +44,10 @@ export default function Hero() {
         <div className="flex flex-col items-center lg:items-start w-full lg:w-auto gap-16 lg:gap-0 lg:pl-[65px] lg:pt-[31px]">
           <div className="relative w-fit mx-auto lg:mx-0">
             <Image
+              priority
               alt="Star Event Image"
               className="h-auto w-auto object-contain"
               height={289}
-              priority
               src="/images/star-img.png"
               width={289}
             />
@@ -102,10 +107,10 @@ export default function Hero() {
 
           <div className="relative w-fit mx-auto lg:mx-0 lg:mt-[200px] lg:-ml-[70px]">
             <Image
+              priority
               alt="Bottom Right Blob Event Image"
               className="h-auto w-auto max-w-none object-contain"
               height={340}
-              priority
               src="/images/right-blob.png"
               width={360}
             />

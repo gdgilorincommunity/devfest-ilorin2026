@@ -1,7 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 
 export default function Navbar() {
   return (
@@ -16,7 +16,11 @@ export default function Navbar() {
           width={180}
         />
       </div>
-      <Link href="https://2025.devfestilorin.com" rel="noopener noreferrer" target="_blank">
+      <Link
+        href="https://2025.devfestilorin.com"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
         <Button showArrow size="pill" variant="black">
           <span className="w-fit whitespace-normal text-center leading-[120%]">
             View 2025

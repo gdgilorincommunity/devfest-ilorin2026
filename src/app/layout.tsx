@@ -24,10 +24,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      className={`${googleSans.variable} h-full antialiased`}
-      lang="en"
-    >
+    <html className={`${googleSans.variable} h-full antialiased`} lang="en">
       <body className="min-h-full flex flex-col bg-[#fcf4f4]">
         <Providers>{children}</Providers>
       </body>
