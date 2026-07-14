@@ -40,15 +40,16 @@ export default function Hero() {
           <div className="relative w-fit mx-auto lg:mx-0">
             <Image
               alt="Star Event Image"
-              className="object-contain"
+              className="h-auto w-auto object-contain"
               height={289}
+              priority
               src="/images/star-img.png"
               width={289}
             />
             <div className="absolute top-[24px] left-[195px] z-20">
               <Image
                 alt="Green Decoration"
-                className="object-contain"
+                className="h-auto w-auto object-contain"
                 height={70}
                 src="/images/green-vector.png"
                 style={{ transform: 'rotate(0deg)' }}
@@ -68,7 +69,7 @@ export default function Hero() {
             <div className="absolute top-[-32px] left-[68px] z-20">
               <Image
                 alt="Yellow Blob Decoration"
-                className="object-contain"
+                className="h-auto w-auto object-contain"
                 height={85}
                 src="/images/yellow-blob.png"
                 style={{ transform: 'rotate(3deg)' }}
@@ -102,8 +103,9 @@ export default function Hero() {
           <div className="relative w-fit mx-auto lg:mx-0 lg:mt-[200px] lg:-ml-[70px]">
             <Image
               alt="Bottom Right Blob Event Image"
-              className="object-contain max-w-none"
+              className="h-auto w-auto max-w-none object-contain"
               height={340}
+              priority
               src="/images/right-blob.png"
               width={360}
             />
