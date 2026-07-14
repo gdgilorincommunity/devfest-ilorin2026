@@ -36,7 +36,9 @@ export const metadata: Metadata = {
     description: appMetaDescription,
     images: [
       {
-        url: '/devfest-social-meta.svg',
+        url: '/devfest-social-meta.png',
+        width: 1200,
+        height: 630,
         alt: imageAlt,
       },
     ],
@@ -47,7 +49,9 @@ export const metadata: Metadata = {
     description: appMetaDescription,
     images: [
       {
-        url: '/devfest-social-meta.svg',
+        url: '/devfest-social-meta.png',
+        width: 1200,
+        height: 630,
         alt: imageAlt,
       },
     ],
