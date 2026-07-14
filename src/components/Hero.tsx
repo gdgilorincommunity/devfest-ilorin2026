@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { Button } from '@/components/ui/button'
+
 export default function Hero() {
   return (
     <section className="relative flex flex-col w-full max-w-[1512px] mx-auto min-h-[500px] lg:h-[850px] px-4 lg:px-0 py-16 lg:py-0 overflow-hidden">
@@ -11,48 +13,25 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 pointer-events-auto">
-          <button
-            className="flex items-center justify-center gap-[10px] w-auto min-w-[176px] h-[65px] px-[27px] py-[20px] rounded-[40px] hover:scale-105 transition-transform duration-300 shadow-lg cursor-pointer"
-            style={{
-              background:
-                'radial-gradient(85.98% 85.98% at 50% 17.07%, #3186FF 52%, #6D97FF 76%, #A9A8FF 100%)',
-            }}
-          >
-            <span className="font-sans font-bold text-[16px] leading-[120%] text-center text-white whitespace-nowrap">
-              Sponsor Us
-            </span>
-            <div className="flex items-center justify-center w-[32px] h-[26px] bg-white rounded-[34px]">
-              <div
-                className="w-[10px] h-[10px]"
-                style={{
-                  background:
-                    'radial-gradient(85.98% 85.98% at 50% 17.07%, #3186FF 52%, #6D97FF 76%, #A9A8FF 100%)',
-                  WebkitMaskImage: 'url(/svg/now.svg)',
-                  WebkitMaskSize: 'contain',
-                  WebkitMaskRepeat: 'no-repeat',
-                  WebkitMaskPosition: 'center',
-                  maskImage: 'url(/svg/now.svg)',
-                  maskSize: 'contain',
-                  maskRepeat: 'no-repeat',
-                  maskPosition: 'center',
-                }}
-              />
-            </div>
-          </button>
+          <Button showArrow className="min-w-[176px]" size="pill" variant="gradient">
+            Sponsor Us
+          </Button>
 
-          <a
-            className="flex items-center justify-center gap-[10px] w-auto min-w-[176px] h-[65px] px-[27px] py-[20px] bg-black rounded-[40px] hover:scale-105 transition-transform duration-300 shadow-sm cursor-pointer"
-            href="https://gdg.community.dev/events/details/google-gdg-ilorin-presents-devfest-ilorin-2026/"
-            rel="noopener noreferrer"
-            target="_blank"
+          <Button
+            showArrow
+            className="min-w-[176px]"
+            render={
+              <a
+                href="https://gdg.community.dev/events/details/google-gdg-ilorin-presents-devfest-ilorin-2026/"
+                rel="noopener noreferrer"
+                target="_blank"
+              />
+            }
+            size="pill"
+            variant="black"
           >
-            <span className="font-sans font-bold text-[16px] leading-[120%] text-center text-white whitespace-nowrap">
-              Register
-            </span>
-            <div className="flex items-center justify-center w-[32px] h-[26px] bg-white rounded-[34px]">
-              <Image alt="Arrow Icon" height={10} src="/svg/now.svg" width={10} />
-            </div>
-          </a>
+            Register
+          </Button>
         </div>
       </div>
 
