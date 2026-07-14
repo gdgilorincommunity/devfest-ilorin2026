@@ -6,7 +6,7 @@ describe('Home', () => {
   it('renders the hello world heading', () => {
     render(<Home />)
     expect(
-      screen.getByRole('heading', { name: /hello world/i }),
+      screen.getByRole('heading', { name: /November 2026/i }),
     ).toBeInTheDocument()
   })
 })

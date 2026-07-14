@@ -54,6 +54,7 @@
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "jest-watch-typeahead": "^3.0.1",
+    "pnpm": "^10.34.5",
     "prettier": "^3.9.5",
     "tailwindcss": "^4",
     "typescript": "^5",
