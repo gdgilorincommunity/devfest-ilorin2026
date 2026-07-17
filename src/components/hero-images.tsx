@@ -13,8 +13,8 @@ type HeroImageConfig = {
 }
 
 const HERO_IMAGE_SIZE = {
-  mobile: 200,
-  desktop: 380,
+  mobile: 300,
+  desktop: 330,
 } as const
 
 const heroImageConfigs: HeroImageConfig[] = [
@@ -85,7 +85,7 @@ function HeroImage({
 export function HeroImages() {
   return (
     <>
-      <div className="relative mt-auto w-full pb-4 lg:hidden">
+      <div className="relatives w-full pb-4 lg:hidden"> {/*Removed the mt-auto to reduce the excess space on the images top in mobile version */}
         <HeroImageScroller direction="left" speed="medium">
           {heroImageConfigs.map((config, index) => (
             <li
@@ -106,7 +106,7 @@ export function HeroImages() {
         </HeroImageScroller>
       </div>
 
-      <div className="relative mt-16 hidden h-full w-full flex-col items-center justify-between gap-16 lg:mt-0 lg:flex lg:flex-row lg:items-stretch lg:gap-0 lg:px-0">
+      <div className="relative mt-8 hidden h-full w-full flex-col items-center justify-between gap-16 lg:mt-6 lg:flex lg:flex-row lg:items-stretch lg:gap-0 lg:px-0">
         <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pl-[65px] lg:pt-[31px]">
           <div className="relative mx-auto w-fit lg:mx-0">
             <HeroImage
@@ -131,6 +131,8 @@ export function HeroImages() {
           </div>
         </div>
       </div>
+
+
     </>
   )
 }
