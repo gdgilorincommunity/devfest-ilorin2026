@@ -85,7 +85,9 @@ function HeroImage({
 export function HeroImages() {
   return (
     <>
-      <div className="relatives w-full pb-4 lg:hidden"> {/*Removed the mt-auto to reduce the excess space on the images top in mobile version */}
+      <div className="relatives w-full pb-4 lg:hidden">
+        {' '}
+        {/*Removed the mt-auto to reduce the excess space on the images top in mobile version */}
         <HeroImageScroller direction="left" speed="medium">
           {heroImageConfigs.map((config, index) => (
             <li
@@ -131,8 +133,6 @@ export function HeroImages() {
           </div>
         </div>
       </div>
-
-
     </>
   )
 }

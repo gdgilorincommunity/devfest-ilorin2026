@@ -14,7 +14,7 @@ export default function Hero() {
 
         <div className="pointer-events-auto flex py-4 items-center justify-center gap-4 sm:flex-row sm:gap-6">
           <Button showArrow size="pill" variant="gradient">
-            Sponsor Uss
+            Sponsor Us
           </Button>
 
           <Button
