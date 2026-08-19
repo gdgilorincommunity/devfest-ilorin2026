@@ -28,30 +28,45 @@ export default function Hero() {
           </h1>
         </div>
 
-        <div className="pointer-events-auto flex py-4 items-center justify-center gap-4 sm:flex-row sm:gap-6">
-          <Button
-            showArrow
-            render={<a href={SPONSOR_MAILTO} />}
-            size="pill"
-            variant="gradient"
-          >
-            Sponsor Us
-          </Button>
+        <div className="pointer-events-auto flex flex-col items-center gap-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1.5 text-xs font-semibold text-[#1E1E1E]">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#34A853] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#34A853]" />
+            </span>
+            Registration is open
+          </span>
 
-          <Button
-            showArrow
-            render={
-              <a
-                href="https://gdg.community.dev/events/details/google-gdg-ilorin-presents-devfest-ilorin-2026/"
-                rel="noopener noreferrer"
-                target="_blank"
-              />
-            }
-            size="pill"
-            variant="black"
-          >
-            Register
-          </Button>
+          <div className="flex py-4 items-center justify-center gap-4 sm:flex-row sm:gap-6">
+            <Button
+              showArrow
+              render={<a href={SPONSOR_MAILTO} />}
+              size="pill"
+              variant="gradient"
+            >
+              Sponsor Us
+            </Button>
+
+            <Button
+              showArrow
+              render={
+                <a
+                  href="https://gdg.community.dev/events/details/google-gdg-ilorin-presents-devfest-ilorin-2026/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                />
+              }
+              size="pill"
+              variant="black"
+            >
+              Register
+            </Button>
+          </div>
+
+          <p className="max-w-[280px] text-center text-xs text-[#1E1E1E]/60">
+            Register early. You&apos;ll get updates and event info from us
+            before it goes out to everyone else.
+          </p>
         </div>
       </div>
 
