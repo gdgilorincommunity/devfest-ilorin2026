@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import EventStatus from '@/components/EventStatus'
+import Scrollable from '@/components/scrollable'
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <EventStatus />
+      <Scrollable />
     </main>
   )
 }
