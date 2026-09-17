@@ -9,9 +9,9 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center">
       <Navbar />
       <Hero />
+      <Scrollable />
       <EventTracks />
       <EventStatus />
-      <Scrollable />
     </main>
   )
 }
