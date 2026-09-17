@@ -1,8 +1,9 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import EventTracks from '@/components/EventTracks'
-import EventStatus from '@/components/EventStatus'
 import Scrollable from '@/components/scrollable'
+import EventTracks from '@/components/EventTracks'
+import Venues from '@/components/Venues'
+import EventStatus from '@/components/EventStatus'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <Scrollable />
       <EventTracks />
+      <Venues />
       <EventStatus />
     </main>
   )
