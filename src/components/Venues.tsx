@@ -60,10 +60,10 @@ export function Venues({
         </h2>
 
         {/* Venue Showcase Card */}
-        <div className="relative aspect-[16/10] w-full max-w-[1256px] min-h-[380px] overflow-hidden rounded-[36px] bg-[#FBF9F7] shadow-lg sm:aspect-[2/1] sm:min-h-[460px] sm:rounded-[48px] lg:aspect-[2.3/1] lg:min-h-[520px] lg:rounded-[56px]">
+        <div className="relative aspect-[16/12] w-full max-w-[1256px] min-h-[440px] overflow-hidden rounded-[36px] bg-[#FBF9F7] shadow-lg sm:aspect-[2/1] sm:min-h-[460px] sm:rounded-[48px] lg:aspect-[2.3/1] lg:min-h-[520px] lg:rounded-[56px]">
           {/* Title Header */}
-          <div className="relative z-10 flex flex-col items-center px-4 pt-8 text-center sm:pt-12 lg:pt-14">
-            <h3 className="flex flex-col font-sans text-4xl font-black leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-[84px]">
+          <div className="relative z-10 flex flex-col items-center px-4 pt-7 text-center sm:pt-12 lg:pt-14">
+            <h3 className="flex flex-col font-sans text-5xl font-black leading-[0.92] tracking-tight sm:text-6xl md:text-7xl lg:text-[88px] xl:text-[94px]">
               <span className="bg-gradient-to-b from-[#2B7FFF] to-[#458CFF] bg-clip-text text-transparent">
                 {venueName.firstLine}
               </span>
@@ -71,14 +71,24 @@ export function Venues({
                 {venueName.secondLine}
               </span>
             </h3>
+
+            {/* Mobile Date Badge (Centered in the middle between text and vector image) */}
+            {date && (
+              <div className="my-6 flex justify-center sm:hidden">
+                <div className="inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#FF3B30] via-[#FF4552] to-[#FF5E7E] px-5 py-4 text-xs font-semibold text-white shadow-md">
+                  <Calendar className="h-4 w-4 stroke-[2.2]" />
+                  <span>{date}</span>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* IIH Vector Artwork */}
-          <div className="pointer-events-none absolute right-0 bottom-0 z-0 w-full select-none sm:w-[92%] md:w-[86%] lg:w-[82%]">
+          {/* IIH Vector Artwork (Takes >= 40% of white container on mobile) */}
+          <div className="pointer-events-none absolute right-0 bottom-0 z-0 flex h-[44%] min-h-[195px] w-[155%] max-w-none justify-end select-none sm:h-[48%] sm:w-[110%] md:h-auto md:w-[90%] lg:w-[82%]">
             <Image
               priority
               alt="Ilorin Innovation Hub Architecture"
-              className="h-auto w-full object-contain object-bottom-right"
+              className="h-full w-auto object-contain object-bottom-right sm:h-[250px] sm:w-full md:h-auto"
               height={303}
               quality={90}
               src="/images/IIH-vector.svg"
@@ -86,11 +96,11 @@ export function Venues({
             />
           </div>
 
-          {/* Date Badge */}
+          {/* Desktop Date Badge (Bottom-left corner with +2px vertical padding) */}
           {date && (
-            <div className="absolute bottom-5 left-5 z-10 sm:bottom-7 sm:left-7 lg:bottom-8 lg:left-8">
-              <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF3B30] via-[#FF4552] to-[#FF5E7E] px-4 py-2.5 text-xs font-semibold text-white shadow-sm sm:px-5 sm:py-3 sm:text-sm">
-                <Calendar className="h-3.5 w-3.5 stroke-[2.2] sm:h-4 sm:w-4" />
+            <div className="absolute bottom-7 left-7 z-10 hidden sm:block lg:bottom-8 lg:left-8">
+              <div className="inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#FF3B30] via-[#FF4552] to-[#FF5E7E] px-6 py-[18px] text-xs font-semibold text-white shadow-md sm:text-sm">
+                <Calendar className="h-4 w-4 stroke-[2.2]" />
                 <span>{date}</span>
               </div>
             </div>
@@ -101,7 +111,7 @@ export function Venues({
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:mt-10 sm:gap-6">
           {workshopTicket && (
             <Link
-              className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
+              className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-9 sm:py-4.5 sm:text-base"
               href={workshopTicket.href}
             >
               <span>{workshopTicket.label}</span>
@@ -113,7 +123,7 @@ export function Venues({
 
           {dinnerTicket && (
             <Link
-              className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
+              className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-9 sm:py-4.5 sm:text-base"
               href={dinnerTicket.href}
             >
               <span>{dinnerTicket.label}</span>
