@@ -2,8 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
-import { DevfestIconBadge } from '@/components/DevfestIconBadge'
-import { TrackBottomBadge, type TrackType } from '@/components/TrackBottomBadge'
+import { type TrackType } from '@/components/TrackBottomBadge'
 import { cn } from '@/lib/utils'
 
 export interface EventTrackItem {
@@ -27,19 +26,19 @@ export const DEFAULT_TRACKS: EventTrackItem[] = [
   {
     id: 'workshop',
     title: 'Workshop',
-    image: '/images/recap-images/workshop-image.png',
+    image: '/images/recap-images/workshop.svg',
     borderColor: 'border-[#00A859]',
   },
   {
     id: 'conference',
     title: 'Conference',
-    image: '/images/recap-images/conference-image.png',
+    image: '/images/recap-images/conference.svg',
     borderColor: 'border-[#FF3B30]',
   },
   {
     id: 'dinner',
     title: 'Dinner',
-    image: '/images/recap-images/dinner-image.png',
+    image: '/images/recap-images/dinner.svg',
     borderColor: 'border-[#2B7FFF]',
   },
 ]
@@ -47,9 +46,8 @@ export const DEFAULT_TRACKS: EventTrackItem[] = [
 /**
  * Devfest Ilorin 2026 Event Tracks Section
  *
- * Renders the 3 event format cards (Workshop, Conference, Dinner) as live composite
- * containers with raw high-resolution background photos, top DevFest icon badges,
- * and bottom gradient title pills.
+ * Renders the 3 event format cards (Workshop, Conference, Dinner) using dedicated
+ * high-resolution SVG artwork with embedded branding, icons, and titles.
  */
 export function EventTracks({
   title = 'Devfest Ilorin 2026',
@@ -74,36 +72,21 @@ export function EventTracks({
           {title}
         </h2>
 
-        {/* 3 Composite Event Track Cards */}
+        {/* 3 Event Track SVG Cards */}
         <div className="grid w-full grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
           {tracks.map((track) => (
             <div
               key={track.id}
-              className={cn(
-                'relative aspect-[320/470] w-full max-w-[335px] overflow-hidden rounded-[88px] border-[3px] shadow-sm sm:max-w-[360px] sm:rounded-[100px] lg:max-w-[380px] lg:rounded-[110px]',
-                track.borderColor,
-              )}
+              className="relative aspect-[415/659] w-full max-w-[340px] select-none transition-transform duration-200 hover:scale-[1.02] sm:max-w-[360px] lg:max-w-[380px]"
             >
-              {/* Raw High-Res Background Image */}
               <Image
                 fill
                 priority
                 alt={`Devfest Ilorin 2026 ${track.title}`}
-                className="object-cover"
-                quality={90}
+                className="h-full w-full object-contain"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
                 src={track.image}
               />
-
-              {/* Top Devfest Brand Icons Container */}
-              <div className="absolute top-5 left-1/2 z-10 -translate-x-1/2 sm:top-6 lg:top-7">
-                <DevfestIconBadge />
-              </div>
-
-              {/* Bottom Track Title Gradient Container */}
-              <div className="absolute bottom-6 left-1/2 z-10 w-[72%] max-w-[250px] -translate-x-1/2 sm:bottom-7 sm:w-[74%] sm:max-w-[260px] lg:bottom-8">
-                <TrackBottomBadge label={track.title} track={track.id} />
-              </div>
             </div>
           ))}
         </div>
