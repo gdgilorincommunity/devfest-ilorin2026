@@ -7,7 +7,9 @@ const config: IConfig = {
   appName: process.env.NEXT_PUBLIC_APP_NAME ?? 'DevFest Ilorin 2026',
   appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000/',
   ticketUrl: process.env.NEXT_PUBLIC_TICKET_URL ?? 'https://devfestilorin.com/',
-  dinnerTicketUrl: process.env.NEXT_PUBLIC_DINNER_TICKET_URL ?? '',
+  dinnerTicketUrl:
+    process.env.NEXT_PUBLIC_DINNER_TICKET_URL ??
+    '',
 }
 
 export default config
