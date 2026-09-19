@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { HeroImages } from '@/components/hero-images'
+import config from '@/config'
 
 const SPONSOR_EMAIL = 'gdgilorincmty@gmail.com'
 const SPONSOR_SUBJECT = 'Sponsorship Inquiry - DevFest Ilorin 2026'
@@ -51,7 +52,7 @@ export default function Hero() {
               showArrow
               render={
                 <a
-                  href="https://gdg.community.dev/events/details/google-gdg-ilorin-presents-devfest-ilorin-2026/"
+                  href={config.ticketUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                 />

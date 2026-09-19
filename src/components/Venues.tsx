@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowUpRight, Calendar } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
+import config from '@/config'
 
 export interface VenuesProps {
   title?: string
@@ -37,11 +38,11 @@ export function Venues({
   date = '30th - 31st Oct 2025',
   workshopTicket = {
     label: 'Get Workshop Ticket',
-    href: 'https://devfest.gdgilorin.com',
+    href: config.ticketUrl,
   },
   dinnerTicket = {
     label: 'Get your dinner',
-    href: 'https://devfest.gdgilorin.com',
+    href: config.dinnerTicketUrl,
   },
   className,
 }: VenuesProps) {
@@ -112,7 +113,7 @@ export function Venues({
           {workshopTicket && (
             <Link
               className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-9 sm:py-4.5 sm:text-base"
-              href={workshopTicket.href}
+              href={workshopTicket.href || '#'}
             >
               <span>{workshopTicket.label}</span>
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-white">
@@ -124,7 +125,7 @@ export function Venues({
           {dinnerTicket && (
             <Link
               className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-9 sm:py-4.5 sm:text-base"
-              href={dinnerTicket.href}
+              href={dinnerTicket.href || '#'}
             >
               <span>{dinnerTicket.label}</span>
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-white">
