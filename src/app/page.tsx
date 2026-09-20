@@ -1,11 +1,11 @@
-import Navbar from '@/components/Navbar'
-import Hero from '@/components/Hero'
-import EventTracks from '@/components/EventTracks'
+import Navbar from '@/components/navbar'
+import Hero from '@/components/hero'
+import EventTracks from '@/components/event-tracks'
 import Scrollable from '@/components/scrollable'
-import Speakers from '@/components/Speakers'
-import Sponsors from '@/components/Sponsors'
-import CommunityPartners from '@/components/CommunityPartners'
-import Footer from '@/components/Footer'
+import Speakers from '@/components/speakers'
+import Sponsors from '@/components/sponsors'
+import CommunityPartners from '@/components/community-partners'
+import Footer from '@/components/footer'
 
 export default function Home() {
   return (

@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
-import { DevfestIconBadge } from '@/components/DevfestIconBadge'
-import { TrackBottomBadge, type TrackType } from '@/components/TrackBottomBadge'
+import { DevfestIconBadge } from '@/components/devfest-icon-badge'
+import { TrackBottomBadge, type TrackType } from '@/components/track-bottom-badge'
 import { cn } from '@/lib/utils'
 
 export interface EventTrackItem {

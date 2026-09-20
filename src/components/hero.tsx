@@ -7,7 +7,7 @@ import { SPONSOR_MAILTO } from '@/lib/sponsor'
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-0 w-full max-w-[1512px] flex-1 flex-col items-center justify-center gap-8 overflow-hidden px-4 lg:px-0">
+    <section className="relative flex min-h-0 w-full max-w-378 flex-1 flex-col items-center justify-center gap-8 overflow-hidden px-4 lg:px-0">
       <div className="pointer-events-none z-10 mt-12 flex w-full flex-col items-center justify-center gap-6 lg:absolute lg:inset-0 lg:mt-0 lg:gap-8">
         {/* Headline sponsor lockup */}
         <div className="pointer-events-auto flex flex-col items-center gap-2">
@@ -23,7 +23,7 @@ export default function Hero() {
             <Image
               priority
               alt="Qorelly"
-              className="h-[30px] w-auto transition-transform duration-300 hover:scale-105 lg:h-[37px]"
+              className="h-7.5 w-auto transition-transform duration-300 hover:scale-105 lg:h-9.25"
               height={37}
               src="/svg/sponsors/qorelly-blue.svg"
               width={150}
