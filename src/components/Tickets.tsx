@@ -65,7 +65,7 @@ export function Tickets({
     <section
       aria-label={title}
       className={cn(
-        'relative w-full overflow-hidden bg-[#FCF4F4] py-16 sm:py-20 lg:py-24',
+        'relative w-full overflow-hidden border-t-[3px] border-black bg-[#FCF4F4] py-16 sm:py-20 lg:py-24',
         className,
       )}
     >
