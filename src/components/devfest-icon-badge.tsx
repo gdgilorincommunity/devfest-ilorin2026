@@ -9,16 +9,16 @@ export interface DevfestIconBadgeProps {
 /**
  * Top icon pill on the event track cards: the GDG mark, asterisk, globe and
  * scallop wave locked up inside a white pill. Rendered from the Figma vector
- * export so it stays crisp at every card size.
+ * export (269x67) so it stays crisp at every card size.
  */
 export function DevfestIconBadge({ className }: DevfestIconBadgeProps) {
   return (
     <Image
       alt="DevFest Ilorin"
-      className={cn('h-auto w-[197.5px] sm:w-51.25', className)}
-      height={48}
+      className={cn('h-auto w-full', className)}
+      height={67}
       src="/svg/devfest-frame.svg"
-      width={295}
+      width={269}
     />
   )
 }
