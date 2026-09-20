@@ -16,7 +16,7 @@ export interface LogoProps {
  */
 export function Logo({ className, priority = false }: LogoProps) {
   return (
-    <span className={cn('flex items-center gap-2.5 lg:gap-5', className)}>
+    <span className={cn('flex items-center gap-2.5 lg:gap-3', className)}>
       <Image
         aria-hidden
         alt=""

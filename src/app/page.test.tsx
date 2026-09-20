@@ -28,6 +28,19 @@ describe('Home', () => {
     expect(screen.getByRole('contentinfo')).toBeInTheDocument()
   })
 
+  it('renders the venues section with innovation hub details and CTA buttons', () => {
+    render(<Home />)
+    expect(screen.getByRole('heading', { name: /Venues/i })).toBeInTheDocument()
+    expect(screen.getByText(/Innovation/i)).toBeInTheDocument()
+    expect(screen.getByText(/hub Ilorin/i)).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /Get Workshop Ticket/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /Get your dinner/i }),
+    ).toBeInTheDocument()
+  })
+
   it('exposes the primary navigation links', () => {
     render(<Home />)
 
