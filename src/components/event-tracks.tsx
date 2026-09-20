@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
@@ -77,7 +78,7 @@ export function EventTracks({
           {tracks.map((track) => (
             <div
               key={track.id}
-              className="relative aspect-415/659 w-full max-w-85 select-none transition-transform duration-200 hover:scale-[1.02] sm:max-w-90 lg:max-w-[411px]"
+              className="relative aspect-415/659 w-full max-w-85 select-none transition-transform duration-200 hover:scale-[1.02] sm:max-w-90 lg:max-w-102.75"
             >
               <Image
                 fill

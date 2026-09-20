@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { Metadata } from 'next'
 
 import { Google_Sans } from 'next/font/google'
@@ -71,8 +72,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html className={`${googleSans.variable} h-full antialiased`} lang="en">
-      <body className="min-h-full flex flex-col bg-[#FDF4F5]">
+    <html
+      suppressHydrationWarning
+      className={`${googleSans.variable} h-full antialiased`}
+      lang="en"
+    >
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col bg-[#FDF4F5]"
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

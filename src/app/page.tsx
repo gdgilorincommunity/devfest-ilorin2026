@@ -3,6 +3,7 @@ import Hero from '@/components/hero'
 import Scrollable from '@/components/scrollable'
 import EventTracks from '@/components/event-tracks'
 import Venues from '@/components/venues'
+import Tickets from '@/components/tickets'
 import Speakers from '@/components/speakers'
 import Sponsors from '@/components/sponsors'
 import CommunityPartners from '@/components/community-partners'
@@ -19,6 +20,7 @@ export default function Home() {
       <Speakers />
       <Sponsors />
       <CommunityPartners />
+      <Tickets />
       <Footer />
     </main>
   )

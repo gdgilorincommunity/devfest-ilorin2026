@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import Image from 'next/image'
