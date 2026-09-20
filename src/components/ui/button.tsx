@@ -79,7 +79,7 @@ function Button({
     >
       {children}
       {showArrow && (
-        <span className="flex h-[22px] w-[28px] items-center justify-center rounded-full bg-white lg:h-[26px] lg:w-[32px]">
+        <span className="flex h-5.5 w-7 items-center justify-center rounded-full bg-white lg:h-6.5 lg:w-8">
           <MoveUpRight
             className={cn(
               'size-2.5',

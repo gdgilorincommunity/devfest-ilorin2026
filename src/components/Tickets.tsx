@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
-import { DevfestIconBadge } from '@/components/DevfestIconBadge'
+import { DevfestIconBadge } from '@/components/devfest-icon-badge'
 import config from '@/config'
 import { cn } from '@/lib/utils'
 
@@ -153,7 +153,7 @@ export function Tickets({
             >
               {/* Card Top Pill Badge */}
               <div className="self-start">
-                <DevfestIconBadge className="scale-95 border-none bg-white/90 shadow-xs sm:scale-100" />
+                <DevfestIconBadge className="scale-95 sm:scale-100" />
               </div>
 
               {/* Title & Category Tags */}
