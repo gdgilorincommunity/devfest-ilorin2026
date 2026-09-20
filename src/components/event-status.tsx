@@ -56,12 +56,12 @@ const statusColumns: StatusColumn[] = [
 
 export default function EventStatus() {
   return (
-    <section className="mx-auto flex w-full max-w-[1512px] flex-col gap-10 px-4 py-16 lg:gap-14 lg:px-[128px] lg:py-24">
+    <section className="mx-auto flex w-full max-w-378 flex-col gap-10 px-4 py-16 lg:gap-14 lg:px-32 lg:py-24">
       <div className="flex flex-col items-center gap-3 text-center">
         <h2 className="font-sans text-3xl font-bold text-[#1E1E1E] lg:text-[40px]">
           Where Things Stand
         </h2>
-        <p className="max-w-[560px] text-sm text-[#1E1E1E]/60 lg:text-base">
+        <p className="max-w-140 text-sm text-[#1E1E1E]/60 lg:text-base">
           A running look at what&apos;s done, what&apos;s in motion, and
           what&apos;s next as we build DevFest Ilorin 2026.
         </p>
@@ -93,7 +93,7 @@ export default function EventStatus() {
               {column.items.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 rounded-2xl bg-black/[0.03] p-3 text-sm leading-snug text-[#1E1E1E]/80"
+                  className="flex items-start gap-3 rounded-2xl bg-black/3 p-3 text-sm leading-snug text-[#1E1E1E]/80"
                 >
                   <span
                     className={cn('mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full')}

@@ -54,12 +54,12 @@ export function Footer({ socials = SOCIAL_LINKS, className }: FooterProps) {
         className,
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1512px] flex-col items-center gap-8 lg:gap-10">
+      <div className="mx-auto flex w-full max-w-378 flex-col items-center gap-8 lg:gap-10">
         <div className="flex items-center gap-4 lg:gap-6">
           <Image
             aria-hidden
             alt=""
-            className="h-12 w-auto lg:h-[88px]"
+            className="h-12 w-auto lg:h-22"
             height={88}
             src="/svg/gdg-logo.svg"
             width={158}
@@ -73,7 +73,7 @@ export function Footer({ socials = SOCIAL_LINKS, className }: FooterProps) {
         <Image
           aria-hidden
           alt=""
-          className="h-auto w-full max-w-[320px] opacity-90 lg:max-w-[472px]"
+          className="h-auto w-full max-w-[320px] opacity-90 lg:max-w-118"
           height={45}
           src="/svg/footer-lanyard.svg"
           width={472}
@@ -84,14 +84,14 @@ export function Footer({ socials = SOCIAL_LINKS, className }: FooterProps) {
             <li key={social.id}>
               <a
                 aria-label={`GDG Ilorin on ${social.label}`}
-                className="flex size-14 items-center justify-center rounded-full bg-white text-[#1E1E1E] transition-transform duration-300 hover:scale-110 sm:size-16 lg:size-[142px]"
+                className="flex size-14 items-center justify-center rounded-full bg-white text-[#1E1E1E] transition-transform duration-300 hover:scale-110 sm:size-16 lg:size-35.5"
                 href={social.href}
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <svg
                   aria-hidden
-                  className="size-6 lg:size-[58px]"
+                  className="size-6 lg:size-14.5"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 24 24"

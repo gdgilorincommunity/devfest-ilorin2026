@@ -15,7 +15,7 @@ export function DevfestIconBadge({ className }: DevfestIconBadgeProps) {
   return (
     <Image
       alt="DevFest Ilorin"
-      className={cn('h-auto w-[197.5px] sm:w-[205px]', className)}
+      className={cn('h-auto w-[197.5px] sm:w-51.25', className)}
       height={48}
       src="/svg/devfest-frame.svg"
       width={295}

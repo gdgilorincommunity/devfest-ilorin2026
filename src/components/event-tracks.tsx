@@ -3,7 +3,10 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
 import { DevfestIconBadge } from '@/components/devfest-icon-badge'
-import { TrackBottomBadge, type TrackType } from '@/components/track-bottom-badge'
+import {
+  TrackBottomBadge,
+  type TrackType,
+} from '@/components/track-bottom-badge'
 import { cn } from '@/lib/utils'
 
 export interface EventTrackItem {
@@ -64,11 +67,11 @@ export function EventTracks({
     <section
       aria-label={title}
       className={cn(
-        'relative w-full overflow-hidden bg-gradient-to-b from-white via-white to-[#EBF3FF] py-16 sm:py-20 lg:py-24',
+        'relative w-full overflow-hidden bg-linear-to-b from-white via-white to-[#EBF3FF] py-16 sm:py-20 lg:py-24',
         className,
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1512px] flex-col items-center px-4 md:px-[64px] lg:px-[128px]">
+      <div className="mx-auto flex w-full max-w-378 flex-col items-center px-4 md:px-16 lg:px-32">
         {/* Section Heading */}
         <h2 className="mb-10 text-center font-sans text-3xl font-bold tracking-tight text-[#1A1A1A] sm:text-4xl lg:mb-14 lg:text-5xl">
           {title}
@@ -80,7 +83,7 @@ export function EventTracks({
             <div
               key={track.id}
               className={cn(
-                'relative aspect-[320/470] w-full max-w-[335px] overflow-hidden rounded-[88px] border-[3px] shadow-sm sm:max-w-[360px] sm:rounded-[100px] lg:max-w-[380px] lg:rounded-[110px]',
+                'relative aspect-320/470 w-full max-w-83.75 overflow-hidden rounded-[88px] border-[3px] shadow-sm sm:max-w-90 sm:rounded-[100px] lg:max-w-95 lg:rounded-[110px]',
                 track.borderColor,
               )}
             >
@@ -101,7 +104,7 @@ export function EventTracks({
               </div>
 
               {/* Bottom Track Title Gradient Container */}
-              <div className="absolute bottom-6 left-1/2 z-10 w-[72%] max-w-[250px] -translate-x-1/2 sm:bottom-7 sm:w-[74%] sm:max-w-[260px] lg:bottom-8">
+              <div className="absolute bottom-6 left-1/2 z-10 w-[72%] max-w-62.5 -translate-x-1/2 sm:bottom-7 sm:w-[74%] sm:max-w-65 lg:bottom-8">
                 <TrackBottomBadge label={track.title} track={track.id} />
               </div>
             </div>

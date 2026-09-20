@@ -109,7 +109,7 @@ export function HeroImages() {
       </div>
 
       <div className="relative mt-8 hidden h-full w-full flex-col items-center justify-between gap-16 lg:mt-6 lg:flex lg:flex-row lg:items-stretch lg:gap-0 lg:px-0">
-        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pl-[65px] lg:pt-[31px]">
+        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pl-16.25 lg:pt-7.75">
           <div className="relative mx-auto w-fit lg:mx-0">
             <HeroImage
               priority
@@ -118,17 +118,17 @@ export function HeroImages() {
             />
           </div>
 
-          <div className="relative mx-auto mt-16 w-fit lg:mx-0 lg:mt-[10px] lg:ml-[85px]">
+          <div className="relative mx-auto mt-16 w-fit lg:mx-0 lg:mt-2.5 lg:ml-21.25">
             <HeroImage config={heroImageConfigs[1]} variant="desktop" />
           </div>
         </div>
 
-        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pr-[92px] lg:pt-0">
-          <div className="relative mx-auto w-fit lg:mx-0 lg:-mt-[50px]">
+        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pr-23 lg:pt-0">
+          <div className="relative mx-auto w-fit lg:mx-0 lg:-mt-12.5">
             <HeroImage config={heroImageConfigs[2]} variant="desktop" />
           </div>
 
-          <div className="relative mx-auto w-fit lg:mx-0 lg:-ml-[70px] lg:mt-[80px]">
+          <div className="relative mx-auto w-fit lg:mx-0 lg:-ml-17.5 lg:mt-20">
             <HeroImage config={heroImageConfigs[3]} variant="desktop" />
           </div>
         </div>
