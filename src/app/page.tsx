@@ -1,7 +1,8 @@
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
-import EventTracks from '@/components/event-tracks'
 import Scrollable from '@/components/scrollable'
+import EventTracks from '@/components/event-tracks'
+import Venues from '@/components/venues'
 import Speakers from '@/components/speakers'
 import Sponsors from '@/components/sponsors'
 import CommunityPartners from '@/components/community-partners'
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <Scrollable />
       <EventTracks />
+      <Venues />
       <Speakers />
       <Sponsors />
       <CommunityPartners />

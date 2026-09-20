@@ -8,10 +8,18 @@ export interface TrackBottomBadgeProps {
   className?: string
 }
 
+/**
+ * Radial washes lifted from the Figma frame. They share the geometry and the
+ * 52% / 76% / 100% stop positions used by the accent badges and the gradient
+ * button variant, so the whole brand palette stays in step.
+ */
 const trackGradientMap: Record<TrackType, string> = {
-  workshop: 'bg-gradient-to-b from-[#00A859] to-[#24C6DC]',
-  conference: 'bg-gradient-to-b from-[#FF3B30] to-[#FA709A]',
-  dinner: 'bg-gradient-to-b from-[#2B7FFF] to-[#818CF8]',
+  workshop:
+    'bg-[radial-gradient(85.98%_85.98%_at_50%_17.07%,#00AF57_52%,#45BFB8_76%,#6EC7F0_100%)]',
+  conference:
+    'bg-[radial-gradient(85.98%_85.98%_at_50%_17.07%,#FC413D_52%,#FD526F_76%,#FF63A0_100%)]',
+  dinner:
+    'bg-[radial-gradient(85.98%_85.98%_at_50%_17.07%,#3186FF_52%,#6D97FF_76%,#A9A8FF_100%)]',
 }
 
 const defaultLabelMap: Record<TrackType, string> = {
@@ -21,7 +29,9 @@ const defaultLabelMap: Record<TrackType, string> = {
 }
 
 /**
- * Bottom gradient container for the Workshop, Conference, and Dinner cards.
+ * Bottom gradient container for the Workshop, Conference and Dinner cards.
+ * The Figma pill is 309x161 design px, so it keeps a fixed aspect ratio and
+ * centres its label rather than relying on vertical padding.
  */
 export function TrackBottomBadge({
   track,
@@ -34,7 +44,7 @@ export function TrackBottomBadge({
   return (
     <div
       className={cn(
-        'w-full rounded-full px-5 py-8 text-center font-sans text-2xl font-bold tracking-tight text-white shadow-md sm:px-6 sm:py-9 sm:text-[30px]',
+        'flex aspect-309/161 w-full items-center justify-center rounded-full px-5 text-center font-sans text-2xl font-bold tracking-tight text-white shadow-md sm:text-3xl lg:text-[40px]',
         gradientClass,
         className,
       )}
