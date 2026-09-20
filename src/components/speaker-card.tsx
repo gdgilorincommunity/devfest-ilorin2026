@@ -75,17 +75,14 @@ export function SpeakerCard({
 }: SpeakerCardProps) {
   return (
     <figure
-      className={cn(
-        'flex w-full max-w-[380px] flex-col items-center',
-        className,
-      )}
+      className={cn('flex w-full max-w-95 flex-col items-center', className)}
     >
       <div className="relative w-full">
         {/* Accent badge, overlapping the top-left of the portrait */}
         <Image
           aria-hidden
           alt=""
-          className="absolute -top-[6%] left-[8%] z-10 w-[28%] max-w-[117px]"
+          className="absolute top-[-6%] left-[8%] z-10 w-[28%] max-w-29.25"
           height={117}
           src={badgeSrcMap[speaker.badge]}
           width={117}
@@ -107,7 +104,7 @@ export function SpeakerCard({
         </div>
       </div>
 
-      <figcaption className="mt-2 w-full max-w-[215px] rounded-full border border-[#1E1E1E] bg-white px-5 py-2.5 text-center">
+      <figcaption className="mt-2 w-full max-w-53.75 rounded-full border border-[#1E1E1E] bg-white px-5 py-2.5 text-center">
         <span className="block font-sans text-sm font-bold text-[#1E1E1E]">
           {speaker.name}
         </span>

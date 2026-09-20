@@ -93,7 +93,7 @@ function LogoBoard({
           const image = (
             <Image
               alt={logo.name}
-              className="h-9 w-auto object-contain sm:h-10 lg:h-[60px]"
+              className="h-9 w-auto object-contain sm:h-10 lg:h-15"
               height={logo.height}
               src={logo.src}
               width={logo.width}
@@ -137,7 +137,7 @@ export function Sponsors({
       className={cn('w-full bg-[#F0F0F0] py-16 sm:py-20 lg:py-24', className)}
       id="sponsors"
     >
-      <div className="mx-auto flex w-full max-w-[1512px] flex-col items-center gap-6 px-4 md:px-[64px] lg:gap-8 lg:px-[96px]">
+      <div className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24">
         <LogoBoard direction="left" logos={sponsors} title="Sponsors" />
         <LogoBoard direction="right" logos={partners} title="Partners" />
 

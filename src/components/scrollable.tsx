@@ -413,7 +413,7 @@ export function Scrollable({
         <div className="relative mb-8 w-full overflow-hidden">
           <div
             ref={pillsRef}
-            className="flex w-full select-none items-center gap-3.5 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full select-none items-center gap-3.5 overflow-x-auto px-4 scrollbar-none [&::-webkit-scrollbar]:hidden"
           >
             {duplicatedTags.map((tag, idx) => (
               <span
@@ -440,7 +440,7 @@ export function Scrollable({
         <div
           ref={containerRef}
           className={cn(
-            'flex w-full overflow-x-auto px-4 py-2 select-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+            'flex w-full overflow-x-auto px-4 py-2 select-none scrollbar-none [&::-webkit-scrollbar]:hidden',
             gapClass,
           )}
           onScroll={handleScrollSync}
