@@ -22,4 +22,17 @@ describe('Home', () => {
       screen.getByRole('link', { name: /Get your dinner/i }),
     ).toBeInTheDocument()
   })
+
+  it('renders the tickets section with Day 1, Day 2, and Dinner cards', () => {
+    render(<Home />)
+    expect(
+      screen.getByRole('heading', { name: /^Tickets$/i }),
+    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Day 1/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Day 2/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Dinner/i })).toBeInTheDocument()
+    expect(screen.getByText(/^Workshop$/)).toBeInTheDocument()
+    expect(screen.getByText(/^Conference$/)).toBeInTheDocument()
+    expect(screen.getByText(/^VIP$/)).toBeInTheDocument()
+  })
 })

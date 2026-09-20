@@ -3,7 +3,7 @@ import Hero from '@/components/Hero'
 import Scrollable from '@/components/scrollable'
 import EventTracks from '@/components/EventTracks'
 import Venues from '@/components/Venues'
-import EventStatus from '@/components/EventStatus'
+import Tickets from '@/components/Tickets'
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <Scrollable />
       <EventTracks />
       <Venues />
-      <EventStatus />
+      <Tickets />
     </main>
   )
 }

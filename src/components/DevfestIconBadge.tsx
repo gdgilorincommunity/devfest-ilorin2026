@@ -14,7 +14,7 @@ export function DevfestIconBadge({ className }: DevfestIconBadgeProps) {
   return (
     <div
       className={cn(
-        'flex w-[197.5px] items-center justify-between overflow-hidden rounded-full border border-black/5 bg-white px-3.5 py-3.5 sm:w-[205px] sm:px-4 sm:py-4',
+        'flex w-[197.5px] items-center justify-between overflow-hidden rounded-full border border-black/5 bg-white px-3.5 py-3.5 sm:w-51.25 sm:px-4 sm:py-4',
         className,
       )}
     >
