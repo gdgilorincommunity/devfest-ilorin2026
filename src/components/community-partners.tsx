@@ -84,9 +84,9 @@ export function CommunityPartners({
                 <Image
                   aria-hidden
                   alt=""
-                  className="h-6 w-auto shrink-0 lg:h-[38px]"
+                  className="h-6 w-auto shrink-0 lg:h-9.5"
                   height={38}
-                  src="/svg/partners/gdg-icon.svg"
+                  src="/svg/gdg-icon.svg"
                   width={69}
                 />
                 <span className="font-sans text-base font-medium whitespace-nowrap text-[#1E1E1E] lg:text-xl">

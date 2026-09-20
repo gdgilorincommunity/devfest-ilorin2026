@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 
 export type NavLink = {
@@ -25,18 +25,9 @@ export default function Navbar() {
 
   return (
     <header className="relative z-50 w-full">
-      <nav className="mx-auto flex w-full max-w-[1512px] shrink-0 items-center justify-between px-4 py-4 md:px-[64px] md:py-[20px] lg:px-[128px]">
+      <nav className="mx-auto flex w-full max-w-378 shrink-0 items-center justify-between px-4 py-4 md:px-16 md:py-5 lg:px-32">
         <Link aria-label="DevFest Ilorin 2026 home" href="/">
-          <span className="flex w-[130px] items-center sm:w-[150px] lg:w-[186px]">
-            <Image
-              priority
-              alt="DevFest Ilorin"
-              className="h-auto w-full"
-              height={54}
-              src="/svg/logo.svg"
-              width={186}
-            />
-          </span>
+          <Logo priority />
         </Link>
 
         <div className="flex items-center gap-4 lg:gap-10">
@@ -79,7 +70,7 @@ export default function Navbar() {
 
       <div
         className={cn(
-          'mx-4 overflow-hidden rounded-3xl border border-black/10 bg-white/90 backdrop-blur transition-all duration-300 md:mx-[64px] lg:hidden',
+          'mx-4 overflow-hidden rounded-3xl border border-black/10 bg-white/90 backdrop-blur transition-all duration-300 md:mx-16 lg:hidden',
           isOpen ? 'mb-4 max-h-96 opacity-100' : 'max-h-0 border-0 opacity-0',
         )}
         id="mobile-nav"
