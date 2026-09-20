@@ -7,57 +7,19 @@ export interface DevfestIconBadgeProps {
 }
 
 /**
- * Top icon pill container displaying the 4 high-resolution DevFest brand icons:
- * Devfest brackets, star, globe, and scallop wave.
+ * Top icon pill on the event track cards: the GDG mark, asterisk, globe and
+ * scallop wave locked up inside a white pill. Rendered from the Figma vector
+ * export so it stays crisp at every card size.
  */
 export function DevfestIconBadge({ className }: DevfestIconBadgeProps) {
   return (
-    <div
-      className={cn(
-        'flex w-[197.5px] items-center justify-between overflow-hidden rounded-full border border-black/5 bg-white px-3.5 py-3.5 sm:w-[205px] sm:px-4 sm:py-4',
-        className,
-      )}
-    >
-      {/* Devfest Code Brackets */}
-      <Image
-        alt="Devfest code brackets"
-        className="h-3.5 w-auto shrink-0 object-contain sm:h-4"
-        height={25}
-        quality={90}
-        src="/images/recap-images/devfest-icon.png"
-        width={44}
-      />
-
-      {/* 8-point Asterisk Star */}
-      <Image
-        alt="Star icon"
-        className="h-3.5 w-auto shrink-0 object-contain sm:h-4"
-        height={28}
-        quality={90}
-        src="/images/recap-images/devfest-star-icon.png"
-        width={28}
-      />
-
-      {/* Wireframe Globe */}
-      <Image
-        alt="World icon"
-        className="h-3.5 w-auto shrink-0 object-contain sm:h-4"
-        height={28}
-        quality={90}
-        src="/images/recap-images/devfest-world-icon.png"
-        width={31}
-      />
-
-      {/* Scallop Wave */}
-      <Image
-        alt="Wave pattern"
-        className="h-2 w-auto shrink-0 object-contain sm:h-2.5"
-        height={16}
-        quality={90}
-        src="/images/recap-images/devfest-icon-2.png"
-        width={101}
-      />
-    </div>
+    <Image
+      alt="DevFest Ilorin"
+      className={cn('h-auto w-[197.5px] sm:w-[205px]', className)}
+      height={48}
+      src="/svg/devfest-frame.svg"
+      width={295}
+    />
   )
 }
 
