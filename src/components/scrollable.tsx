@@ -262,7 +262,7 @@ export function Scrollable({
   items = DEFAULT_RECAP_ITEMS,
   title = 'Previous Devfest Recaps:',
   tags = DEFAULT_TAGS,
-  ctaButton = { label: 'View 2025', href: '#' },
+  ctaButton = { label: 'View 2025', href: 'https://2025.devfestilorin.com' },
   speed = 45,
   imageDirection = 'right',
   pillSpeed = 32,
@@ -418,7 +418,7 @@ export function Scrollable({
         <div className="relative mb-8 w-full overflow-hidden">
           <div
             ref={pillsRef}
-            className="flex w-full select-none items-center gap-3.5 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full select-none items-center gap-3.5 overflow-x-auto px-4 scrollbar-none [&::-webkit-scrollbar]:hidden"
           >
             {duplicatedTags.map((tag, idx) => (
               <span
@@ -445,7 +445,7 @@ export function Scrollable({
         <div
           ref={containerRef}
           className={cn(
-            'flex w-full overflow-x-auto px-4 py-2 select-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+            'flex w-full overflow-x-auto px-4 py-2 select-none scrollbar-none [&::-webkit-scrollbar]:hidden',
             gapClass,
           )}
           onScroll={handleScrollSync}

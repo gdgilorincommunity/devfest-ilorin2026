@@ -2,14 +2,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
-import { type TrackType } from '@/components/TrackBottomBadge'
+import { type TrackType } from '@/components/track-bottom-badge'
 import { cn } from '@/lib/utils'
 
 export interface EventTrackItem {
   id: TrackType
   title: string
   image: string
-  borderColor: string
 }
 
 export interface EventTracksProps {
@@ -27,27 +26,25 @@ export const DEFAULT_TRACKS: EventTrackItem[] = [
     id: 'workshop',
     title: 'Workshop',
     image: '/images/recap-images/workshop.svg',
-    borderColor: 'border-[#00A859]',
   },
   {
     id: 'conference',
     title: 'Conference',
     image: '/images/recap-images/conference.svg',
-    borderColor: 'border-[#FF3B30]',
   },
   {
     id: 'dinner',
     title: 'Dinner',
     image: '/images/recap-images/dinner.svg',
-    borderColor: 'border-[#2B7FFF]',
   },
 ]
 
 /**
  * Devfest Ilorin 2026 Event Tracks Section
  *
- * Renders the 3 event format cards (Workshop, Conference, Dinner) using dedicated
- * high-resolution SVG artwork with embedded branding, icons, and titles.
+ * Renders the 3 event format cards (Workshop, Conference, Dinner) from the
+ * Figma card artwork, which already carries the gradient ring, the brand icon
+ * pill and the track title.
  */
 export function EventTracks({
   title = 'Devfest Ilorin 2026',
@@ -62,29 +59,32 @@ export function EventTracks({
     <section
       aria-label={title}
       className={cn(
-        'relative w-full overflow-hidden bg-gradient-to-b from-white via-white to-[#EBF3FF] py-16 sm:py-20 lg:py-24',
+        'relative w-full overflow-hidden py-16 sm:py-20 lg:py-24',
+        // Blue wash from the Figma frame: white to ~55%, ramping to #BFD0FF,
+        // with a soft highlight lifting the bottom centre.
+        'bg-[radial-gradient(50%_30%_at_50%_100%,rgba(255,255,255,0.85)_0%,rgba(255,255,255,0)_75%),linear-gradient(to_bottom,#FFFFFF_0%,#FFFFFF_55%,#BFD0FF_100%)]',
         className,
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1512px] flex-col items-center px-4 md:px-[64px] lg:px-[128px]">
+      <div className="mx-auto flex w-full max-w-378 flex-col items-center px-4 md:px-16 lg:px-24">
         {/* Section Heading */}
-        <h2 className="mb-10 text-center font-sans text-3xl font-bold tracking-tight text-[#1A1A1A] sm:text-4xl lg:mb-14 lg:text-5xl">
+        <h2 className="mb-10 text-center font-sans text-3xl font-bold tracking-tight text-[#1A1A1A] sm:text-4xl lg:mb-14 lg:text-[60px]">
           {title}
         </h2>
 
         {/* 3 Event Track SVG Cards */}
-        <div className="grid w-full grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
+        <div className="grid w-full grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-10">
           {tracks.map((track) => (
             <div
               key={track.id}
-              className="relative aspect-[415/659] w-full max-w-[340px] select-none transition-transform duration-200 hover:scale-[1.02] sm:max-w-[360px] lg:max-w-[380px]"
+              className="relative aspect-415/659 w-full max-w-85 select-none transition-transform duration-200 hover:scale-[1.02] sm:max-w-90 lg:max-w-[411px]"
             >
               <Image
                 fill
                 priority
                 alt={`Devfest Ilorin 2026 ${track.title}`}
                 className="h-full w-full object-contain"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 411px"
                 src={track.image}
               />
             </div>

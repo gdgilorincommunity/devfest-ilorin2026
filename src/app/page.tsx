@@ -1,9 +1,12 @@
-import Navbar from '@/components/Navbar'
-import Hero from '@/components/Hero'
+import Navbar from '@/components/navbar'
+import Hero from '@/components/hero'
 import Scrollable from '@/components/scrollable'
-import EventTracks from '@/components/EventTracks'
-import Venues from '@/components/Venues'
-import EventStatus from '@/components/EventStatus'
+import EventTracks from '@/components/event-tracks'
+import Venues from '@/components/venues'
+import Speakers from '@/components/speakers'
+import Sponsors from '@/components/sponsors'
+import CommunityPartners from '@/components/community-partners'
+import Footer from '@/components/footer'
 
 export default function Home() {
   return (
@@ -13,7 +16,10 @@ export default function Home() {
       <Scrollable />
       <EventTracks />
       <Venues />
-      <EventStatus />
+      <Speakers />
+      <Sponsors />
+      <CommunityPartners />
+      <Footer />
     </main>
   )
 }
