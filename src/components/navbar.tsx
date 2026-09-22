@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Logo } from '@/components/logo'
+import config from '@/config'
 import { cn } from '@/lib/utils'
 
 export type NavLink = {
@@ -58,7 +59,16 @@ export default function Navbar() {
       )}
     >
       <nav className="mx-auto flex w-full max-w-378 shrink-0 items-center justify-between px-4 py-4 md:px-16 md:py-5 lg:px-32">
-        <Link aria-label="DevFest Ilorin 2026 home" href="/">
+        <Link
+          aria-label="DevFest Ilorin 2026 home"
+          className={cn(
+            // Scale rather than resize so the bar's height never changes and
+            // the work stays on the compositor.
+            'ease-out-strong origin-left transition-transform duration-300 motion-reduce:transition-none',
+            isScrolled && 'scale-[0.82]',
+          )}
+          href="/"
+        >
           <Logo priority />
         </Link>
 
@@ -76,16 +86,49 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <Link
-            className="hidden sm:block"
-            href="https://2025.devfestilorin.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button showArrow size="pill" variant="black">
-              View 2025
-            </Button>
-          </Link>
+          {/*
+            At the top the CTA points back at last year; once the visitor is
+            scrolling it becomes the ticket link. Both sit in the same grid
+            cell so the swap cross-fades without the bar reflowing, and the
+            hidden one is inert for pointer, keyboard and assistive tech.
+          */}
+          <div className="hidden grid-cols-1 grid-rows-1 sm:grid">
+            <Link
+              aria-hidden={isScrolled}
+              className={cn(
+                'ease-out-strong col-start-1 row-start-1 justify-self-end transition-[opacity,transform] duration-300 motion-reduce:transition-none',
+                isScrolled
+                  ? 'pointer-events-none -translate-y-1 opacity-0'
+                  : 'translate-y-0 opacity-100',
+              )}
+              href="https://2025.devfestilorin.com"
+              rel="noopener noreferrer"
+              tabIndex={isScrolled ? -1 : undefined}
+              target="_blank"
+            >
+              <Button showArrow size="pill" variant="black">
+                View 2025
+              </Button>
+            </Link>
+
+            <Link
+              aria-hidden={!isScrolled}
+              className={cn(
+                'ease-out-strong col-start-1 row-start-1 justify-self-end transition-[opacity,transform] duration-300 motion-reduce:transition-none',
+                isScrolled
+                  ? 'translate-y-0 opacity-100'
+                  : 'pointer-events-none translate-y-1 opacity-0',
+              )}
+              href={config.ticketUrl}
+              rel="noopener noreferrer"
+              tabIndex={isScrolled ? undefined : -1}
+              target="_blank"
+            >
+              <Button showArrow size="pill" variant="gradient">
+                Get Tickets
+              </Button>
+            </Link>
+          </div>
 
           <button
             aria-controls="mobile-nav"

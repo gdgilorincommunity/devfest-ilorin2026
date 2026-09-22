@@ -6,6 +6,7 @@ import TrackBottomBadge, {
   type TrackType,
 } from '@/components/track-bottom-badge'
 import TrackTopPill from '@/components/track-top-pill'
+import config from '@/config'
 import { cn } from '@/lib/utils'
 
 export interface EventTrackItem {
@@ -61,7 +62,7 @@ export function EventTracks({
   tracks = DEFAULT_TRACKS,
   ticketButton = {
     label: 'Get Tickets',
-    href: 'https://devfest.gdgilorin.com',
+    href: config.ticketUrl,
   },
   className,
 }: EventTracksProps) {
