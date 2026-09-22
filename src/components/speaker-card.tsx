@@ -75,7 +75,12 @@ export function SpeakerCard({
 }: SpeakerCardProps) {
   return (
     <figure
-      className={cn('flex w-full max-w-95 flex-col items-center', className)}
+      className={cn(
+        // scroll-mt clears the sticky navbar when the agenda deep-links here.
+        'flex w-full max-w-95 scroll-mt-28 flex-col items-center',
+        className,
+      )}
+      id={`speaker-${speaker.id}`}
     >
       <div className="relative w-full">
         {/* Accent badge, overlapping the top-left of the portrait */}

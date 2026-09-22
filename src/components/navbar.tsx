@@ -13,11 +13,13 @@ export type NavLink = {
   label: string
 }
 
+// Absolute paths so the links resolve from the inner pages too, not just
+// from the homepage.
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Speakers', href: '#speakers' },
-  { label: 'Schedule', href: '#schedule' },
-  { label: 'Sponsors', href: '#sponsors' },
-  { label: 'Team', href: '#team' },
+  { label: 'Speakers', href: '/speakers' },
+  { label: 'Schedule', href: '/schedule' },
+  { label: 'Sponsors', href: '/#sponsors' },
+  { label: 'Team', href: '/#team' },
 ]
 
 export default function Navbar() {
