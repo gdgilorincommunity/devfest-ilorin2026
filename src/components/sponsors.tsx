@@ -45,6 +45,14 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
 
 export const DEFAULT_PARTNERS: LogoItem[] = [
   {
+    id: 'unovia',
+    name: 'Unovia',
+    src: '/svg/partners/unovialogo.svg',
+    // Intrinsic artwork is 829x278; kept at the row's 60px height.
+    width: 179,
+    height: 60,
+  },
+  {
     id: 'qorelly',
     name: 'Qorelly',
     src: '/svg/sponsors/qorelly.svg',
