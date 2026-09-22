@@ -53,6 +53,14 @@ body {
   --animate-scroll: scroll var(--animation-duration, 40s)
     var(--animation-direction, forwards) linear infinite;
 
+  /*
+   * Motion curves. The built-in CSS easings are too weak to read as
+   * intentional, so entrances use a strong ease-out (fast off the mark, long
+   * settle) and on-screen movement uses a strong ease-in-out.
+   */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+
   @keyframes scroll {
     to {
       transform: translate3d(calc(-50% - 0.5rem), 0, 0);
@@ -139,6 +147,77 @@ body {
   }
 
   html {
-    @apply font-sans;
+    @apply scroll-smooth font-sans;
+
+    /* Keep anchor targets clear of the sticky navbar. */
+    scroll-padding-top: 6rem;
+  }
+}
+
+/*
+ * Entrance motion.
+ *
+ * Two primitives, both driven by opacity + transform only so they stay on the
+ * compositor and off the main thread:
+ *
+ *   .hero-enter   — plays once on load, for above-the-fold content.
+ *   [data-reveal] — plays when the element first scrolls into view.
+ *
+ * Both read an optional delay custom property so siblings can be staggered
+ * without a class per index.
+ */
+@layer components {
+  .hero-enter {
+    animation: enter-rise 600ms var(--ease-out-strong) backwards;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  [data-reveal] {
+    transition:
+      opacity 550ms var(--ease-out-strong),
+      transform 550ms var(--ease-out-strong);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /*
+   * Hidden only until the observer marks it visible. Guarded so that a
+   * document whose observer never runs still shows its content — see the
+   * <noscript> fallback in the layout.
+   */
+  [data-reveal]:not([data-visible]) {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  @keyframes enter-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+}
+
+/*
+ * Reduced motion keeps the fade — it still explains that content has
+ * arrived — but drops every positional change, and shortens the timings.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation-name: enter-fade;
+    animation-duration: 300ms;
+  }
+
+  [data-reveal] {
+    transition-duration: 300ms;
+  }
+
+  [data-reveal]:not([data-visible]) {
+    transform: none;
+  }
+
+  @keyframes enter-fade {
+    from {
+      opacity: 0;
+    }
   }
 }

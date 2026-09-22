@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="55.1746" height="57.145" viewBox="0 0 55.1746 57.145" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group">
+<path id="Vector" d="M14.4802 0C6.48302 0 0 6.50439 0 14.5283C0 21.1021 4.35122 26.6566 10.3224 28.4486C10.3769 28.4657 10.4143 28.5159 10.4143 28.5725C10.4143 28.6291 10.3769 28.6794 10.3224 28.6965C4.35122 30.4885 0 36.0429 0 42.6167C0 50.6406 6.48302 57.145 14.4802 57.145H40.6944C48.6916 57.145 55.1746 50.6406 55.1746 42.6167C55.1746 35.9991 50.7657 30.4158 44.7346 28.6612C44.6951 28.6495 44.6673 28.6131 44.6673 28.5725C44.6673 28.5319 44.6951 28.4956 44.7346 28.4838C50.7657 26.7292 55.1746 21.1459 55.1746 14.5283C55.1746 6.50439 48.6916 0 40.6944 0L14.4802 0Z" fill="url(#paint0_radial_0_20)"/>
+</g>
+<defs>
+<radialGradient id="paint0_radial_0_20" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.5873 9.75605) scale(47.436)">
+<stop offset="0.52" stop-color="#FFCC00"/>
+<stop offset="0.76" stop-color="#FFDD24"/>
+<stop offset="1" stop-color="#FFEE48"/>
+</radialGradient>
+</defs>
+</svg>

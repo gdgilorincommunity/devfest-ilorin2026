@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -53,16 +52,6 @@ export interface ScrollableProps {
    * @default 'right'
    */
   imageDirection?: 'left' | 'right'
-  /**
-   * Pill tags sliding speed in pixels per second.
-   * @default 32
-   */
-  pillSpeed?: number
-  /**
-   * Direction for the pill tags sliding motion.
-   * @default 'left'
-   */
-  pillDirection?: 'left' | 'right'
   /**
    * Tailwind class for individual item width.
    * @default 'w-[270px] sm:w-[300px]'
@@ -256,8 +245,8 @@ export const DEFAULT_TAGS: TagItem[] = [
 /**
  * Horizontal Scroll Gallery Component
  *
- * Displays the original DevFest recap cards moving rightward,
- * sliding pills moving leftward, with independent hover pauses.
+ * Displays the original DevFest recap cards moving rightward, above a
+ * static row of category pills.
  */
 export function Scrollable({
   items = DEFAULT_RECAP_ITEMS,
@@ -266,23 +255,17 @@ export function Scrollable({
   ctaButton = { label: 'View 2025', href: 'https://2025.devfestilorin.com' },
   speed = 45,
   imageDirection = 'right',
-  pillSpeed = 32,
-  pillDirection = 'left',
   itemWidthClass = 'w-[270px] sm:w-[300px]',
   itemHeightClass = 'h-[317px] sm:h-[352px]',
   gapClass = 'gap-5',
   className,
 }: ScrollableProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const pillsRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
-  const [isPillsHovered, setIsPillsHovered] = useState(false)
   const scrollPosRef = useRef(0)
-  const pillsPosRef = useRef(0)
 
-  // Duplicated arrays for seamless infinite looping
+  // Duplicated array for seamless infinite looping
   const duplicatedItems = [...items, ...items]
-  const duplicatedTags = [...tags, ...tags]
 
   // Initialize card container scroll position for rightward scrolling
   useEffect(() => {
@@ -345,49 +328,6 @@ export function Scrollable({
     }
   }, [imageDirection, isHovered, speed])
 
-  // Continuous auto-sliding loop for pills track
-  useEffect(() => {
-    const pillsContainer = pillsRef.current
-
-    if (!pillsContainer) return
-
-    let animationFrameId: number
-    let lastTime: number | null = null
-
-    const animatePills = (currentTime: number) => {
-      if (lastTime !== null && !isPillsHovered && pillsContainer) {
-        const delta = currentTime - lastTime
-        const scrollStep = (pillSpeed * delta) / 1000
-        const halfWidth = pillsContainer.scrollWidth / 2
-
-        if (pillDirection === 'left') {
-          pillsPosRef.current = pillsContainer.scrollLeft + scrollStep
-
-          if (halfWidth > 0 && pillsPosRef.current >= halfWidth) {
-            pillsPosRef.current -= halfWidth
-          }
-        } else {
-          pillsPosRef.current = pillsContainer.scrollLeft - scrollStep
-
-          if (halfWidth > 0 && pillsPosRef.current <= 0) {
-            pillsPosRef.current += halfWidth
-          }
-        }
-
-        pillsContainer.scrollLeft = pillsPosRef.current
-      }
-
-      lastTime = currentTime
-      animationFrameId = requestAnimationFrame(animatePills)
-    }
-
-    animationFrameId = requestAnimationFrame(animatePills)
-
-    return () => {
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [isPillsHovered, pillDirection, pillSpeed])
-
   // Sync scroll position if manual dragging occurs on the cards row
   const handleScrollSync = useCallback(() => {
     const container = containerRef.current
@@ -407,36 +347,27 @@ export function Scrollable({
     >
       {/* Centered Section Title */}
       {title && (
-        <div className="mb-6 text-center">
+        <div data-reveal className="mb-6 text-center">
           <h2 className="font-sans text-xl font-bold tracking-tight text-white sm:text-2xl">
             {title}
           </h2>
         </div>
       )}
 
-      {/* Sliding Pill Tags Track (moving leftward, pauses on hover) */}
+      {/* Static Pill Tags — one line, running past both edges of the viewport */}
       {tags && tags.length > 0 && (
-        <div className="relative mb-8 w-full overflow-hidden">
-          <div
-            ref={pillsRef}
-            className="flex w-full select-none items-center gap-3.5 overflow-x-auto px-4 scrollbar-none [&::-webkit-scrollbar]:hidden"
-          >
-            {duplicatedTags.map((tag, idx) => (
-              <span
-                key={`${tag.id}-${idx}`}
-                className={cn(
-                  'inline-flex shrink-0 cursor-pointer items-center rounded-full px-6 py-2.5 text-xs font-semibold whitespace-nowrap transition-opacity hover:opacity-90 sm:px-7 sm:py-3 sm:text-sm',
-                  tag.className,
-                )}
-                onMouseEnter={() => setIsPillsHovered(true)}
-                onMouseLeave={() => setIsPillsHovered(false)}
-                onTouchEnd={() => setIsPillsHovered(false)}
-                onTouchStart={() => setIsPillsHovered(true)}
-              >
-                {tag.label}
-              </span>
-            ))}
-          </div>
+        <div className="mb-8 flex w-full items-center gap-3.5 overflow-x-auto px-4 scrollbar-none [&::-webkit-scrollbar]:hidden">
+          {tags.map((tag) => (
+            <span
+              key={tag.id}
+              className={cn(
+                'inline-flex shrink-0 items-center rounded-full px-6 py-2.5 text-xs font-semibold whitespace-nowrap sm:px-7 sm:py-3 sm:text-sm',
+                tag.className,
+              )}
+            >
+              {tag.label}
+            </span>
+          ))}
         </div>
       )}
 

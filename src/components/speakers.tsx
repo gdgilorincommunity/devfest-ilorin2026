@@ -6,7 +6,7 @@ import {
   SpeakerCard,
   type Speaker,
 } from '@/components/speaker-card'
-import { SPEAKERS } from '@/lib/speakers'
+import { FEATURED_SPEAKERS } from '@/lib/speakers'
 import { cn } from '@/lib/utils'
 
 export interface SpeakersProps {
@@ -21,8 +21,8 @@ export interface SpeakersProps {
 
 export function Speakers({
   title = 'Our speakers',
-  speakers = SPEAKERS,
-  ctaButton = { label: 'View all speakers', href: '#speakers' },
+  speakers = FEATURED_SPEAKERS,
+  ctaButton = { label: 'View all speakers', href: '/speakers' },
   className,
 }: SpeakersProps) {
   return (
@@ -36,7 +36,10 @@ export function Speakers({
     >
       <SpeakerBlobClip />
 
-      <div className="mx-auto flex w-full max-w-378 flex-col items-center px-4 md:px-16 lg:px-32">
+      <div
+        data-reveal
+        className="mx-auto flex w-full max-w-378 flex-col items-center px-4 md:px-16 lg:px-32"
+      >
         <h2 className="mb-12 text-center font-sans text-4xl font-bold tracking-tight text-[#1A1A1A] sm:text-5xl lg:mb-16 lg:text-[56px]">
           {title}
         </h2>
@@ -50,7 +53,7 @@ export function Speakers({
         {ctaButton && (
           <div className="mt-12 flex justify-center lg:mt-14">
             <Link
-              className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-black px-7 py-4 text-base font-bold text-white transition-transform duration-300 hover:scale-105"
+              className="ease-out-strong inline-flex cursor-pointer items-center gap-3 rounded-full bg-black px-7 py-4 text-base font-bold text-white transition-transform duration-150 hover:not-active:scale-[1.03] active:scale-[0.97]"
               href={ctaButton.href}
             >
               <span>{ctaButton.label}</span>

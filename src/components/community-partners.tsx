@@ -59,7 +59,10 @@ export function CommunityPartners({
       )}
       id="community-partners"
     >
-      <h2 className="mb-10 px-4 text-center font-sans text-3xl font-bold tracking-tight text-[#1A1A1A] sm:text-4xl lg:mb-12 lg:text-[44px]">
+      <h2
+        data-reveal
+        className="mb-10 px-4 text-center font-sans text-3xl font-bold tracking-tight text-[#1A1A1A] sm:text-4xl lg:mb-12 lg:text-[44px]"
+      >
         {title}
       </h2>
 
