@@ -36,7 +36,10 @@ export function Speakers({
     >
       <SpeakerBlobClip />
 
-      <div className="mx-auto flex w-full max-w-378 flex-col items-center px-4 md:px-16 lg:px-32">
+      <div
+        data-reveal
+        className="mx-auto flex w-full max-w-378 flex-col items-center px-4 md:px-16 lg:px-32"
+      >
         <h2 className="mb-12 text-center font-sans text-4xl font-bold tracking-tight text-[#1A1A1A] sm:text-5xl lg:mb-16 lg:text-[56px]">
           {title}
         </h2>

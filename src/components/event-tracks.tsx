@@ -80,7 +80,10 @@ export function EventTracks({
     >
       <div className="mx-auto flex w-full max-w-378 flex-col items-center px-4 md:px-16 lg:px-24">
         {/* Section Heading */}
-        <h2 className="mb-10 text-center font-sans text-3xl font-bold tracking-tight text-[#1E1E1E] sm:text-4xl lg:mb-14 lg:text-[58px]">
+        <h2
+          data-reveal
+          className="mb-10 text-center font-sans text-3xl font-bold tracking-tight text-[#1E1E1E] sm:text-4xl lg:mb-14 lg:text-[58px]"
+        >
           {title}
         </h2>
 
@@ -89,10 +92,14 @@ export function EventTracks({
           {tracks.map((track, index) => (
             <div
               key={track.id}
+              data-reveal
               className={cn(
-                'relative flex aspect-415/659 w-full max-w-85 flex-col items-center justify-between overflow-hidden rounded-[90px] border-4 p-6 transition-transform duration-200 hover:scale-[1.02] sm:max-w-90 sm:rounded-[110px] sm:p-8 lg:max-w-102.75 lg:rounded-[140px] lg:p-10',
+                'relative flex aspect-415/659 w-full max-w-85 flex-col items-center justify-between overflow-hidden rounded-[90px] border-4 p-6 transition-transform duration-200 ease-out-strong hover:not-active:scale-[1.02] active:scale-[0.99] sm:max-w-90 sm:rounded-[110px] sm:p-8 lg:max-w-102.75 lg:rounded-[140px] lg:p-10',
                 track.borderClass,
               )}
+              style={
+                { '--reveal-delay': `${index * 70}ms` } as React.CSSProperties
+              }
             >
               {/* Photo, clipped by the card frame */}
               <div
@@ -122,7 +129,7 @@ export function EventTracks({
 
         {/* Get Tickets CTA Button */}
         {ticketButton && (
-          <div className="mt-12 flex justify-center lg:mt-16">
+          <div data-reveal className="mt-12 flex justify-center lg:mt-16">
             <Link
               className="inline-flex cursor-pointer items-center gap-2.5 rounded-full bg-black px-6.75 py-5 text-base font-bold text-white transition-opacity hover:opacity-90"
               href={ticketButton.href}

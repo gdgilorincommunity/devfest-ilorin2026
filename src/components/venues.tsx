@@ -54,7 +54,10 @@ export function Venues({
         className,
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1512px] flex-col items-center px-4 md:px-[64px] lg:px-[128px]">
+      <div
+        data-reveal
+        className="mx-auto flex w-full max-w-[1512px] flex-col items-center px-4 md:px-[64px] lg:px-[128px]"
+      >
         {/* Section Heading */}
         <h2 className="mb-10 text-center font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl lg:mb-14 lg:text-5xl">
           {title}

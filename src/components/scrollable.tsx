@@ -347,7 +347,7 @@ export function Scrollable({
     >
       {/* Centered Section Title */}
       {title && (
-        <div className="mb-6 text-center">
+        <div data-reveal className="mb-6 text-center">
           <h2 className="font-sans text-xl font-bold tracking-tight text-white sm:text-2xl">
             {title}
           </h2>

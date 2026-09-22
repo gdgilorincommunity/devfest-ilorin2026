@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import type { Metadata } from 'next'
 
 import { Google_Sans } from 'next/font/google'
@@ -77,6 +76,13 @@ export default function RootLayout({
       className={`${googleSans.variable} h-full antialiased`}
       lang="en"
     >
+      <head>
+        {/* Reveal animations hide their content until observed, so make sure
+            it is visible when scripts never run. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
       <body
         suppressHydrationWarning
         className="min-h-full flex flex-col bg-[#FDF4F5]"

@@ -25,7 +25,10 @@ export default function Hero() {
       <div className="relative flex min-h-0 w-full max-w-378 flex-1 flex-col items-center justify-center gap-8 overflow-hidden px-4 lg:px-0">
         <div className="pointer-events-none z-10 mt-12 flex w-full flex-col items-center justify-center gap-6 lg:absolute lg:inset-0 lg:mt-0 lg:gap-8">
           {/* Headline sponsor lockup */}
-          <div className="pointer-events-auto flex flex-col items-center gap-2">
+          <div
+            className="hero-enter pointer-events-auto flex flex-col items-center gap-2"
+            style={{ '--enter-delay': '80ms' } as React.CSSProperties}
+          >
             <span className="text-sm font-bold text-[#1E1E1E]/70 lg:text-base">
               headline Sponsor
             </span>
@@ -46,19 +49,28 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="pointer-events-auto flex w-full max-w-254.5 items-center justify-center">
+          <div
+            className="hero-enter pointer-events-auto flex w-full max-w-254.5 items-center justify-center"
+            style={{ '--enter-delay': '160ms' } as React.CSSProperties}
+          >
             <h1 className="w-full text-center font-sans text-5xl leading-[110%] font-bold text-[#1E1E1E] sm:text-6xl lg:w-252.5 lg:text-[80px] lg:leading-[100%]">
               Devfest Ilorin
               <span className="block">2026</span>
             </h1>
           </div>
 
-          <p className="pointer-events-auto max-w-130 text-center text-base font-medium text-[#1E1E1E]/60 lg:text-lg">
+          <p
+            className="hero-enter pointer-events-auto max-w-130 text-center text-base font-medium text-[#1E1E1E]/60 lg:text-lg"
+            style={{ '--enter-delay': '240ms' } as React.CSSProperties}
+          >
             Join us at DevFest Ilorin 2026 on November 6th &ndash; 7th.
             Ilorin&apos;s largest tech celebration of the year!
           </p>
 
-          <div className="pointer-events-auto flex items-center justify-center gap-4 sm:gap-6">
+          <div
+            className="hero-enter pointer-events-auto flex items-center justify-center gap-4 sm:gap-6"
+            style={{ '--enter-delay': '320ms' } as React.CSSProperties}
+          >
             <Button
               showArrow
               render={

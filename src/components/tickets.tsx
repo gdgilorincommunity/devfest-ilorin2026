@@ -69,7 +69,10 @@ export function Tickets({
         className,
       )}
     >
-      <div className="mx-auto flex w-full max-w-340 flex-col px-4 md:px-12">
+      <div
+        data-reveal
+        className="mx-auto flex w-full max-w-340 flex-col px-4 md:px-12"
+      >
         {/* =========================
             HEADER ROW
         ========================== */}

@@ -45,22 +45,35 @@ export function HeroImages() {
             <HeroBlob
               priority
               cluster={clusterOne}
+              enterDelay={160}
               size={HERO_IMAGE_SIZE.desktop}
             />
           </div>
 
           <div className="relative mx-auto mt-16 w-fit lg:mx-0 lg:mt-2.5 lg:ml-21.25">
-            <HeroBlob cluster={clusterTwo} size={HERO_IMAGE_SIZE.desktop} />
+            <HeroBlob
+              cluster={clusterTwo}
+              enterDelay={280}
+              size={HERO_IMAGE_SIZE.desktop}
+            />
           </div>
         </div>
 
         <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pt-0 lg:pr-23">
           <div className="relative mx-auto w-fit lg:mx-0 lg:-mt-12.5">
-            <HeroBlob cluster={clusterThree} size={HERO_IMAGE_SIZE.desktop} />
+            <HeroBlob
+              cluster={clusterThree}
+              enterDelay={220}
+              size={HERO_IMAGE_SIZE.desktop}
+            />
           </div>
 
           <div className="relative mx-auto w-fit lg:mx-0 lg:mt-20 lg:-ml-17.5">
-            <HeroBlob cluster={clusterFour} size={HERO_IMAGE_SIZE.desktop} />
+            <HeroBlob
+              cluster={clusterFour}
+              enterDelay={340}
+              size={HERO_IMAGE_SIZE.desktop}
+            />
           </div>
         </div>
       </div>

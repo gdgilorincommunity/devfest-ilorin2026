@@ -8,10 +8,12 @@ import Speakers from '@/components/speakers'
 import Sponsors from '@/components/sponsors'
 import CommunityPartners from '@/components/community-partners'
 import Footer from '@/components/footer'
+import RevealObserver from '@/components/reveal-observer'
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">
+      <RevealObserver />
       <Navbar />
       <Hero />
       <Scrollable />

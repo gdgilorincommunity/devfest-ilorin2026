@@ -145,14 +145,17 @@ export function Sponsors({
       className={cn('w-full bg-[#F0F0F0] py-16 sm:py-20 lg:py-24', className)}
       id="sponsors"
     >
-      <div className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24">
+      <div
+        data-reveal
+        className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24"
+      >
         <LogoBoard direction="left" logos={sponsors} title="Sponsors" />
         <LogoBoard direction="right" logos={partners} title="Partners" />
 
         {ctaButton && (
           <div className="mt-4 flex justify-center">
             <a
-              className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-black px-7 py-4 text-base font-bold text-white transition-transform duration-300 hover:scale-105"
+              className="ease-out-strong inline-flex cursor-pointer items-center gap-3 rounded-full bg-black px-7 py-4 text-base font-bold text-white transition-transform duration-150 hover:not-active:scale-[1.03] active:scale-[0.97]"
               href={ctaButton.href}
             >
               <span>{ctaButton.label}</span>

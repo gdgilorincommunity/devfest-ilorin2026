@@ -32,6 +32,8 @@ export interface HeroBlobProps {
   size: number
   priority?: boolean
   className?: string
+  /** Stagger offset for the on-load entrance, in ms. Omit to skip it. */
+  enterDelay?: number
 }
 
 /**
@@ -45,6 +47,7 @@ export function HeroBlob({
   size,
   priority = false,
   className,
+  enterDelay,
 }: HeroBlobProps) {
   const { aspect, photoBox, decoBox } = cluster
   // Fit the cluster inside a `size` x `size` square, the way the previous
@@ -54,8 +57,20 @@ export function HeroBlob({
 
   return (
     <div
-      className={cn('relative shrink-0', className)}
-      style={{ width, height }}
+      className={cn(
+        'relative shrink-0',
+        enterDelay !== undefined && 'hero-enter',
+        className,
+      )}
+      style={
+        {
+          width,
+          height,
+          ...(enterDelay !== undefined && {
+            '--enter-delay': `${enterDelay}ms`,
+          }),
+        } as React.CSSProperties
+      }
     >
       <div
         className="absolute"
