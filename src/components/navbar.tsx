@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 
@@ -22,9 +22,39 @@ export const NAV_LINKS: NavLink[] = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8)
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Lock the page while the mobile menu is open so the sheet can't scroll away.
+  useEffect(() => {
+    if (!isOpen) return
+
+    const previous = document.body.style.overflow
+
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previous
+    }
+  }, [isOpen])
 
   return (
-    <header className="relative z-50 w-full">
+    <header
+      className={cn(
+        'sticky top-0 z-50 w-full transition-colors duration-300',
+        isScrolled || isOpen
+          ? 'border-b border-black/5 bg-[#FDF4F5]/80 backdrop-blur-md'
+          : 'border-b border-transparent bg-transparent',
+      )}
+    >
       <nav className="mx-auto flex w-full max-w-378 shrink-0 items-center justify-between px-4 py-4 md:px-16 md:py-5 lg:px-32">
         <Link aria-label="DevFest Ilorin 2026 home" href="/">
           <Logo priority />

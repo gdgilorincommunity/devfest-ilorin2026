@@ -139,6 +139,9 @@ body {
   }
 
   html {
-    @apply font-sans;
+    @apply scroll-smooth font-sans;
+
+    /* Keep anchor targets clear of the sticky navbar. */
+    scroll-padding-top: 6rem;
   }
 }
