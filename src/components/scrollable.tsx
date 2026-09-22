@@ -354,14 +354,14 @@ export function Scrollable({
         </div>
       )}
 
-      {/* Static Pill Tags */}
+      {/* Static Pill Tags — one line, running past both edges of the viewport */}
       {tags && tags.length > 0 && (
-        <div className="mx-auto mb-8 flex w-full max-w-6xl flex-wrap items-center justify-center gap-3.5 px-4">
+        <div className="mb-8 flex w-full items-center gap-3.5 overflow-x-auto px-4 scrollbar-none [&::-webkit-scrollbar]:hidden">
           {tags.map((tag) => (
             <span
               key={tag.id}
               className={cn(
-                'inline-flex items-center rounded-full px-6 py-2.5 text-xs font-semibold whitespace-nowrap sm:px-7 sm:py-3 sm:text-sm',
+                'inline-flex shrink-0 items-center rounded-full px-6 py-2.5 text-xs font-semibold whitespace-nowrap sm:px-7 sm:py-3 sm:text-sm',
                 tag.className,
               )}
             >
