@@ -1,108 +1,38 @@
-/* eslint-disable prettier/prettier */
 'use client'
 
-import Image from 'next/image'
-
+import { HeroBlob, HeroBlobClipPaths } from '@/components/hero-blob'
 import { HeroImageScroller } from '@/components/hero-image-scroller'
-
-type HeroImageConfig = {
-  alt: string
-  height: number
-  id: string
-  src: string
-  width: number
-}
+import { HERO_BLOB_CLUSTERS } from '@/lib/hero-blobs'
 
 const HERO_IMAGE_SIZE = {
   mobile: 300,
   desktop: 330,
 } as const
 
-const heroImageConfigs: HeroImageConfig[] = [
-  {
-    id: 'one',
-    alt: 'DevFest Ilorin 2026 highlight one',
-    src: '/images/one.png',
-    width: 1342,
-    height: 1342,
-  },
-  {
-    id: 'two',
-    alt: 'DevFest Ilorin 2026 highlight three',
-    src: '/images/three.png',
-    width: 1729,
-    height: 1729,
-  },
-  {
-    id: 'three',
-    alt: 'DevFest Ilorin 2026 highlight two',
-    src: '/images/two.png',
-    width: 2252,
-    height: 2224,
-  },
-  {
-    id: 'four',
-    alt: 'DevFest Ilorin 2026 highlight four',
-    src: '/images/four.png',
-    width: 1777,
-    height: 1522,
-  },
-]
-
-function HeroImage({
-  config,
-  priority = false,
-  variant,
-}: {
-  config: HeroImageConfig
-  priority?: boolean
-  variant: 'desktop' | 'mobile'
-}) {
-  const size = HERO_IMAGE_SIZE[variant]
-
-  return (
-    <div
-      className="relative flex shrink-0 items-center justify-center"
-      style={{ height: size, width: size }}
-    >
-      <Image
-        alt={config.alt}
-        className="h-full w-full object-contain"
-        height={config.height}
-        priority={priority}
-        quality={90}
-        sizes={
-          variant === 'mobile'
-            ? `(max-width: 1023px) ${HERO_IMAGE_SIZE.mobile}px, ${HERO_IMAGE_SIZE.desktop}px`
-            : `${HERO_IMAGE_SIZE.desktop}px`
-        }
-        src={config.src}
-        width={config.width}
-      />
-    </div>
-  )
-}
+const [clusterOne, clusterTwo, clusterThree, clusterFour] = HERO_BLOB_CLUSTERS
 
 export function HeroImages() {
   return (
     <>
+      <HeroBlobClipPaths />
+
       <div className="relatives w-full pb-4 lg:hidden">
         {' '}
         {/*Removed the mt-auto to reduce the excess space on the images top in mobile version */}
         <HeroImageScroller direction="left" speed="medium">
-          {heroImageConfigs.map((config, index) => (
+          {HERO_BLOB_CLUSTERS.map((cluster, index) => (
             <li
-              key={config.id}
+              key={cluster.id}
               className="relative flex shrink-0 items-center justify-center"
               style={{
                 height: HERO_IMAGE_SIZE.mobile,
                 width: HERO_IMAGE_SIZE.mobile,
               }}
             >
-              <HeroImage
-                config={config}
+              <HeroBlob
+                cluster={cluster}
                 priority={index === 0}
-                variant="mobile"
+                size={HERO_IMAGE_SIZE.mobile}
               />
             </li>
           ))}
@@ -110,30 +40,32 @@ export function HeroImages() {
       </div>
 
       <div className="relative mt-8 hidden h-full w-full flex-col items-center justify-between gap-16 lg:mt-6 lg:flex lg:flex-row lg:items-stretch lg:gap-0 lg:px-0">
-        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pl-16.25 lg:pt-7.75">
+        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pt-7.75 lg:pl-16.25">
           <div className="relative mx-auto w-fit lg:mx-0">
-            <HeroImage
+            <HeroBlob
               priority
-              config={heroImageConfigs[0]}
-              variant="desktop"
+              cluster={clusterOne}
+              size={HERO_IMAGE_SIZE.desktop}
             />
           </div>
 
           <div className="relative mx-auto mt-16 w-fit lg:mx-0 lg:mt-2.5 lg:ml-21.25">
-            <HeroImage config={heroImageConfigs[1]} variant="desktop" />
+            <HeroBlob cluster={clusterTwo} size={HERO_IMAGE_SIZE.desktop} />
           </div>
         </div>
 
-        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pr-23 lg:pt-0">
+        <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pt-0 lg:pr-23">
           <div className="relative mx-auto w-fit lg:mx-0 lg:-mt-12.5">
-            <HeroImage config={heroImageConfigs[2]} variant="desktop" />
+            <HeroBlob cluster={clusterThree} size={HERO_IMAGE_SIZE.desktop} />
           </div>
 
-          <div className="relative mx-auto w-fit lg:mx-0 lg:-ml-17.5 lg:mt-20">
-            <HeroImage config={heroImageConfigs[3]} variant="desktop" />
+          <div className="relative mx-auto w-fit lg:mx-0 lg:mt-20 lg:-ml-17.5">
+            <HeroBlob cluster={clusterFour} size={HERO_IMAGE_SIZE.desktop} />
           </div>
         </div>
       </div>
     </>
   )
 }
+
+export default HeroImages
