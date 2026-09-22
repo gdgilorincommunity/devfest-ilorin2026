@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 
 import Home from './page'
 
@@ -49,9 +49,24 @@ describe('Home', () => {
     expect(screen.getByRole('heading', { name: /Day 1/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /Day 2/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /Dinner/i })).toBeInTheDocument()
-    expect(screen.getByText(/^Workshop$/)).toBeInTheDocument()
-    expect(screen.getByText(/^Conference$/)).toBeInTheDocument()
-    expect(screen.getByText(/^VIP$/)).toBeInTheDocument()
+    // The event track cards also label themselves Workshop/Conference, so
+    // scope these to the ticket tags rather than the whole page.
+    const tickets = screen
+      .getByRole('heading', { name: /^Tickets$/i })
+      .closest('section') as HTMLElement
+
+    expect(within(tickets).getByText(/^Workshop$/)).toBeInTheDocument()
+    expect(within(tickets).getByText(/^Conference$/)).toBeInTheDocument()
+    expect(within(tickets).getByText(/^VIP$/)).toBeInTheDocument()
+  })
+
+  it('renders the event track cards as text labels', () => {
+    render(<Home />)
+    const tracks = screen.getByRole('region', { name: /Devfest Ilorin 2026/i })
+
+    for (const label of ['Workshop', 'Conference', 'Dinner']) {
+      expect(within(tracks).getByText(label)).toBeInTheDocument()
+    }
   })
 
   it('exposes the primary navigation links', () => {

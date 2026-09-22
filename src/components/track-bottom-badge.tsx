@@ -30,7 +30,7 @@ const defaultLabelMap: Record<TrackType, string> = {
 
 /**
  * Bottom gradient container for the Workshop, Conference and Dinner cards.
- * The Figma pill is 309x161 design px, so it keeps a fixed aspect ratio and
+ * The Figma pill is 335x162 design px, so it keeps a fixed aspect ratio and
  * centres its label rather than relying on vertical padding.
  */
 export function TrackBottomBadge({
@@ -44,7 +44,7 @@ export function TrackBottomBadge({
   return (
     <div
       className={cn(
-        'flex aspect-309/161 w-full items-center justify-center rounded-full px-5 text-center font-sans text-2xl font-bold tracking-tight text-white shadow-md sm:text-3xl lg:text-[40px]',
+        'flex aspect-335/162 w-full items-center justify-center rounded-full px-5 text-center font-sans text-2xl font-bold tracking-[0.8px] text-white shadow-md sm:text-3xl lg:text-[40px]',
         gradientClass,
         className,
       )}
