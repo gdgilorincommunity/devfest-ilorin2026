@@ -76,7 +76,7 @@ export interface ScrollableProps {
 export const DEFAULT_RECAP_ITEMS: ScrollItem[] = [
   {
     id: 'speaker-frame-1',
-    image: '/images/recap-images/Speaker-frame-1.svg',
+    image: '/images/recap-images/Speaker-frame-1.webp',
     label: 'DevFest Recap Speaker Frame 1',
   },
   {
@@ -86,12 +86,12 @@ export const DEFAULT_RECAP_ITEMS: ScrollItem[] = [
   },
   {
     id: 'speaker-frame-3',
-    image: '/images/recap-images/Speaker-frame-3.svg',
+    image: '/images/recap-images/Speaker-frame-3.webp',
     label: 'DevFest Recap Speaker Frame 3',
   },
   {
     id: 'speaker-frame-4',
-    image: '/images/recap-images/Speaker-frame-4.svg',
+    image: '/images/recap-images/Speaker-frame-4.webp',
     label: 'DevFest Recap Speaker Frame 4',
   },
   {
@@ -101,17 +101,17 @@ export const DEFAULT_RECAP_ITEMS: ScrollItem[] = [
   },
   {
     id: 'speaker-frame-6',
-    image: '/images/recap-images/Speaker-frame-6.svg',
+    image: '/images/recap-images/Speaker-frame-6.webp',
     label: 'DevFest Recap Speaker Frame 6',
   },
   {
     id: 'speaker-frame-7',
-    image: '/images/recap-images/Speaker-frame-7.svg',
+    image: '/images/recap-images/Speaker-frame-7.webp',
     label: 'DevFest Recap Speaker Frame 7',
   },
   {
     id: 'speaker-frame-8',
-    image: '/images/recap-images/Speaker-frame-8.svg',
+    image: '/images/recap-images/Speaker-frame-8.webp',
     label: 'DevFest Recap Speaker Frame 8',
   },
   {
@@ -121,12 +121,12 @@ export const DEFAULT_RECAP_ITEMS: ScrollItem[] = [
   },
   {
     id: 'speaker-frame-10',
-    image: '/images/recap-images/Speaker-frame-10.svg',
+    image: '/images/recap-images/Speaker-frame-10.webp',
     label: 'DevFest Recap Speaker Frame 10',
   },
   {
     id: 'speaker-frame-11',
-    image: '/images/recap-images/Speaker-frame-11.svg',
+    image: '/images/recap-images/Speaker-frame-11.webp',
     label: 'DevFest Recap Speaker Frame 11',
   },
   {
@@ -136,7 +136,7 @@ export const DEFAULT_RECAP_ITEMS: ScrollItem[] = [
   },
   {
     id: 'speaker-frame-13',
-    image: '/images/recap-images/Speaker-frame-13.svg',
+    image: '/images/recap-images/Speaker-frame-13.webp',
     label: 'DevFest Recap Speaker Frame 13',
   },
 ]
