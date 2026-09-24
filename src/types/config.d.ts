@@ -5,4 +5,5 @@ export interface IConfig {
   appUrl: string
   ticketUrl: string
   dinnerTicketUrl: string
+  cliUrl: string
 }
