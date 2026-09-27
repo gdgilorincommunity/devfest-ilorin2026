@@ -7,18 +7,42 @@ export const BADGE_CYCLE = [
   'red',
 ] as const satisfies readonly BadgeColor[]
 
-/**
- * Headshots have not been supplied yet, so every card falls back to the
- * placeholder portrait. Swap `image` per speaker as photos come in.
- */
+/** Speakers whose card still falls back to the placeholder portrait. */
 const PLACEHOLDER_PORTRAIT = '/images/speakers/placeholder.jpg'
 
-type SpeakerSeed = Omit<Speaker, 'badge' | 'image'> & { image?: string }
+/**
+ * Speaker ids that have a supplied headshot at
+ * `/images/speakers/<id>.webp`. Everyone else falls back to the placeholder,
+ * so this set doubles as the checklist of photos still outstanding.
+ */
+const HAS_PHOTO = new Set<string>([
+  'sodiq-akinjobi',
+  'idris-olubisi',
+  'oluyinka-abubakar',
+  'daniel-okoro',
+  'dami-oshun',
+  'ahmed-olarenwaju',
+  'david-oluwabusayo',
+  'akorede-ibrahim',
+  'daniel-olowoniyi',
+  'fabusuyi-deborah',
+  'oladosu-ibrahim',
+  'shalom-bamigboye',
+  'yusuf-sanusi',
+  'olawore-hikmah',
+  'iniobong-pius-umouman',
+  'daniel-umoren',
+  'abdul-jemeel-odewole',
+])
+
+type SpeakerSeed = Omit<Speaker, 'badge' | 'image'>
 
 function withBadges(seeds: SpeakerSeed[]): Speaker[] {
   return seeds.map((seed, index) => ({
-    image: PLACEHOLDER_PORTRAIT,
     ...seed,
+    image: HAS_PHOTO.has(seed.id)
+      ? `/images/speakers/${seed.id}.webp`
+      : PLACEHOLDER_PORTRAIT,
     badge: BADGE_CYCLE[index % BADGE_CYCLE.length],
   }))
 }
@@ -32,10 +56,37 @@ function withBadges(seeds: SpeakerSeed[]): Speaker[] {
  * represented on the schedule as "to be announced" rather than here.
  */
 export const SPEAKERS: Speaker[] = withBadges([
+  // The first six carry the homepage section, so they lead with speakers
+  // whose headshots have arrived.
   {
     id: 'sodiq-akinjobi',
     name: 'Sodiq Akinjobi',
     role: 'Program Manager, Google',
+  },
+  {
+    id: 'idris-olubisi',
+    name: 'Idris Olubisi',
+    role: 'Developer Relations Engineer, Midnight',
+  },
+  {
+    id: 'oluyinka-abubakar',
+    name: 'Oluyinka Abubakar',
+    role: 'Engineering Lead, MTN Nigeria',
+  },
+  {
+    id: 'daniel-okoro',
+    name: 'Daniel Okoro',
+    role: 'Senior Software Engineer, TTMS Switzerland',
+  },
+  {
+    id: 'dami-oshun',
+    name: 'Dami Oshun',
+    role: 'Software Engineer, Seamless Technologies',
+  },
+  {
+    id: 'ahmed-olarenwaju',
+    name: 'Ahmed Olarenwaju',
+    role: 'Fullstack AI Engineer, INDICINA',
   },
   {
     id: 'gabriel-agbobli',
@@ -53,29 +104,9 @@ export const SPEAKERS: Speaker[] = withBadges([
     role: 'Google Developer Expert',
   },
   {
-    id: 'oluyinka-abubakar',
-    name: 'Oluyinka Abubakar',
-    role: 'Engineering Lead, MTN Nigeria',
-  },
-  {
-    id: 'daniel-okoro',
-    name: 'Daniel Okoro',
-    role: 'Senior Software Engineer, TTMS Switzerland',
-  },
-  {
     id: 'areous',
     name: 'Areous',
     role: 'Lead Organiser, GDG Ilorin',
-  },
-  {
-    id: 'dami-oshun',
-    name: 'Dami Oshun',
-    role: 'Software Engineer, Seamless Technologies',
-  },
-  {
-    id: 'ahmed-olarenwaju',
-    name: 'Ahmed Olarenwaju',
-    role: 'Fullstack AI Engineer, INDICINA',
   },
   {
     id: 'david-oluwabusayo',
