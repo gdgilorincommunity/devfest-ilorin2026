@@ -7,13 +7,11 @@ export const BADGE_CYCLE = [
   'red',
 ] as const satisfies readonly BadgeColor[]
 
-/** Speakers whose card still falls back to the placeholder portrait. */
-const PLACEHOLDER_PORTRAIT = '/images/speakers/placeholder.jpg'
-
 /**
  * Speaker ids that have a supplied headshot at
- * `/images/speakers/<id>.webp`. Everyone else falls back to the placeholder,
- * so this set doubles as the checklist of photos still outstanding.
+ * `/images/speakers/<id>.webp`. Everyone else gets an empty `image`, which the
+ * card renders as a dotted-pattern placeholder — so this set doubles as the
+ * checklist of photos still outstanding.
  */
 const HAS_PHOTO = new Set<string>([
   'sodiq-akinjobi',
@@ -40,9 +38,7 @@ type SpeakerSeed = Omit<Speaker, 'badge' | 'image'>
 function withBadges(seeds: SpeakerSeed[]): Speaker[] {
   return seeds.map((seed, index) => ({
     ...seed,
-    image: HAS_PHOTO.has(seed.id)
-      ? `/images/speakers/${seed.id}.webp`
-      : PLACEHOLDER_PORTRAIT,
+    image: HAS_PHOTO.has(seed.id) ? `/images/speakers/${seed.id}.webp` : '',
     badge: BADGE_CYCLE[index % BADGE_CYCLE.length],
   }))
 }

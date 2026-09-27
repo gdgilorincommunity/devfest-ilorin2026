@@ -51,6 +51,39 @@ export function SpeakerBlobClip() {
   )
 }
 
+/** First letters of the first two words of a name, e.g. "Umar Farouk" → "UF". */
+function initialsFrom(name: string): string {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? '')
+    .join('')
+}
+
+/**
+ * Fallback portrait for speakers whose headshot hasn't arrived: a dotted
+ * pattern over a soft brand wash, with the speaker's initials centred. Fills
+ * the same blob-clipped square as a real photo.
+ */
+function SpeakerPlaceholder({ name }: { name: string }) {
+  return (
+    <div
+      aria-hidden
+      className="flex size-full items-center justify-center bg-[#EEF1FF]"
+      style={{
+        backgroundImage: 'radial-gradient(#C2CCEE 1.6px, transparent 1.7px)',
+        backgroundSize: '16px 16px',
+        backgroundPosition: '-8px -8px',
+      }}
+    >
+      <span className="font-sans text-5xl font-extrabold tracking-tight text-[#8A97C9] lg:text-6xl">
+        {initialsFrom(name)}
+      </span>
+    </div>
+  )
+}
+
 export interface SpeakerCardProps {
   speaker: Speaker
   className?: string
@@ -97,15 +130,19 @@ export function SpeakerCard({
           className="relative aspect-square w-full"
           style={{ clipPath: `url(#${SPEAKER_BLOB_CLIP_ID})` }}
         >
-          <Image
-            fill
-            alt={`${speaker.name}, ${speaker.role}`}
-            className="object-cover"
-            priority={priority}
-            quality={90}
-            sizes={sizes}
-            src={speaker.image}
-          />
+          {speaker.image ? (
+            <Image
+              fill
+              alt={`${speaker.name}, ${speaker.role}`}
+              className="object-cover"
+              priority={priority}
+              quality={90}
+              sizes={sizes}
+              src={speaker.image}
+            />
+          ) : (
+            <SpeakerPlaceholder name={speaker.name} />
+          )}
         </div>
       </div>
 
