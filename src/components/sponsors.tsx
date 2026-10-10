@@ -55,14 +55,6 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
 
 export const DEFAULT_PARTNERS: LogoItem[] = [
   {
-    id: 'unovia',
-    name: 'Unovia',
-    src: '/svg/partners/unovialogo.svg',
-    // Intrinsic artwork is 829x278; kept at the row's 60px height.
-    width: 179,
-    height: 60,
-  },
-  {
     id: 'fuskar',
     name: 'Fuskar',
     // Intrinsic artwork is 351x141; kept at the row's 60px height.
@@ -75,6 +67,14 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     name: 'Pixel Pioneer',
     src: '/svg/sponsors/pixel-pioneer.svg',
     width: 242,
+    height: 60,
+  },
+  {
+    id: 'unovia',
+    name: 'Unovia',
+    src: '/svg/partners/unovialogo.svg',
+    // Intrinsic artwork is 829x278; kept at the row's 60px height.
+    width: 179,
     height: 60,
   },
 ]
