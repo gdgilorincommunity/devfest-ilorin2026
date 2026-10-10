@@ -36,16 +36,18 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
   {
     id: 'malhub',
     name: 'MalHub',
-    // Intrinsic artwork is 2171x857; kept at the row's 60px height.
     src: '/svg/sponsors/malhub.svg',
+    href: 'https://malhub.org',
+    // Intrinsic artwork is 2171x857; kept at the row's 60px height.
     width: 152,
     height: 60,
   },
   {
     id: 'sqaleup',
     name: 'SqaleUp',
-    // Intrinsic artwork is 1049x336; kept at the row's 60px height.
     src: '/svg/sponsors/sqaleup.svg',
+    href: 'https://sqaleupinc.com',
+    // Intrinsic artwork is 1049x336; kept at the row's 60px height.
     width: 187,
     height: 60,
   },
