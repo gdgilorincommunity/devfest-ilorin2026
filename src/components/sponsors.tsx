@@ -41,6 +41,22 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     width: 242,
     height: 60,
   },
+  {
+    id: 'malhub',
+    name: 'MalHub',
+    // Intrinsic artwork is 2171x857; kept at the row's 60px height.
+    src: '/svg/sponsors/malhub.svg',
+    width: 152,
+    height: 60,
+  },
+  {
+    id: 'sqaleup',
+    name: 'SqaleUp',
+    // Intrinsic artwork is 1049x336; kept at the row's 60px height.
+    src: '/svg/sponsors/sqaleup.svg',
+    width: 187,
+    height: 60,
+  },
 ]
 
 export const DEFAULT_PARTNERS: LogoItem[] = [
@@ -50,6 +66,14 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     src: '/svg/partners/unovialogo.svg',
     // Intrinsic artwork is 829x278; kept at the row's 60px height.
     width: 179,
+    height: 60,
+  },
+  {
+    id: 'fuskar',
+    name: 'Fuskar',
+    // Intrinsic artwork is 351x141; kept at the row's 60px height.
+    src: '/svg/partners/fuskar.svg',
+    width: 149,
     height: 60,
   },
   {
