@@ -34,13 +34,6 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     height: 60,
   },
   {
-    id: 'pixel-pioneer',
-    name: 'Pixel Pioneer',
-    src: '/svg/sponsors/pixel-pioneer.svg',
-    width: 242,
-    height: 60,
-  },
-  {
     id: 'malhub',
     name: 'MalHub',
     // Intrinsic artwork is 2171x857; kept at the row's 60px height.
