@@ -251,8 +251,8 @@ export const AGENDA: AgendaDay[] = [
           },
           {
             id: 'd2-m-9',
-            kind: 'lightning',
-            title: 'Lightning talk',
+            kind: 'keynote',
+            title: 'Keynote',
             duration: '10 min',
             speakerIds: ['sodiq-akinjobi'],
             tba: true,
