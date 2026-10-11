@@ -3,12 +3,12 @@
  *
  * Speakers are referenced by id and resolved through `getSpeaker`, so a
  * name or role only ever lives in one place. Anything the document still
- * leaves open — pending GDE slots, unfilled standard sessions, unnamed
- * panelists — is kept as a `tba` session rather than dropped, so the page
- * reflects the real state of the programme.
+ * leaves open — an unconfirmed topic, unnamed panelists or co-presenters — is
+ * kept on the session as a `tba` flag or note rather than dropped, so the
+ * page reflects the real state of the programme.
  *
- * Day 2 has no confirmed start times yet, only durations; those sessions
- * render in running order without a clock time.
+ * Day 1's afternoon (Jummat, then the round table) has no clock times yet;
+ * those sessions render in running order with their duration instead.
  */
 export type SessionKind =
   | 'keynote'
@@ -56,15 +56,6 @@ export interface AgendaDay {
   tracks: AgendaTrack[]
 }
 
-const GDE_WORKSHOP_TBA = (id: string): AgendaSession => ({
-  id,
-  kind: 'workshop',
-  title: 'Google Developer Expert workshop',
-  duration: '40 min',
-  tba: true,
-  note: 'Speaker and topic to be announced',
-})
-
 export const AGENDA: AgendaDay[] = [
   {
     id: 'day-1',
@@ -92,9 +83,8 @@ export const AGENDA: AgendaDay[] = [
             kind: 'workshop',
             time: '10:40 – 11:20',
             duration: '40 min',
-            title:
-              'Building a Trustworthy AI Agent for Election Intelligence with ADK and the Antigravity Harness',
-            speakerIds: ['gabriel-agbobli'],
+            title: 'WebAI: Building Browser-Native Conversational AI Agents',
+            speakerIds: ['kerry-okpere'],
           },
           {
             id: 'd1-a-3',
@@ -128,7 +118,15 @@ export const AGENDA: AgendaDay[] = [
               'Agentic Flutter: Mastering Function Calling & Autonomous Tool Execution',
             speakerIds: ['david-oluwabusayo'],
           },
-          { ...GDE_WORKSHOP_TBA('d1-b-3'), time: '11:20 – 12:00' },
+          {
+            id: 'd1-b-3',
+            kind: 'workshop',
+            time: '11:20 – 12:00',
+            duration: '40 min',
+            title:
+              'Securing Agentic Workloads on GKE via Least-Privilege Design',
+            speakerIds: ['mileke-kolawole'],
+          },
         ],
       },
       {
@@ -179,7 +177,7 @@ export const AGENDA: AgendaDay[] = [
     label: 'Day 2',
     date: 'Saturday, November 7',
     summary:
-      'Conference day on the main stage — keynote, talks, lightning sessions and two panels — with workshops running in Rooms A and B.',
+      'Conference day on the main stage — keynotes, talks, lightning sessions and two panels — with workshops running in Rooms A and B.',
     accent: 'green',
     tracks: [
       {
@@ -189,10 +187,19 @@ export const AGENDA: AgendaDay[] = [
           {
             id: 'd2-m-1',
             kind: 'keynote',
+            time: '9:30 – 9:40',
             title: "What's Different in 2026",
             duration: '10 min',
             speakerIds: ['areous'],
             note: 'Opening address',
+          },
+          {
+            id: 'd2-m-16',
+            kind: 'keynote',
+            time: '9:40 – 10:00',
+            title: 'AI Can Write the Code. Can You Trust It?',
+            duration: '20 min',
+            speakerIds: ['mohammed-yayah'],
           },
           {
             id: 'd2-m-2',
@@ -203,55 +210,51 @@ export const AGENDA: AgendaDay[] = [
             speakerIds: ['idris-olubisi'],
           },
           {
-            id: 'd2-m-3',
-            kind: 'talk',
-            title:
-              'Context Engineering: Building AI Systems That Remember, Reason, and Scale',
-            duration: '25 min',
-            speakerIds: ['daniel-okoro'],
+            id: 'd2-m-17',
+            kind: 'lightning',
+            time: '10:30 – 10:40',
+            title: 'Building Products People Actually Need',
+            duration: '10 min',
+            speakerIds: ['oluwasegun-afariogun'],
           },
           {
             id: 'd2-m-4',
             kind: 'technical',
+            time: '10:45 – 11:20',
             title:
               'Inside a Ransomware Response: What Founders and Policymakers Get Wrong About Cyber Risk',
             duration: '35 min',
             speakerIds: ['hamza-lateef'],
           },
           {
-            id: 'd2-m-5',
+            id: 'd2-lunch',
+            kind: 'break',
+            time: '12:40 – 1:40',
+            title: 'Lunch break',
+            duration: '60 min',
+          },
+          {
+            id: 'd2-m-3',
             kind: 'talk',
-            title: 'Standard session',
+            time: '1:40 – 2:05',
+            title:
+              'Context Engineering: Building AI Systems That Remember, Reason, and Scale',
             duration: '25 min',
-            tba: true,
-            note: 'Speaker and topic to be announced',
+            speakerIds: ['daniel-okoro'],
           },
           {
             id: 'd2-m-6',
             kind: 'lightning',
+            time: '2:05 – 2:15',
             title:
               'Offline-First Web Apps: Building Experiences That Work Without the Internet',
             duration: '10 min',
             speakerIds: ['daniel-olowoniyi'],
           },
           {
-            id: 'd2-m-7',
-            kind: 'community',
-            title: 'Community Notes',
-            duration: '20 min',
-            presenter: 'The GDG Ilorin team',
-          },
-          {
-            id: 'd2-m-8',
-            kind: 'talk',
-            title:
-              'Why Every Company Needs an AI Layer: The Next Evolution of Digital Transformation',
-            duration: '25 min',
-            speakerIds: ['oluyinka-abubakar'],
-          },
-          {
             id: 'd2-m-9',
             kind: 'keynote',
+            time: '2:15 – 2:25',
             title: 'Keynote',
             duration: '10 min',
             speakerIds: ['sodiq-akinjobi'],
@@ -259,8 +262,26 @@ export const AGENDA: AgendaDay[] = [
             note: 'Topic to be announced · timing tentative',
           },
           {
+            id: 'd2-m-8',
+            kind: 'talk',
+            time: '2:30 – 2:55',
+            title:
+              'Why Every Company Needs an AI Layer: The Next Evolution of Digital Transformation',
+            duration: '25 min',
+            speakerIds: ['oluyinka-abubakar'],
+          },
+          {
+            id: 'd2-m-7',
+            kind: 'community',
+            time: '2:55 – 3:15',
+            title: 'Community Notes',
+            duration: '20 min',
+            presenter: 'The team: Areous, Fayfay, Daniel & Ahmmzy',
+          },
+          {
             id: 'd2-m-10',
             kind: 'lightning',
+            time: '3:15 – 3:25',
             title:
               "Becoming a Product Engineer: Why the Line Between 'Dev' and 'Everything Else' Is Blurring",
             duration: '10 min',
@@ -269,6 +290,7 @@ export const AGENDA: AgendaDay[] = [
           {
             id: 'd2-m-11',
             kind: 'panel',
+            time: '3:30 – 4:05',
             title: 'Building for Impact — Cloud, AI, and Access',
             duration: '35 min',
             moderatorId: 'ahmed-olarenwaju',
@@ -278,23 +300,25 @@ export const AGENDA: AgendaDay[] = [
           {
             id: 'd2-m-12',
             kind: 'panel',
+            time: '4:10 – 4:45',
             title: 'Shipping Agents — From Demo to Production',
             duration: '35 min',
-            speakerIds: ['yusuf-sanusi', 'lateefah-bello'],
-            note: 'Further panelists to be announced',
+            speakerIds: ['yusuf-sanusi', 'oluwaseyi-ajadi', 'lateefah-bello'],
+            note: 'One further panelist to be announced',
           },
           {
             id: 'd2-m-13',
             kind: 'hardware',
+            time: '4:45 – 5:20',
             title: 'Robotics Today! Google Cardboard',
             duration: '35 min',
             speakerIds: ['olawore-hikmah'],
             note: 'Hardware demo · co-presenter to be announced',
           },
-          { ...GDE_WORKSHOP_TBA('d2-m-14'), duration: '35 min' },
           {
             id: 'd2-m-15',
             kind: 'community',
+            time: '5:25 – 5:40',
             title:
               'After the Hackathon, What Next? Cultivating Communities Past Day 2',
             duration: '15 min',
@@ -309,6 +333,7 @@ export const AGENDA: AgendaDay[] = [
           {
             id: 'd2-a-1',
             kind: 'workshop',
+            time: '11:20 – 12:00',
             title:
               'Fork, Delegate, Merge: Build a Multi-Agent Orchestrator from Scratch',
             duration: '40 min',
@@ -317,11 +342,12 @@ export const AGENDA: AgendaDay[] = [
           {
             id: 'd2-a-2',
             kind: 'workshop',
-            title: 'WebAI: Building Browser-Native Conversational AI Agents',
+            time: '12:00 – 12:40',
+            title:
+              'Building a Trustworthy AI Agent for Election Intelligence with ADK and the Antigravity Harness',
             duration: '40 min',
-            speakerIds: ['kerry-okpere'],
+            speakerIds: ['gabriel-agbobli'],
           },
-          GDE_WORKSHOP_TBA('d2-a-3'),
         ],
       },
       {
@@ -331,14 +357,15 @@ export const AGENDA: AgendaDay[] = [
           {
             id: 'd2-b-1',
             kind: 'workshop',
+            time: '11:20 – 12:00',
             title: 'Deploy, Manage, and Observe ADK Agents on Cloud Run',
             duration: '40 min',
             speakerIds: ['daniel-umoren'],
           },
-          GDE_WORKSHOP_TBA('d2-b-2'),
           {
             id: 'd2-b-3',
             kind: 'workshop',
+            time: '12:00 – 12:40',
             title:
               'Observability for Distributed Systems: Metrics, Traces, and Logs That Actually Find Bugs',
             duration: '40 min',
