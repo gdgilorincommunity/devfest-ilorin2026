@@ -349,3 +349,30 @@ export const AGENDA: AgendaDay[] = [
     ],
   },
 ]
+
+export interface SpeakerAppearance {
+  session: AgendaSession
+  day: AgendaDay
+  track: AgendaTrack
+  /** True when the speaker moderates the session rather than presents it. */
+  moderating: boolean
+}
+
+/**
+ * Every agenda slot a speaker presents or moderates, in running order —
+ * day by day, then track by track as the schedule document lists them.
+ */
+export function getSpeakerAppearances(speakerId: string): SpeakerAppearance[] {
+  return AGENDA.flatMap((day) =>
+    day.tracks.flatMap((track) =>
+      track.sessions.flatMap((session) => {
+        const presenting = session.speakerIds?.includes(speakerId) ?? false
+        const moderating = session.moderatorId === speakerId
+
+        return presenting || moderating
+          ? [{ session, day, track, moderating: !presenting }]
+          : []
+      }),
+    ),
+  )
+}

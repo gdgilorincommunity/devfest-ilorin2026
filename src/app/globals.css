@@ -221,3 +221,132 @@ body {
     }
   }
 }
+/*
+ * Speaker card hover.
+ *
+ * The portrait's blob clip morphs into a rounded square, the diamond badge
+ * springs a quarter-turn-and-a-bit to sit upright, and the session panel
+ * slides up once the square has formed. Leaving reverses it with the panel
+ * going first, so text never hangs over a half-formed blob.
+ *
+ * The morph needs CSS `shape()` — an SVG `url()` clip can't be interpolated.
+ * Both shapes below use the same 17-command structure so the browser can
+ * tween point-for-point: the blob is the Figma outline in percentages, the
+ * square maps each lobe to an edge and each neck to a rounded corner.
+ * Browsers without `shape()` keep the SVG blob and swap to a square on hover.
+ */
+@layer components {
+  .speaker-portrait {
+    --speaker-blob: shape(
+      from 56.52% 7.54%,
+      curve to 17.62% 21.7% with 43.14% -7.57% / 18.16% 1.52%,
+      line to 17.53% 25.04%,
+      curve to 10.04% 41.1% with 17.37% 31.2% / 14.66% 37.02%,
+      line to 7.54% 43.32%,
+      curve to 21.7% 82.22% with -7.57% 56.7% / 1.52% 81.68%,
+      line to 25.04% 82.31%,
+      curve to 41.1% 89.8% with 31.2% 82.47% / 37.02% 85.18%,
+      line to 43.32% 92.3%,
+      curve to 82.22% 78.14% with 56.7% 107.42% / 81.68% 98.32%,
+      line to 82.31% 74.8%,
+      curve to 89.8% 58.74% with 82.47% 68.64% / 85.18% 62.82%,
+      line to 92.3% 56.52%,
+      curve to 78.14% 17.62% with 107.42% 43.14% / 98.32% 18.16%,
+      line to 74.8% 17.53%,
+      curve to 58.74% 10.04% with 68.64% 17.37% / 62.82% 14.66%,
+      line to 56.52% 7.54%,
+      close
+    );
+    --speaker-square: shape(
+      from 90% 0%,
+      curve to 10% 0% with 63.33% 0% / 36.67% 0%,
+      line to 8% 0%,
+      curve to 0% 8% with 3.58% 0% / 0% 3.58%,
+      line to 0% 10%,
+      curve to 0% 90% with 0% 36.67% / 0% 63.33%,
+      line to 0% 92%,
+      curve to 8% 100% with 0% 96.42% / 3.58% 100%,
+      line to 10% 100%,
+      curve to 90% 100% with 36.67% 100% / 63.33% 100%,
+      line to 92% 100%,
+      curve to 100% 92% with 96.42% 100% / 100% 96.42%,
+      line to 100% 90%,
+      curve to 100% 10% with 100% 63.33% / 100% 36.67%,
+      line to 100% 8%,
+      curve to 92% 0% with 100% 3.58% / 96.42% 0%,
+      line to 90% 0%,
+      close
+    );
+
+    clip-path: url(#devfest-speaker-blob);
+  }
+
+  .speaker-badge {
+    transition: transform 450ms var(--ease-out-strong);
+  }
+
+  .speaker-sessions {
+    transform: translateY(101%);
+    transition: transform 300ms var(--ease-in-out-strong);
+  }
+
+  .speaker-tile:is(:hover, :focus) .speaker-portrait {
+    clip-path: inset(0 round 8%);
+  }
+
+  .speaker-tile:is(:hover, :focus) .speaker-badge {
+    /* The artwork leans 45deg; turning it back stands it upright. The curve
+       overshoots and settles back, which reads as a quick shake into place. */
+    transform: rotate(-45deg) scale(0.9);
+    transition: transform 700ms
+      linear(0, 0.42 12%, 1.18 30%, 0.93 48%, 1.04 66%, 0.99 83%, 1);
+  }
+
+  .speaker-tile:is(:hover, :focus) .speaker-sessions {
+    transform: translateY(0);
+    transition: transform 450ms var(--ease-out-strong) 260ms;
+  }
+
+  /* On the tile, not the portrait — the clip would cut the ring off. */
+  .speaker-tile:focus-visible {
+    border-radius: 8%;
+    outline: 3px solid #1e1e1e;
+    outline-offset: 6px;
+  }
+
+  @supports (clip-path: shape(from 0% 0%, line to 100% 0%, close)) {
+    .speaker-portrait {
+      clip-path: var(--speaker-blob);
+      /* Wait for the panel to drop before un-squaring on the way out. */
+      transition: clip-path 450ms var(--ease-in-out-strong) 150ms;
+    }
+
+    .speaker-tile:is(:hover, :focus) .speaker-portrait {
+      clip-path: var(--speaker-square);
+      transition-delay: 0ms;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-portrait,
+  .speaker-tile .speaker-portrait {
+    transition: none;
+  }
+
+  .speaker-tile .speaker-badge {
+    transition: none;
+  }
+
+  .speaker-sessions {
+    opacity: 0;
+    transform: none;
+    transition: opacity 200ms linear;
+  }
+
+  .speaker-tile:is(:hover, :focus) .speaker-sessions {
+    opacity: 1;
+    transform: none;
+    transition: opacity 200ms linear;
+  }
+}
