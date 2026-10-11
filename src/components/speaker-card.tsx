@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { getSpeakerAppearances } from '@/lib/agenda'
 import { cn } from '@/lib/utils'
 
 export type BadgeColor = 'yellow' | 'blue' | 'red'
@@ -29,7 +30,8 @@ const BLOB_PATH =
 export const SPEAKER_BLOB_CLIP_ID = 'devfest-speaker-blob'
 
 /**
- * Shared SVG clip-path definition backing every `SpeakerCard`.
+ * Shared SVG clip-path definition backing every `SpeakerCard` in browsers
+ * without CSS `shape()`; newer browsers use the animatable copy in globals.css.
  *
  * Render this exactly once per page that shows speaker cards — the cards
  * reference it by id, so the homepage section and the speakers list page each
@@ -96,7 +98,8 @@ export interface SpeakerCardProps {
 }
 
 /**
- * A single speaker: blob-clipped portrait, accent badge and name pill.
+ * A single speaker: blob-clipped portrait, accent badge and name pill, with
+ * the speaker's agenda slots revealed over the portrait on hover or focus.
  *
  * Requires `<SpeakerBlobClip />` to be present once on the same page.
  */
@@ -106,6 +109,8 @@ export function SpeakerCard({
   priority = false,
   sizes = '(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px',
 }: SpeakerCardProps) {
+  const appearances = getSpeakerAppearances(speaker.id)
+
   return (
     <figure
       className={cn(
@@ -115,21 +120,26 @@ export function SpeakerCard({
       )}
       id={`speaker-${speaker.id}`}
     >
-      <div className="relative w-full">
+      {/*
+        Hover (or focus, which covers keyboard and tap) morphs the blob into a
+        rounded square, swings the badge upright and slides the session panel
+        up. The motion lives in the `.speaker-tile` rules in globals.css.
+      */}
+      <div
+        className="speaker-tile relative w-full outline-none"
+        tabIndex={appearances.length > 0 ? 0 : undefined}
+      >
         {/* Accent badge, overlapping the top-left of the portrait */}
         <Image
           aria-hidden
           alt=""
-          className="absolute top-[-6%] left-[8%] z-10 w-[28%] max-w-29.25"
+          className="speaker-badge absolute top-[-6%] left-[8%] z-10 w-[28%] max-w-29.25"
           height={117}
           src={badgeSrcMap[speaker.badge]}
           width={117}
         />
 
-        <div
-          className="relative aspect-square w-full"
-          style={{ clipPath: `url(#${SPEAKER_BLOB_CLIP_ID})` }}
-        >
+        <div className="speaker-portrait relative aspect-square w-full overflow-hidden">
           {speaker.image ? (
             <Image
               fill
@@ -142,6 +152,29 @@ export function SpeakerCard({
             />
           ) : (
             <SpeakerPlaceholder name={speaker.name} />
+          )}
+
+          {appearances.length > 0 && (
+            <div className="speaker-sessions absolute inset-x-0 bottom-0 flex max-h-full flex-col justify-end gap-4 bg-linear-to-t from-[#1E1E1E] from-60% to-[#1E1E1E]/85 px-[9%] pt-[12%] pb-[9%] text-white">
+              {appearances.map(({ session, day, track, moderating }) => (
+                <div key={session.id} className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold tracking-wider text-white/60 uppercase">
+                    {moderating ? 'Moderating · ' : ''}
+                    {track.name}
+                  </span>
+                  <span className="line-clamp-3 text-base leading-snug font-bold">
+                    {session.title}
+                  </span>
+                  <span className="flex flex-wrap gap-x-2 text-xs text-white/80">
+                    <span>
+                      {day.label} · {day.date}
+                    </span>
+                    <span aria-hidden>·</span>
+                    <span>{session.time ?? session.duration}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
