@@ -197,10 +197,10 @@ export const AGENDA: AgendaDay[] = [
           {
             id: 'd2-m-2',
             kind: 'talk',
-            title: 'Standard session',
+            time: '10:05 – 10:30',
+            title: 'Open Source, Community and Content as a Career Engine',
             duration: '25 min',
-            tba: true,
-            note: 'Speaker and topic to be announced',
+            speakerIds: ['idris-olubisi'],
           },
           {
             id: 'd2-m-3',
