@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 
 import config from '@/config'
 
+import { CliFrame } from './cli-frame'
+
 const title = `CLI - ${config.appName}`
 const description = `Play the ${config.appName} trivia tournament from your terminal. Sign in with Google and compete on the leaderboard.`
 
@@ -43,25 +45,15 @@ export const metadata: Metadata = {
 }
 
 /**
- * Full-bleed embed of the DevFest CLI site.
- *
  * The visitor keeps the /cli URL on this domain while the CLI app renders in
  * place. `fixed inset-0` takes the iframe out of the root layout's flex
  * column so it fills the viewport with no page chrome around it, and 100dvh
  * keeps it correct under mobile browser toolbars.
  *
- * Note: there is deliberately no chrome over the frame, so the only way back
- * is the browser's back button. An exit control belongs in the CLI app's own
- * terminal header — it owns that layout and can show the control only when it
- * detects being framed, linking out with target="_top" to escape the frame.
+ * There is deliberately no chrome over the frame. The CLI's own close button
+ * (and its `exit` command) posts a message that `CliFrame` turns into a
+ * navigation home.
  */
 export default function CliPage() {
-  return (
-    <iframe
-      allow="clipboard-write; fullscreen"
-      className="fixed inset-0 h-dvh w-screen border-0"
-      src={config.cliUrl}
-      title={`${config.appName} CLI`}
-    />
-  )
+  return <CliFrame />
 }
