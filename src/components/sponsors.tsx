@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 
-import { Marquee } from '@/components/ui/marquee'
 import { SPONSOR_MAILTO } from '@/lib/sponsor'
 import { cn } from '@/lib/utils'
 
@@ -35,15 +34,41 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     height: 60,
   },
   {
+    id: 'malhub',
+    name: 'MalHub',
+    src: '/svg/sponsors/malhub.svg',
+    href: 'https://malhub.org',
+    // Intrinsic artwork is 2171x857; kept at the row's 60px height.
+    width: 152,
+    height: 60,
+  },
+  {
+    id: 'sqaleup',
+    name: 'SqaleUp',
+    src: '/svg/sponsors/sqaleup.svg',
+    href: 'https://sqaleupinc.com',
+    // Intrinsic artwork is 1049x336; kept at the row's 60px height.
+    width: 187,
+    height: 60,
+  },
+]
+
+export const DEFAULT_PARTNERS: LogoItem[] = [
+  {
+    id: 'fuskar',
+    name: 'Fuskar',
+    // Intrinsic artwork is 351x141; kept at the row's 60px height.
+    src: '/svg/partners/fuskar.svg',
+    width: 149,
+    height: 60,
+  },
+  {
     id: 'pixel-pioneer',
     name: 'Pixel Pioneer',
     src: '/svg/sponsors/pixel-pioneer.svg',
     width: 242,
     height: 60,
   },
-]
-
-export const DEFAULT_PARTNERS: LogoItem[] = [
   {
     id: 'unovia',
     name: 'Unovia',
@@ -52,32 +77,9 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     width: 179,
     height: 60,
   },
-  {
-    id: 'qorelly',
-    name: 'Qorelly',
-    src: '/svg/sponsors/qorelly.svg',
-    href: 'https://qorelly.com',
-    width: 244,
-    height: 60,
-  },
-  {
-    id: 'pixel-pioneer',
-    name: 'Pixel Pioneer',
-    src: '/svg/sponsors/pixel-pioneer.svg',
-    width: 242,
-    height: 60,
-  },
 ]
 
-function LogoBoard({
-  direction,
-  logos,
-  title,
-}: {
-  direction: 'left' | 'right'
-  logos: LogoItem[]
-  title: string
-}) {
+function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
   return (
     <div
       className={cn(
@@ -90,13 +92,7 @@ function LogoBoard({
         {title}
       </h2>
 
-      <Marquee
-        maskEdges
-        direction={direction}
-        gapClass="gap-12 sm:gap-16 lg:gap-20"
-        speed="fast"
-        trackPaddingClass="py-2"
-      >
+      <ul className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 px-6 sm:gap-x-16 lg:gap-x-20">
         {logos.map((logo) => {
           const image = (
             <Image
@@ -124,7 +120,7 @@ function LogoBoard({
             </li>
           )
         })}
-      </Marquee>
+      </ul>
     </div>
   )
 }
@@ -149,8 +145,8 @@ export function Sponsors({
         data-reveal
         className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24"
       >
-        <LogoBoard direction="left" logos={sponsors} title="Sponsors" />
-        <LogoBoard direction="right" logos={partners} title="Partners" />
+        <LogoBoard logos={sponsors} title="Sponsors" />
+        <LogoBoard logos={partners} title="Partners" />
 
         {ctaButton && (
           <div className="mt-4 flex justify-center">
