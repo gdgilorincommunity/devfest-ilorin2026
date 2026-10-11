@@ -73,8 +73,14 @@ export default function Navbar() {
           <Logo priority />
         </Link>
 
-        <div className="flex items-center gap-4 lg:gap-10">
-          <ul className="hidden items-center gap-8 lg:flex xl:gap-10">
+        <div className="flex items-center gap-4 xl:gap-10">
+          {/*
+            The inline links wait for xl: at lg the bar's lg:px-32 gutter
+            leaves too little room for the logo, five links and the CTA, and
+            the CTA ended up drawn over the last links. Below xl the menu
+            button carries the same links.
+          */}
+          <ul className="hidden items-center gap-10 xl:flex">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
@@ -93,7 +99,7 @@ export default function Navbar() {
             cell so the swap cross-fades without the bar reflowing, and the
             hidden one is inert for pointer, keyboard and assistive tech.
           */}
-          <div className="hidden grid-cols-1 grid-rows-1 sm:grid">
+          <div className="hidden shrink-0 grid-cols-1 grid-rows-1 sm:grid">
             <Link
               aria-hidden={isScrolled}
               className={cn(
@@ -135,7 +141,7 @@ export default function Navbar() {
             aria-controls="mobile-nav"
             aria-expanded={isOpen}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-[#1E1E1E] transition-colors hover:bg-white lg:hidden"
+            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-[#1E1E1E] transition-colors hover:bg-white xl:hidden"
             type="button"
             onClick={() => setIsOpen((open) => !open)}
           >
@@ -146,7 +152,7 @@ export default function Navbar() {
 
       <div
         className={cn(
-          'mx-4 overflow-hidden rounded-3xl border border-black/10 bg-white/90 backdrop-blur transition-all duration-300 md:mx-16 lg:hidden',
+          'mx-4 overflow-hidden rounded-3xl border border-black/10 bg-white/90 backdrop-blur transition-all duration-300 md:mx-16 xl:hidden',
           isOpen ? 'mb-4 max-h-96 opacity-100' : 'max-h-0 border-0 opacity-0',
         )}
         id="mobile-nav"
