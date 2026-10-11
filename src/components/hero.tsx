@@ -30,7 +30,7 @@ export default function Hero() {
             style={{ '--enter-delay': '80ms' } as React.CSSProperties}
           >
             <span className="text-sm font-bold text-[#1E1E1E]/70 lg:text-base">
-              headline Sponsor
+              Headline Sponsor
             </span>
             <a
               aria-label="Qorelly — headline sponsor"

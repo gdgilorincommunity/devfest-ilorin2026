@@ -168,7 +168,7 @@ export const SPEAKERS: Speaker[] = withBadges([
   {
     id: 'habeeb-ajibola',
     name: 'Habeeb Ajibola',
-    role: 'Community Manager, Web3 Africa',
+    role: 'Community Manager, Web3 Afrika',
   },
   {
     id: 'iniobong-pius-umouman',
