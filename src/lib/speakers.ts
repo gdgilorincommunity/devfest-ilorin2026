@@ -48,9 +48,9 @@ function withBadges(seeds: SpeakerSeed[]): Speaker[] {
  * The confirmed 2026 line-up, taken from the agenda. Ordered so the first
  * few carry the homepage section; the speakers page shows everyone.
  *
- * Only named people are listed. Slots the agenda still marks as pending —
- * the unconfirmed GDEs, the empty standard sessions, unnamed panelists — are
- * represented on the schedule as "to be announced" rather than here.
+ * Only named people are listed. People the agenda still leaves unnamed — the
+ * outstanding panelists and the hardware demo co-presenter — are represented
+ * on the schedule as "to be announced" rather than here.
  */
 export const SPEAKERS: Speaker[] = withBadges([
   // The first six carry the homepage section, so they lead with speakers
@@ -101,6 +101,11 @@ export const SPEAKERS: Speaker[] = withBadges([
     role: 'Google Developer Expert',
   },
   {
+    id: 'mileke-kolawole',
+    name: 'Mileke Kolawole',
+    role: 'Google Developer Expert',
+  },
+  {
     id: 'areous',
     name: 'Areous',
     role: 'Lead Organiser, GDG Ilorin',
@@ -113,7 +118,7 @@ export const SPEAKERS: Speaker[] = withBadges([
   {
     id: 'akorede-ibrahim',
     name: 'Akorede Ibrahim',
-    role: 'Product Engineer, NISO',
+    role: 'System Operator & Product Engineer, NISO',
   },
   {
     id: 'tunmise-akinade',
@@ -133,7 +138,7 @@ export const SPEAKERS: Speaker[] = withBadges([
   {
     id: 'fabusuyi-deborah',
     name: 'Fabusuyi Deborah',
-    role: 'Frontend Engineer, Rank',
+    role: 'Frontend Engineer, Rank (formerly Moni)',
   },
   {
     id: 'oladosu-ibrahim',
@@ -184,6 +189,21 @@ export const SPEAKERS: Speaker[] = withBadges([
     id: 'abdul-jemeel-odewole',
     name: 'Abdul-Jemeel Odewole',
     role: 'Senior Software Engineer, Fincra',
+  },
+  {
+    id: 'mohammed-yayah',
+    name: 'Mohammed Yayah',
+    role: 'Senior Software Engineer, Blaaiz',
+  },
+  {
+    id: 'oluwasegun-afariogun',
+    name: 'Oluwasegun Afariogun',
+    role: 'Customer Experience Specialist, Transactworld Digital Services',
+  },
+  {
+    id: 'oluwaseyi-ajadi',
+    name: 'Oluwaseyi Ajadi',
+    role: 'Security Tester, PaidHR',
   },
 ])
 
