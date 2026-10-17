@@ -22,6 +22,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Sponsors', href: '/#sponsors' },
   { label: 'Team', href: '/#team' },
   { label: 'CLI', href: '/cli' },
+  { label: 'Map', href: '/map' },
 ]
 
 export default function Navbar() {
@@ -76,11 +77,12 @@ export default function Navbar() {
         <div className="flex items-center gap-4 xl:gap-10">
           {/*
             The inline links wait for xl: at lg the bar's lg:px-32 gutter
-            leaves too little room for the logo, five links and the CTA, and
+            leaves too little room for the logo, the links and the CTA, and
             the CTA ended up drawn over the last links. Below xl the menu
-            button carries the same links.
+            button carries the same links. With six links they sit 32px
+            apart until 2xl, so at 1280px the first keeps clear of the logo.
           */}
-          <ul className="hidden items-center gap-10 xl:flex">
+          <ul className="hidden items-center gap-8 xl:flex 2xl:gap-10">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
