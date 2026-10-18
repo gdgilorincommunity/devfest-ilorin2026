@@ -12,8 +12,15 @@ const EXIT_MESSAGE_TYPE = 'devfest-map:exit'
  *  analytics can tell which post a visit came from. Nothing else is. */
 const FORWARDED = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']
 
+/** A chapter a shared link points at, `?visit=gdg-accra/1240` (slug/id),
+ *  opened in the map as its own /visit path. */
+const VISIT = /^[a-z0-9-]+\/\d+$/
+
 const mapSrc = (search: URLSearchParams) => {
   const url = new URL(config.mapUrl)
+  const visit = search.get('visit')
+
+  if (visit && VISIT.test(visit)) url.pathname = `/visit/${visit}`
 
   for (const key of FORWARDED) {
     const value = search.get(key)
@@ -34,7 +41,8 @@ const mapSrc = (search: URLSearchParams) => {
  *
  * `allow` delegates what the map uses: precise location for "locate me"
  * (only ever asked on a tap), autoplay for local radio after the first tap,
- * fullscreen and picture-in-picture for livestreams, and clipboard for share.
+ * fullscreen and picture-in-picture for livestreams, and web-share and
+ * clipboard for Share (the map's links come back here as /map?visit=).
  */
 export function MapFrame() {
   const frameRef = useRef<HTMLIFrameElement>(null)
@@ -59,7 +67,7 @@ export function MapFrame() {
   return (
     <iframe
       ref={frameRef}
-      allow="geolocation; autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write"
+      allow="geolocation; autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write; web-share"
       className="fixed inset-0 h-dvh w-screen border-0"
       src={mapSrc(search)}
       title={`DevFest Map - ${config.appName}`}
