@@ -41,6 +41,8 @@ const HAS_PHOTO = new Set<string>([
   'hamza-lateef',
   'john-oba',
   'lateefah-bello',
+  'mileke-kolawole',
+  'oluwaseyi-ajadi',
 ])
 
 type SpeakerSeed = Omit<Speaker, 'badge' | 'image'>
