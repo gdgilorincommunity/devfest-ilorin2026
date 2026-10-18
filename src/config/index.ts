@@ -14,7 +14,7 @@ const config: IConfig = {
   mapUrl: process.env.NEXT_PUBLIC_MAP_URL ?? 'https://devfest-map.web.app',
   appSubmitUrl:
     process.env.NEXT_PUBLIC_APP_SUBMIT_URL ??
-    'https://docs.google.com/forms/d/e/1FAIpQLSdn8G4UMeGbKXJgI0rI88zn9RAqYpibbhZZzpwECAgb99H6hw/viewform',
+    'https://forms.gle/j7S99UcXKXyy8XpD7',
 }
 
 export default config
