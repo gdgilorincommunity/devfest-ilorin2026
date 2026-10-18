@@ -21,8 +21,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Schedule', href: '/schedule' },
   { label: 'Sponsors', href: '/#sponsors' },
   { label: 'Team', href: '/#team' },
-  { label: 'CLI', href: '/cli' },
-  { label: 'Map', href: '/map' },
+  { label: 'Apps', href: '/apps' },
 ]
 
 export default function Navbar() {
