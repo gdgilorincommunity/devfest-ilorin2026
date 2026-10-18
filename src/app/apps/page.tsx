@@ -20,10 +20,10 @@ const title = `App Gallery - ${config.appName}`
 const description = `Apps built by GDG Ilorin for ${config.appName}. Open one and play.`
 
 const ogImage = {
-  url: '/images/og/apps.png',
+  url: '/images/og/app-gallery.png',
   width: 1200,
   height: 630,
-  alt: `${config.appName} Apps: the DevFest CLI and DevFest Map side by side.`,
+  alt: `${config.appName} App Gallery: the DevFest CLI and DevFest Map side by side.`,
 }
 
 /**
