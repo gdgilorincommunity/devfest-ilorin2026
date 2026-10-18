@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { Suspense } from 'react'
+
 import config from '@/config'
 
 import { MapFrame } from './map-frame'
@@ -43,8 +45,14 @@ export const metadata: Metadata = {
  * The visitor keeps the /map URL on this domain while DevFest Map renders in
  * place, full-bleed with no page chrome, exactly as /cli embeds the CLI.
  * DevFest Map's own close button posts a message that `MapFrame` turns into
- * a navigation home.
+ * a navigation home. A shared link's UTM tags are passed on to the frame so
+ * DevFest Map's analytics can tell which post a visit came from.
  */
 export default function MapPage() {
-  return <MapFrame />
+  // useSearchParams needs a Suspense boundary to keep this page static.
+  return (
+    <Suspense>
+      <MapFrame />
+    </Suspense>
+  )
 }

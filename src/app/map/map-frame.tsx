@@ -1,12 +1,28 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import config from '@/config'
 
 /** Sent by DevFest Map when the visitor closes it (the × beside its logo). */
 const EXIT_MESSAGE_TYPE = 'devfest-map:exit'
+
+/** Campaign tags a shared /map link may carry, passed on so DevFest Map's
+ *  analytics can tell which post a visit came from. Nothing else is. */
+const FORWARDED = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']
+
+const mapSrc = (search: URLSearchParams) => {
+  const url = new URL(config.mapUrl)
+
+  for (const key of FORWARDED) {
+    const value = search.get(key)
+
+    if (value) url.searchParams.set(key, value)
+  }
+
+  return url.toString()
+}
 
 /**
  * Full-bleed embed of DevFest Map.
@@ -23,6 +39,7 @@ const EXIT_MESSAGE_TYPE = 'devfest-map:exit'
 export function MapFrame() {
   const frameRef = useRef<HTMLIFrameElement>(null)
   const router = useRouter()
+  const search = useSearchParams()
 
   useEffect(() => {
     const mapOrigin = new URL(config.mapUrl).origin
@@ -44,7 +61,7 @@ export function MapFrame() {
       ref={frameRef}
       allow="geolocation; autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write"
       className="fixed inset-0 h-dvh w-screen border-0"
-      src={config.mapUrl}
+      src={mapSrc(search)}
       title={`DevFest Map - ${config.appName}`}
     />
   )
