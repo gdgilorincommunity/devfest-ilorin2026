@@ -35,7 +35,7 @@ export function Venues({
     firstLine: 'Innovation',
     secondLine: 'hub Ilorin',
   },
-  date = '30th - 31st Oct 2025',
+  date = '6th - 7th Nov 2026',
   workshopTicket = {
     label: 'Get Workshop Ticket',
     href: config.ticketUrl,
