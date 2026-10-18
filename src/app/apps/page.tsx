@@ -11,10 +11,38 @@ import SubpageHero from '@/components/subpage-hero'
 import config from '@/config'
 import { APPS, githubAvatarUrl, githubProfileUrl } from '@/lib/apps'
 
+const title = `Apps - ${config.appName}`
+const description = `Apps built by GDG Ilorin for ${config.appName}. Open one and play.`
+
+const ogImage = {
+  url: '/images/og/apps.png',
+  width: 1200,
+  height: 630,
+  alt: `${config.appName} Apps: the DevFest CLI and DevFest Map side by side.`,
+}
+
+/**
+ * As on /cli and /map: the root layout declares site-wide `openGraph` and
+ * `twitter` blocks, so this page declares its own, or sharing /apps would
+ * surface the homepage's card.
+ */
 export const metadata: Metadata = {
-  title: `Apps - ${config.appName}`,
-  description: `Apps built by GDG Ilorin for ${config.appName}. Open one and play.`,
+  title,
+  description,
   alternates: { canonical: '/apps' },
+  openGraph: {
+    type: 'website',
+    url: '/apps',
+    title,
+    description,
+    images: [ogImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [ogImage],
+  },
 }
 
 export default function AppsPage() {
@@ -102,9 +130,14 @@ export default function AppsPage() {
                       )}
                     </div>
 
+                    {/*
+                      The hover scale lifts the arrow above the title's
+                      stretched link, so it would swallow the click; it lets
+                      clicks through to the link instead.
+                    */}
                     <span
                       aria-hidden
-                      className="ease-out-strong flex size-11 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform duration-150 group-hover:scale-[1.06]"
+                      className="ease-out-strong pointer-events-none flex size-11 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform duration-150 group-hover:scale-[1.06]"
                     >
                       <ArrowUpRight className="size-5 stroke-[2.5]" />
                     </span>
