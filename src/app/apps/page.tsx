@@ -9,7 +9,7 @@ import Navbar from '@/components/navbar'
 import RevealObserver from '@/components/reveal-observer'
 import SubpageHero from '@/components/subpage-hero'
 import config from '@/config'
-import { APPS } from '@/lib/apps'
+import { APPS, githubAvatarUrl, githubProfileUrl } from '@/lib/apps'
 
 export const metadata: Metadata = {
   title: `Apps - ${config.appName}`,
@@ -45,10 +45,13 @@ export default function AppsPage() {
                   } as React.CSSProperties
                 }
               >
-                <Link
-                  className="group flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white transition-colors hover:border-black/25"
-                  href={app.href}
-                >
+                {/*
+                  The card is not one big link: the author credits are links
+                  of their own, and links can't nest. The title's link
+                  stretches over the whole card instead, and the credits sit
+                  above it.
+                */}
+                <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white transition-colors hover:border-black/25">
                   <div className="relative aspect-[1200/630] w-full overflow-hidden border-b border-black/10 bg-black/5">
                     <Image
                       fill
@@ -63,11 +66,40 @@ export default function AppsPage() {
                   <div className="flex flex-1 items-start justify-between gap-6 p-6 sm:p-8">
                     <div className="flex flex-col gap-2">
                       <h2 className="text-2xl font-bold tracking-tight text-[#1E1E1E]">
-                        {app.name}
+                        <Link
+                          className="after:absolute after:inset-0 after:rounded-3xl"
+                          href={app.href}
+                        >
+                          {app.name}
+                        </Link>
                       </h2>
                       <p className="text-base font-medium text-[#1E1E1E]/60">
                         {app.tagline}
                       </p>
+
+                      {app.authors.length > 0 && (
+                        <p className="relative z-10 mt-2 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm font-medium text-[#1E1E1E]/60">
+                          <span>By</span>
+                          {app.authors.map((author) => (
+                            <a
+                              key={author.github}
+                              className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white py-0.5 pr-3 pl-0.5 font-semibold text-[#1E1E1E] transition-colors hover:bg-black/5"
+                              href={githubProfileUrl(author)}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                            >
+                              <Image
+                                alt=""
+                                className="size-6 rounded-full"
+                                height={24}
+                                src={githubAvatarUrl(author)}
+                                width={24}
+                              />
+                              {author.name}
+                            </a>
+                          ))}
+                        </p>
+                      )}
                     </div>
 
                     <span
@@ -77,7 +109,7 @@ export default function AppsPage() {
                       <ArrowUpRight className="size-5 stroke-[2.5]" />
                     </span>
                   </div>
-                </Link>
+                </article>
               </li>
             ))}
           </ul>

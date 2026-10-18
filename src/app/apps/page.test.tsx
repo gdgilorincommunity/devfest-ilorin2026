@@ -22,7 +22,24 @@ describe('AppsPage', () => {
       })
 
       expect(link).toHaveAttribute('href', app.href)
-      expect(within(link).getByAltText(app.imageAlt)).toBeInTheDocument()
+      expect(within(grid).getByAltText(app.imageAlt)).toBeInTheDocument()
+    }
+  })
+
+  it('credits every author with a link to their GitHub profile', () => {
+    render(<AppsPage />)
+    const grid = screen.getByRole('region', { name: /All apps/i })
+
+    for (const app of APPS) {
+      const card = within(grid)
+        .getByRole('heading', { level: 2, name: app.name })
+        .closest('article') as HTMLElement
+
+      for (const author of app.authors) {
+        expect(
+          within(card).getByRole('link', { name: author.name }),
+        ).toHaveAttribute('href', `https://github.com/${author.github}`)
+      }
     }
   })
 })

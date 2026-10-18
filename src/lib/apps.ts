@@ -1,3 +1,9 @@
+export type AppAuthor = {
+  name: string
+  /** GitHub username; the credit links to the profile and shows its avatar. */
+  github: string
+}
+
 export type App = {
   id: string
   name: string
@@ -6,6 +12,18 @@ export type App = {
   /** The app page's own 1200x630 social card, reused as its preview. */
   image: string
   imageAlt: string
+  /** Everyone credited for building the app, in display order. */
+  authors: AppAuthor[]
+}
+
+const AHMZYJAZZY: AppAuthor = { name: 'Ahmzyjazzy', github: 'Ahmzyjazzy' }
+
+export function githubProfileUrl(author: AppAuthor) {
+  return `https://github.com/${author.github}`
+}
+
+export function githubAvatarUrl(author: AppAuthor) {
+  return `https://avatars.githubusercontent.com/${author.github}?s=64`
 }
 
 /**
@@ -22,6 +40,7 @@ export const APPS: App[] = [
     image: '/images/og/cli.png',
     imageAlt:
       'The DevFest CLI running in a terminal, showing the DevFest banner and the tournament.',
+    authors: [AHMZYJAZZY],
   },
   {
     id: 'map',
@@ -32,5 +51,6 @@ export const APPS: App[] = [
     image: '/images/og/map.png',
     imageAlt:
       'DevFest Map: a satellite globe dotted with GDG chapters, centred on Ilorin, Nigeria.',
+    authors: [AHMZYJAZZY],
   },
 ]
