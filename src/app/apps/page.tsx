@@ -11,7 +11,7 @@ import SubpageHero from '@/components/subpage-hero'
 import config from '@/config'
 import { APPS, githubAvatarUrl, githubProfileUrl } from '@/lib/apps'
 
-const title = `Apps - ${config.appName}`
+const title = `App Gallery - ${config.appName}`
 const description = `Apps built by GDG Ilorin for ${config.appName}. Open one and play.`
 
 const ogImage = {
@@ -54,7 +54,7 @@ export default function AppsPage() {
       <SubpageHero
         description="Things we built for DevFest. Open one, play with it and share it."
         eyebrow={`${APPS.length} apps`}
-        title="Apps"
+        title="App Gallery"
       />
 
       <section

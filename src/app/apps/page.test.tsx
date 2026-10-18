@@ -8,7 +8,7 @@ describe('AppsPage', () => {
   it('renders the page heading', () => {
     render(<AppsPage />)
     expect(
-      screen.getByRole('heading', { level: 1, name: /Apps/i }),
+      screen.getByRole('heading', { level: 1, name: 'App Gallery' }),
     ).toBeInTheDocument()
   })
 
