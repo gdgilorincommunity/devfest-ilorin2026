@@ -8,6 +8,7 @@ export type App = {
   id: string
   name: string
   tagline: string
+  /** A route on this site, or a full URL for an app hosted elsewhere. */
   href: string
   /** The app page's own 1200x630 social card, reused as its preview. */
   image: string
@@ -17,6 +18,10 @@ export type App = {
 }
 
 const AHMZYJAZZY: AppAuthor = { name: 'Ahmzyjazzy', github: 'Ahmzyjazzy' }
+
+export function isExternalApp(app: App) {
+  return /^https?:\/\//.test(app.href)
+}
 
 export function githubProfileUrl(author: AppAuthor) {
   return `https://github.com/${author.github}`

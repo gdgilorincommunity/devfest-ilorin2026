@@ -12,6 +12,9 @@ const config: IConfig = {
   dinnerTicketUrl: process.env.NEXT_PUBLIC_DINNER_TICKET_URL ?? '',
   cliUrl: process.env.NEXT_PUBLIC_CLI_URL ?? 'https://devfest-cli.web.app',
   mapUrl: process.env.NEXT_PUBLIC_MAP_URL ?? 'https://devfest-map.web.app',
+  appSubmitUrl:
+    process.env.NEXT_PUBLIC_APP_SUBMIT_URL ??
+    'https://forms.gle/j7S99UcXKXyy8XpD7',
 }
 
 export default config
