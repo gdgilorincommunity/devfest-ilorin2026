@@ -87,14 +87,14 @@ export const SPEAKERS: Speaker[] = withBadges([
     role: 'Senior Software Engineer, TTMS Switzerland',
   },
   {
-    id: 'dami-oshun',
-    name: 'Dami Oshun',
-    role: 'Software Engineer, Seamless Technologies',
+    id: 'kerry-okpere',
+    name: 'Kerry Okpere',
+    role: 'Google Developer Expert',
   },
   {
-    id: 'ahmed-olarenwaju',
-    name: 'Ahmed Olarenwaju',
-    role: 'Fullstack AI Engineer, INDICINA',
+    id: 'lateefah-bello',
+    name: 'Lateefah Bello',
+    role: 'Cloud, Arthurite Integrated',
   },
   {
     id: 'gabriel-agbobli',
@@ -107,9 +107,9 @@ export const SPEAKERS: Speaker[] = withBadges([
     role: 'Google Developer Expert',
   },
   {
-    id: 'kerry-okpere',
-    name: 'Kerry Okpere',
-    role: 'Google Developer Expert',
+    id: 'dami-oshun',
+    name: 'Dami Oshun',
+    role: 'Software Engineer, Seamless Technologies',
   },
   {
     id: 'mileke-kolawole',
@@ -172,9 +172,9 @@ export const SPEAKERS: Speaker[] = withBadges([
     role: 'Senior Backend Engineer, Autocheck Africa',
   },
   {
-    id: 'lateefah-bello',
-    name: 'Lateefah Bello',
-    role: 'Cloud, Arthurite Integrated',
+    id: 'ahmed-olarenwaju',
+    name: 'Ahmed Olarenwaju',
+    role: 'Fullstack AI Engineer, INDICINA',
   },
   {
     id: 'olawore-hikmah',
