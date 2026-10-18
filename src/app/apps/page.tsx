@@ -9,7 +9,12 @@ import Navbar from '@/components/navbar'
 import RevealObserver from '@/components/reveal-observer'
 import SubpageHero from '@/components/subpage-hero'
 import config from '@/config'
-import { APPS, githubAvatarUrl, githubProfileUrl } from '@/lib/apps'
+import {
+  APPS,
+  githubAvatarUrl,
+  githubProfileUrl,
+  isExternalApp,
+} from '@/lib/apps'
 
 const title = `App Gallery - ${config.appName}`
 const description = `Apps built by GDG Ilorin for ${config.appName}. Open one and play.`
@@ -52,10 +57,22 @@ export default function AppsPage() {
       <Navbar />
 
       <SubpageHero
-        description="Things we built for DevFest. Open one, play with it and share it."
+        description="Apps built by the community for DevFest. Open one, play with it and share it."
         eyebrow={`${APPS.length} apps`}
         title="App Gallery"
-      />
+      >
+        <a
+          className="ease-out-strong inline-flex cursor-pointer items-center gap-3 rounded-full bg-black px-7 py-4 text-base font-bold text-white transition-transform duration-150 hover:not-active:scale-[1.03] active:scale-[0.97]"
+          href={config.appSubmitUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span>Submit your app</span>
+          <span className="flex size-7 items-center justify-center rounded-full bg-white text-black">
+            <ArrowUpRight className="size-4 stroke-[2.5]" />
+          </span>
+        </a>
+      </SubpageHero>
 
       <section
         aria-label="All apps"
@@ -97,6 +114,10 @@ export default function AppsPage() {
                         <Link
                           className="after:absolute after:inset-0 after:rounded-3xl"
                           href={app.href}
+                          {...(isExternalApp(app) && {
+                            rel: 'noopener noreferrer',
+                            target: '_blank',
+                          })}
                         >
                           {app.name}
                         </Link>

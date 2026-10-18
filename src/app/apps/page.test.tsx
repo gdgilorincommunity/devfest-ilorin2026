@@ -1,5 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
 
+import config from '@/config'
 import { APPS } from '@/lib/apps'
 
 import AppsPage from './page'
@@ -41,5 +42,13 @@ describe('AppsPage', () => {
         ).toHaveAttribute('href', `https://github.com/${author.github}`)
       }
     }
+  })
+
+  it('links to the app submission form in a new tab', () => {
+    render(<AppsPage />)
+    const link = screen.getByRole('link', { name: /Submit your app/i })
+
+    expect(link).toHaveAttribute('href', config.appSubmitUrl)
+    expect(link).toHaveAttribute('target', '_blank')
   })
 })
