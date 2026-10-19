@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
+import { AppSubmitDrawer } from '@/components/app-submit-drawer'
 import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
 import RevealObserver from '@/components/reveal-observer'
@@ -61,17 +62,7 @@ export default function AppsPage() {
         eyebrow={`${APPS.length} apps`}
         title="App Gallery"
       >
-        <a
-          className="ease-out-strong inline-flex cursor-pointer items-center gap-3 rounded-full bg-black px-7 py-4 text-base font-bold text-white transition-transform duration-150 hover:not-active:scale-[1.03] active:scale-[0.97]"
-          href={config.appSubmitUrl}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <span>Submit your app</span>
-          <span className="flex size-7 items-center justify-center rounded-full bg-white text-black">
-            <ArrowUpRight className="size-4 stroke-[2.5]" />
-          </span>
-        </a>
+        <AppSubmitDrawer />
       </SubpageHero>
 
       <section

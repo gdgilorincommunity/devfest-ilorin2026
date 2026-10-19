@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 
 import config from '@/config'
 import { APPS } from '@/lib/apps'
@@ -44,11 +44,15 @@ describe('AppsPage', () => {
     }
   })
 
-  it('links to the app submission form in a new tab', () => {
+  it('opens the submission form in a drawer, with Google Forms as a fallback', async () => {
     render(<AppsPage />)
-    const link = screen.getByRole('link', { name: /Submit your app/i })
+    fireEvent.click(screen.getByRole('button', { name: /Submit your app/i }))
 
-    expect(link).toHaveAttribute('href', config.appSubmitUrl)
-    expect(link).toHaveAttribute('target', '_blank')
+    const drawer = await screen.findByRole('dialog')
+
+    expect(within(drawer).getByLabelText(/Full name/)).toBeInTheDocument()
+    expect(
+      within(drawer).getByRole('link', { name: /Open it there/i }),
+    ).toHaveAttribute('href', config.appSubmitUrl)
   })
 })
