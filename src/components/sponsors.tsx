@@ -59,6 +59,14 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     width: 187,
     height: 60,
   },
+  {
+    id: 'celerlinks',
+    name: 'Celerlinks',
+    src: '/svg/sponsors/celerlinks.webp',
+    // Intrinsic artwork is 1722x320; kept at the row's 60px height.
+    width: 323,
+    height: 60,
+  },
 ]
 
 export const DEFAULT_PARTNERS: LogoItem[] = [
@@ -108,7 +116,7 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
         {title}
       </h2>
 
-      <ul className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 px-6 sm:gap-x-16 lg:gap-x-20">
+      <ul className="flex flex-nowrap items-center justify-center gap-6 overflow-x-auto px-6 sm:gap-10 lg:gap-14">
         {logos.map((logo) => {
           const image = (
             <Image
