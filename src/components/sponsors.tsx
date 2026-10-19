@@ -116,7 +116,7 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
         {title}
       </h2>
 
-      <ul className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 px-6 sm:gap-x-16 lg:gap-x-20">
+      <ul className="flex flex-nowrap items-center justify-center gap-6 overflow-x-auto px-6 sm:gap-10 lg:gap-14">
         {logos.map((logo) => {
           const image = (
             <Image

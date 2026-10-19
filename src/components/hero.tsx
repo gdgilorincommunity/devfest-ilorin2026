@@ -24,9 +24,9 @@ export default function Hero() {
     >
       <div className="relative flex min-h-0 w-full max-w-378 flex-1 flex-col items-center justify-center gap-8 overflow-hidden px-4 lg:px-0">
         <div className="pointer-events-none z-10 mt-12 flex w-full flex-col items-center justify-center gap-6 lg:absolute lg:inset-0 lg:mt-0 lg:gap-8">
-          {/* Headline sponsor lockup */}
+          {/* Headline sponsor lockup — hidden until a headline sponsor is confirmed */}
           <div
-            className="hero-enter pointer-events-auto flex flex-col items-center gap-2"
+            className="hero-enter pointer-events-auto hidden flex-col items-center gap-2"
             style={{ '--enter-delay': '80ms' } as React.CSSProperties}
           >
             <span className="text-sm font-bold text-[#1E1E1E]/70 lg:text-base">
