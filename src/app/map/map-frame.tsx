@@ -5,6 +5,8 @@ import { useEffect, useRef } from 'react'
 
 import config from '@/config'
 
+import { VISIT } from './chapter'
+
 /** Sent by DevFest Map when the visitor closes it (the × beside its logo). */
 const EXIT_MESSAGE_TYPE = 'devfest-map:exit'
 
@@ -12,12 +14,9 @@ const EXIT_MESSAGE_TYPE = 'devfest-map:exit'
  *  analytics can tell which post a visit came from. Nothing else is. */
 const FORWARDED = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']
 
-/** A chapter a shared link points at, `?visit=gdg-accra/1240` (slug/id),
- *  opened in the map as its own /visit path. */
-const VISIT = /^[a-z0-9-]+\/\d+$/
-
 const mapSrc = (search: URLSearchParams) => {
   const url = new URL(config.mapUrl)
+  // A shared chapter, ?visit=slug/id, opens as the map's own /visit path.
   const visit = search.get('visit')
 
   if (visit && VISIT.test(visit)) url.pathname = `/visit/${visit}`

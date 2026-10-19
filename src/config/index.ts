@@ -12,6 +12,14 @@ const config: IConfig = {
   dinnerTicketUrl: process.env.NEXT_PUBLIC_DINNER_TICKET_URL ?? '',
   cliUrl: process.env.NEXT_PUBLIC_CLI_URL ?? 'https://devfest-cli.web.app',
   mapUrl: process.env.NEXT_PUBLIC_MAP_URL ?? 'https://devfest-map.web.app',
+  // DevFest Map's public read API, for a shared chapter's link preview on
+  // /map. The publishable key is public by design (it ships in the map).
+  mapApiUrl:
+    process.env.NEXT_PUBLIC_MAP_API_URL ??
+    'https://xvtcuqyzqfdwtmqgujea.supabase.co',
+  mapApiKey:
+    process.env.NEXT_PUBLIC_MAP_API_KEY ??
+    'sb_publishable_DZtV_DNQFgX_BM6jDuUnLg_loCXnMOK',
   appSubmitUrl:
     process.env.NEXT_PUBLIC_APP_SUBMIT_URL ??
     'https://forms.gle/j7S99UcXKXyy8XpD7',
