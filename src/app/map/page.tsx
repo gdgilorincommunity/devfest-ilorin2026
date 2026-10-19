@@ -48,7 +48,7 @@ const metadata: Metadata = {
 }
 
 /**
- * A shared chapter link, /map?visit=slug/id, previews as that chapter:
+ * A shared chapter link, /map?visit=slug/id (or ?explore=), previews as that chapter:
  * "DevFest Map - GDG Lagos, Nigeria", where it is and what is next, and the
  * chapter's own banner. Anything else gets the page's card above.
  */
@@ -57,13 +57,15 @@ export async function generateMetadata({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }): Promise<Metadata> {
-  const { visit } = await searchParams
-  const id = visitId(visit)
+  const { visit, explore } = await searchParams
+  // Both a chapter's sheet and the chapter under the map's reticle preview it.
+  const shared = visitId(visit) != null ? visit : explore
+  const id = visitId(shared)
   const chapter = id == null ? null : await fetchChapter(id)
 
   if (!chapter) return metadata
 
-  const url = `/map?visit=${visit}`
+  const url = `/map?visit=${shared}`
   const chapterTitle = `DevFest Map - ${chapterName(chapter)}`
   const chapterText = chapterDescription(chapter)
   const images = chapter.pictureUrl
