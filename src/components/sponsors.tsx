@@ -43,6 +43,14 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     height: 60,
   },
   {
+    id: 'verafy',
+    name: 'Verafy',
+    src: '/svg/sponsors/verafy.svg',
+    // Intrinsic artwork is 776x319; kept at the row's 60px height.
+    width: 146,
+    height: 60,
+  },
+  {
     id: 'sqaleup',
     name: 'SqaleUp',
     src: '/svg/sponsors/sqaleup.svg',
@@ -67,6 +75,14 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     name: 'Pixel Pioneer',
     src: '/svg/sponsors/pixel-pioneer.svg',
     width: 242,
+    height: 60,
+  },
+  {
+    id: 'startuplist-africa',
+    name: 'StartupList Africa',
+    src: '/svg/partners/startuplist-africa.svg',
+    // Intrinsic artwork is 134x47; kept at the row's 60px height.
+    width: 171,
     height: 60,
   },
   {
