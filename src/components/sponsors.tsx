@@ -59,6 +59,14 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     width: 187,
     height: 60,
   },
+  {
+    id: 'celerlinks',
+    name: 'Celerlinks',
+    src: '/svg/sponsors/celerlinks.webp',
+    // Intrinsic artwork is 1722x320; kept at the row's 60px height.
+    width: 323,
+    height: 60,
+  },
 ]
 
 export const DEFAULT_PARTNERS: LogoItem[] = [
