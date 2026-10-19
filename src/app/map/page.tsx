@@ -4,6 +4,12 @@ import { Suspense } from 'react'
 
 import config from '@/config'
 
+import {
+  chapterDescription,
+  chapterName,
+  fetchChapter,
+  visitId,
+} from './chapter'
 import { MapFrame } from './map-frame'
 
 const title = `DevFest Map - ${config.appName}`
@@ -22,7 +28,7 @@ const ogImage = {
  * blocks, so this page declares its own, or sharing /map would surface the
  * homepage's card.
  */
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: '/map' },
@@ -39,6 +45,54 @@ export const metadata: Metadata = {
     description,
     images: [ogImage],
   },
+}
+
+/**
+ * A shared chapter link, /map?visit=slug/id, previews as that chapter:
+ * "DevFest Map - GDG Lagos, Nigeria", where it is and what is next, and the
+ * chapter's own banner. Anything else gets the page's card above.
+ */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}): Promise<Metadata> {
+  const { visit } = await searchParams
+  const id = visitId(visit)
+  const chapter = id == null ? null : await fetchChapter(id)
+
+  if (!chapter) return metadata
+
+  const url = `/map?visit=${visit}`
+  const chapterTitle = `DevFest Map - ${chapterName(chapter)}`
+  const chapterText = chapterDescription(chapter)
+  const images = chapter.pictureUrl
+    ? [
+        {
+          url: chapter.pictureUrl,
+          alt: `${chapterName(chapter)} on DevFest Map`,
+        },
+      ]
+    : [ogImage]
+
+  return {
+    title: chapterTitle,
+    description: chapterText,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'website',
+      url,
+      title: chapterTitle,
+      description: chapterText,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: chapterTitle,
+      description: chapterText,
+      images,
+    },
+  }
 }
 
 /**
