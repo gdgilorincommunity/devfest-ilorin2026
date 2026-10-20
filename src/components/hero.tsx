@@ -49,11 +49,16 @@ export default function Hero() {
             </a>
           </div>
 
+          {/*
+            Only the heading's own text takes the pointer: a full-width box
+            here sat over the inner edges of the hero photos and swallowed
+            their hover.
+          */}
           <div
-            className="hero-enter pointer-events-auto flex w-full max-w-254.5 items-center justify-center"
+            className="hero-enter flex w-full max-w-254.5 items-center justify-center"
             style={{ '--enter-delay': '160ms' } as React.CSSProperties}
           >
-            <h1 className="w-full text-center font-sans text-5xl leading-[110%] font-bold text-[#1E1E1E] sm:text-6xl lg:w-252.5 lg:text-[80px] lg:leading-[100%]">
+            <h1 className="pointer-events-auto w-full text-center font-sans text-5xl leading-[110%] font-bold text-[#1E1E1E] sm:text-6xl lg:w-fit lg:text-[80px] lg:leading-[100%]">
               Devfest Ilorin
               <span className="block">2026</span>
             </h1>

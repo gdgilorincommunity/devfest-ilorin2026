@@ -350,3 +350,121 @@ body {
     transition: opacity 200ms linear;
   }
 }
+
+/*
+ * Hero blob hover.
+ *
+ * Same idea as the speaker card: the photo's blob outline morphs into a
+ * rounded square, the photo eases in a touch, and the decorative shape
+ * springs. Both outlines come from scripts/hero-shapes.mjs with matching
+ * command lists, so the browser tweens point-for-point; the square is built
+ * pre-rotated so it reads upright despite the photo box's tilt.
+ *
+ * Desktop pointers only — the mobile hero is a touch marquee. Browsers
+ * without `shape()` keep the static SVG clip.
+ */
+@layer components {
+  .hero-blob-photo {
+    clip-path: var(--hero-blob-fallback);
+  }
+
+  .hero-blob-zoom {
+    transition: scale 600ms var(--ease-out-strong);
+  }
+
+  .hero-blob-deco {
+    transition:
+      rotate 450ms var(--ease-out-strong),
+      scale 450ms var(--ease-out-strong);
+  }
+
+  @supports (clip-path: shape(from 0% 0%, line to 100% 0%, close)) {
+    .hero-blob-photo {
+      clip-path: var(--hero-blob);
+      transition: clip-path 500ms var(--ease-in-out-strong);
+    }
+  }
+
+  @media (hover: hover) {
+    @supports (clip-path: shape(from 0% 0%, line to 100% 0%, close)) {
+      .hero-blob:is(:hover, [data-demo]) .hero-blob-photo {
+        clip-path: var(--hero-square);
+      }
+    }
+
+    .hero-blob:is(:hover, [data-demo]) .hero-blob-zoom {
+      scale: 1.06;
+    }
+
+    .hero-blob:is(:hover, [data-demo]) .hero-blob-deco {
+      rotate: 30deg;
+      scale: 1.15;
+      transition:
+        rotate 700ms
+          linear(0, 0.42 12%, 1.18 30%, 0.93 48%, 1.04 66%, 0.99 83%, 1),
+        scale 700ms
+          linear(0, 0.42 12%, 1.18 30%, 0.93 48%, 1.04 66%, 0.99 83%, 1);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob-photo,
+  .hero-blob-zoom,
+  .hero-blob .hero-blob-deco {
+    transition: none;
+  }
+
+  .hero-blob:is(:hover, [data-demo]) .hero-blob-zoom,
+  .hero-blob:is(:hover, [data-demo]) .hero-blob-deco {
+    rotate: none;
+    scale: none;
+  }
+}
+
+/*
+ * Hero blob caption: a short title and line that slide up inside the hover
+ * square once it has formed, and drop away first on the way out. The layer
+ * is upright and clipped to the same superellipse as the square.
+ */
+@layer components {
+  .hero-blob-caption {
+    overflow: hidden;
+    border-radius: 14%;
+  }
+
+  @supports (clip-path: shape(from 0% 0%, line to 100% 0%, close)) {
+    .hero-blob-caption {
+      border-radius: 0;
+      clip-path: var(--hero-frame);
+    }
+  }
+
+  .hero-blob-caption-panel {
+    opacity: 0;
+    transform: translateY(100%);
+    transition:
+      transform 250ms var(--ease-in-out-strong),
+      opacity 250ms linear;
+  }
+
+  @media (hover: hover) {
+    @supports (clip-path: shape(from 0% 0%, line to 100% 0%, close)) {
+      .hero-blob:is(:hover, [data-demo]) .hero-blob-caption-panel {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          transform 450ms var(--ease-out-strong) 300ms,
+          opacity 200ms linear 300ms;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob-caption-panel,
+  .hero-blob:is(:hover, [data-demo]) .hero-blob-caption-panel {
+    transform: none;
+    transition: opacity 200ms linear;
+  }
+}
