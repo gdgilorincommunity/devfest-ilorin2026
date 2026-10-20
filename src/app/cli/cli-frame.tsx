@@ -9,6 +9,12 @@ import config from '@/config'
 const EXIT_MESSAGE_TYPE = 'devfest-cli:exit'
 
 /**
+ * Our reply: "taking them home". Without it the CLI breaks out of the frame
+ * itself after 600 ms, which on a slow network would race router.push.
+ */
+const EXIT_ACK_TYPE = 'devfest-cli:exit-ack'
+
+/**
  * Full-bleed embed of the DevFest CLI site.
  *
  * The CLI cannot leave on its own: navigating from inside the frame would load
@@ -25,8 +31,11 @@ export function CliFrame() {
 
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== cliOrigin) return
-      if (event.source !== frameRef.current?.contentWindow) return
+      const frame = frameRef.current?.contentWindow
+
+      if (!frame || event.source !== frame) return
       if (event.data?.type !== EXIT_MESSAGE_TYPE) return
+      frame.postMessage({ type: EXIT_ACK_TYPE }, cliOrigin)
       router.push('/')
     }
 
