@@ -1,0 +1,70 @@
+{
+  "one": {
+    "aspect": 1.0,
+    "photoBox": {
+      "widthPct": 86.32,
+      "heightPct": 86.33,
+      "leftPct": 50.0,
+      "topPct": 50.0,
+      "rotate": -100
+    },
+    "decoBox": {
+      "widthPct": 23.28,
+      "heightPct": 23.28,
+      "leftPct": 77.84,
+      "topPct": 19.1,
+      "rotate": 57.0
+    }
+  },
+  "two": {
+    "aspect": 0.8985,
+    "photoBox": {
+      "widthPct": 75.25,
+      "heightPct": 67.61,
+      "leftPct": 50.0,
+      "topPct": 55.07,
+      "rotate": -65
+    },
+    "decoBox": {
+      "widthPct": 18.59,
+      "heightPct": 17.3,
+      "leftPct": 32.79,
+      "topPct": 12.02,
+      "rotate": -45.0
+    }
+  },
+  "three": {
+    "aspect": 1.0,
+    "photoBox": {
+      "widthPct": 72.29,
+      "heightPct": 72.29,
+      "leftPct": 50.0,
+      "topPct": 50.0,
+      "rotate": 57
+    },
+    "decoBox": {
+      "widthPct": 16.75,
+      "heightPct": 16.75,
+      "leftPct": 16.83,
+      "topPct": 32.34,
+      "rotate": -100.0
+    }
+  },
+  "four": {
+    "aspect": 1.1681,
+    "photoBox": {
+      "widthPct": 73.52,
+      "heightPct": 88.95,
+      "leftPct": 56.13,
+      "topPct": 50.01,
+      "rotate": -100
+    },
+    "decoBox": {
+      "widthPct": 18.6,
+      "heightPct": 21.73,
+      "leftPct": 12.95,
+      "topPct": 21.34,
+      "rotate": -125.0
+    }
+  }
+}
