@@ -1,6 +1,5 @@
 import Image from 'next/image'
 
-import { HERO_FRAME_SHAPE } from '@/lib/hero-blob-shapes.generated'
 import { HERO_BLOB_CLUSTERS, type HeroBlobCluster } from '@/lib/hero-blobs'
 import { cn } from '@/lib/utils'
 
@@ -92,6 +91,7 @@ export function HeroBlob({
     >
       <div
         className="hero-blob-photo absolute"
+        data-shape={cluster.id}
         style={
           {
             width: `${photoBox.widthPct}%`,
@@ -99,11 +99,9 @@ export function HeroBlob({
             left: `${photoBox.leftPct}%`,
             top: `${photoBox.topPct}%`,
             transform: `translate(-50%, -50%) rotate(${photoBox.rotate}deg)`,
-            // Read by globals.css: the SVG clip is the fallback, the two
-            // shapes are what the hover morphs between.
+            // The SVG clip is the fallback; the shapes the hover morphs
+            // between come from hero-blob-shapes.generated.css by data-shape.
             '--hero-blob-fallback': `url(#hero-blob-${cluster.id})`,
-            '--hero-blob': shape.blob,
-            '--hero-square': shape.square,
           } as React.CSSProperties
         }
       >
@@ -123,18 +121,17 @@ export function HeroBlob({
       </div>
 
       {/* Sits exactly over the hover square, upright, so the caption reads
-          straight even though the photo box is rotated. */}
+          straight even though the photo box is rotated. Hidden from screen
+          readers: it only shows on hover, and the photo's alt describes it. */}
       <div
+        aria-hidden
         className="hero-blob-caption pointer-events-none absolute"
-        style={
-          {
-            left: frameLeft,
-            top: frameTop,
-            width: frameSize,
-            height: frameSize,
-            '--hero-frame': HERO_FRAME_SHAPE,
-          } as React.CSSProperties
-        }
+        style={{
+          left: frameLeft,
+          top: frameTop,
+          width: frameSize,
+          height: frameSize,
+        }}
       >
         <div className="hero-blob-caption-panel absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-linear-to-t from-[#1E1E1E]/90 from-40% to-transparent px-[9%] pt-[18%] pb-[8%] text-white">
           <span className="text-base leading-tight font-bold">

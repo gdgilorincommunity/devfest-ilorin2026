@@ -12,7 +12,7 @@
  * Two fitted transforms in `LAYOUT` tie the exports to the live hero, which
  * was built from earlier screenshots of the same frames:
  *   placement  maps the vector's bounding box (0-1) into the photo box (0-1)
- *              that src/lib/hero-blobs.ts positions and rotates, so the clean
+ *              that src/lib/hero-layout.json positions and rotates, so the clean
  *              outline lands where the old one sat and the decorative shapes
  *              still meet its tips
  *   photo      maps the photo (0-1) into the photo box (0-1). The exports
@@ -25,14 +25,16 @@
  *
  * For every cluster this writes:
  *   - public/images/hero/<id>.webp — the embedded photo, resized for 2x screens
- *   - src/lib/hero-blob-shapes.generated.ts — for each cluster:
- *       blob     the outline as CSS `shape()` (percentages of the photo box)
- *       square   a rounded square with the SAME command list, so the browser
- *                can tween blob -> square; built to look upright on screen
- *                once the cluster's rotation is applied
- *       clipPath the outline as an SVG path in objectBoundingBox units, for
- *                browsers without `shape()`
- *       photoTransform  CSS transform that places the photo in the photo box
+ *   - src/lib/hero-blob-shapes.generated.css — the outline as CSS `shape()`
+ *     (percentages of the photo box) and its hover square, a rounded square
+ *     with the SAME command list so the browser can tween blob -> square,
+ *     built to look upright on screen once the photo box's rotation applies
+ *   - src/lib/hero-blob-shapes.generated.ts — the SVG fallback clip
+ *     (objectBoundingBox units), the photo and its placement transform, and
+ *     where the hover square lands, for the caption layer
+ *
+ * The photo box geometry comes from src/lib/hero-layout.json, shared with
+ * src/lib/hero-blobs.ts.
  *
  * Both shapes are subdivided to the same number of cubic segments (exact
  * subdivision, so the blob is unchanged) — sparse outlines like the oval
@@ -43,32 +45,34 @@ import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
+const HERO_LAYOUT = JSON.parse(
+  readFileSync(new URL('../src/lib/hero-layout.json', import.meta.url), 'utf8'),
+)
+
 /**
- * Per cluster: the photo box's on-page rotation (deg) and width / height (px),
- * matching hero-blobs.ts, and the fitted affines [a, b, c, d, e, f].
+ * Per cluster, the fitted affines [a, b, c, d, e, f]. They are only valid for
+ * the photo box they were fitted against, recorded in `fittedFor`; the run
+ * stops if src/lib/hero-layout.json has since moved that box, rather than
+ * quietly misplacing the outline and photo.
  */
 const LAYOUT = {
   one: {
-    rotate: -100,
-    boxAspect: 1,
+    fittedFor: { rotate: -100, boxAspect: 1 },
     placement: [1.00158, -0.14133, 0.13349, 0.96496, -0.06859, 0.08735],
     photo: [-0.06219, 1.60465, -1.06994, -0.04209, 1.06316, -0.35043],
   },
   two: {
-    rotate: -65,
-    boxAspect: 1,
+    fittedFor: { rotate: -65, boxAspect: 1 },
     placement: [1.03781, -0.47905, 0.47469, 1.03798, -0.25637, 0.21991],
     photo: [0.7145, 1.59867, -1.06122, 0.49487, 0.72579, -0.43604],
   },
   three: {
-    rotate: 57,
-    boxAspect: 1,
+    fittedFor: { rotate: 57, boxAspect: 1 },
     placement: [-0.52469, 0.88756, -0.78616, -0.43171, 1.15636, 0.26849],
     photo: [0.94783, -0.99479, 0.66315, 0.63067, -0.30662, 0.68124],
   },
   four: {
-    rotate: -100,
-    boxAspect: 0.9655,
+    fittedFor: { rotate: -100, boxAspect: 0.9655 },
     placement: [0.19354, -1.04748, 1.04979, 0.17821, -0.12222, 0.93398],
     photo: [-0.28818, 1.56855, -1.08593, -0.18496, 1.18714, -0.19255],
   },
@@ -385,10 +389,28 @@ function toUnitPath(segments, box) {
 
 const work = mkdtempSync(join(tmpdir(), 'hero-shapes-'))
 const shapes = {}
+const outlines = {}
 
 for (const id of ids) {
   const svg = readExport(args[id])
-  const { rotate, boxAspect, placement } = LAYOUT[id]
+  const { placement, fittedFor } = LAYOUT[id]
+  const { aspect, photoBox } = HERO_LAYOUT[id]
+  // Photo box width / height in px, from the cluster box it sits in.
+  const boxAspect =
+    ((aspect >= 1 ? 1 : aspect) * photoBox.widthPct) /
+    ((aspect >= 1 ? 1 / aspect : 1) * photoBox.heightPct)
+  const rotate = photoBox.rotate
+
+  if (
+    Math.abs(boxAspect - fittedFor.boxAspect) > 0.002 ||
+    rotate !== fittedFor.rotate
+  ) {
+    throw new Error(
+      `${id}: hero-layout.json's photo box (aspect ${boxAspect.toFixed(4)}, ` +
+        `rotate ${rotate}) no longer matches the fit (aspect ` +
+        `${fittedFor.boxAspect}, rotate ${fittedFor.rotate}). Refit LAYOUT.${id}.`,
+    )
+  }
   // Work in photo-box px with height 1; the shapes come out in percentages.
   const box = { width: boxAspect, height: 1 }
 
@@ -460,10 +482,11 @@ for (const id of ids) {
     out,
   ])
 
-  shapes[id] = {
-    rotate,
+  outlines[id] = {
     blob: toShape(blob, box),
     square: toShape(square.segments, box),
+  }
+  shapes[id] = {
     clipPath: toUnitPath(blob, box),
     photo: `/images/hero/${id}.webp`,
     photoTransform,
@@ -499,19 +522,14 @@ const frameShape = `shape(${Array.from({ length: 96 }, (_, k) => {
 writeFileSync(
   'src/lib/hero-blob-shapes.generated.ts',
   `// Generated by scripts/hero-shapes.mjs from the Figma hero exports.
-// Do not edit by hand — re-run the script instead.
+// Do not edit by hand — re-run the script instead. The outlines themselves
+// are in hero-blob-shapes.generated.css, so each is sent once.
 
 export interface HeroBlobShape {
-  /** On-page rotation of the photo box, in degrees. */
-  rotate: number
-  /** Outline as CSS \`shape()\`, in percentages of the photo box. */
-  blob: string
-  /** Hover target: same command list as \`blob\`, so it tweens. */
-  square: string
   /** Outline in objectBoundingBox units, for the SVG fallback clip. */
   clipPath: string
   photo: string
-  /** Places the photo over the box exactly as Figma's image fill does. */
+  /** Places the photo in the photo box. */
   photoTransform: string
   /** Rendered photo width relative to the box width. */
   photoScale: number
@@ -522,10 +540,30 @@ export interface HeroBlobShape {
   frame: { x: number; y: number; size: number }
 }
 
-/** The hover square's outline in its own upright box, for the caption layer. */
-export const HERO_FRAME_SHAPE = '${frameShape}'
-
 export const HERO_BLOB_SHAPES = ${JSON.stringify(shapes, null, 2)} as const satisfies Record<string, HeroBlobShape>
+`,
+)
+writeFileSync(
+  'src/lib/hero-blob-shapes.generated.css',
+  `/*
+ * Generated by scripts/hero-shapes.mjs from the Figma hero exports.
+ * Do not edit by hand — re-run the script instead.
+ *
+ * Per cluster: the blob outline and its hover square, as CSS \`shape()\`
+ * with matching command lists so they tween. Plus the square's outline in
+ * its own upright box, for the caption layer.
+ */
+@layer components {
+${Object.entries(outlines)
+  .map(
+    ([id, { blob, square }]) =>
+      `  .hero-blob-photo[data-shape='${id}'] {\n    --hero-blob: ${blob};\n    --hero-square: ${square};\n  }\n`,
+  )
+  .join('\n')}
+  .hero-blob-caption {
+    --hero-frame: ${frameShape};
+  }
+}
 `,
 )
 execFileSync(
@@ -535,4 +573,4 @@ execFileSync(
     stdio: 'ignore',
   },
 )
-console.log('Wrote src/lib/hero-blob-shapes.generated.ts')
+console.log('Wrote src/lib/hero-blob-shapes.generated.{ts,css}')
