@@ -58,4 +58,15 @@ export const APPS: App[] = [
       'DevFest Map: a satellite globe dotted with GDG chapters, centred on Ilorin, Nigeria.',
     authors: [AHMZYJAZZY],
   },
+  {
+    id: 'typerace',
+    name: 'DevFest TypeRace',
+    tagline:
+      'How fast can you type? Practise free, race the room on your phone and climb the boards.',
+    href: '/typerace',
+    image: '/images/og/typerace.png',
+    imageAlt:
+      'DevFest TypeRace: TYPE RACE in GDG-coloured keycaps over a line of words being typed.',
+    authors: [AHMZYJAZZY],
+  },
 ]

@@ -7,6 +7,7 @@ export interface IConfig {
   dinnerTicketUrl: string
   cliUrl: string
   mapUrl: string
+  typeraceUrl: string
   mapApiUrl: string
   mapApiKey: string
   appSubmitUrl: string

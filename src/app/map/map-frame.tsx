@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
+import { AppFrameLoader, useHydrated } from '@/components/app-frame-loader'
 import config from '@/config'
 
 import { mapPathFor, pageQueryFor } from './map-url'
@@ -51,6 +52,8 @@ const mapSrc = (search: URLSearchParams) => {
 export function MapFrame() {
   const frameRef = useRef<HTMLIFrameElement>(null)
   const router = useRouter()
+  const [loaded, setLoaded] = useState(false)
+  const hydrated = useHydrated()
   const search = useSearchParams()
   const [src] = useState(() => mapSrc(search))
 
@@ -83,12 +86,18 @@ export function MapFrame() {
   }, [router])
 
   return (
-    <iframe
-      ref={frameRef}
-      allow="geolocation; autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write; web-share"
-      className="fixed inset-0 h-dvh w-screen border-0"
-      src={src}
-      title={`DevFest Map - ${config.appName}`}
-    />
+    <>
+      {hydrated && (
+        <iframe
+          ref={frameRef}
+          allow="geolocation; autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write; web-share"
+          className="fixed inset-0 h-dvh w-screen border-0"
+          src={src}
+          title={`DevFest Map - ${config.appName}`}
+          onLoad={() => setLoaded(true)}
+        />
+      )}
+      <AppFrameLoader app="map" loaded={loaded} />
+    </>
   )
 }
