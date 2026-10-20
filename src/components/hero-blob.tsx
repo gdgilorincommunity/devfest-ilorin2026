@@ -37,7 +37,7 @@ export interface HeroBlobProps {
   className?: string
   /** Stagger offset for the on-load entrance, in ms. Omit to skip it. */
   enterDelay?: number
-  /** Plays the hover state on its own, to hint that the photos respond. */
+  /** Shows the hover state on its own — driven by the hero's carousel. */
   demo?: boolean
 }
 
