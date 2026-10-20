@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { HeroBlob, HeroBlobClipPaths } from '@/components/hero-blob'
 import { HeroImageScroller } from '@/components/hero-image-scroller'
@@ -13,23 +13,30 @@ const HERO_IMAGE_SIZE = {
 
 const [clusterOne, clusterTwo, clusterThree, clusterFour] = HERO_BLOB_CLUSTERS
 
-/** Once per visit, so returning to the homepage doesn't replay it. */
-const DEMO_SEEN_KEY = 'devfest-hero-demo-seen'
-/** After the hero's entrance has settled. */
-const DEMO_START_MS = 1500
-/** Long enough for the square, the caption and a moment to read it. */
-const DEMO_HOLD_MS = 2400
+/** Carousel order: top left, bottom left, bottom right, top right. */
+const CAROUSEL_ORDER = ['one', 'two', 'four', 'three'] as const
+/** First photo opens once the hero's entrance has settled. */
+const CAROUSEL_START_MS = 1500
+/** How long each photo stays open: the square, the caption, a moment to read. */
+const CAROUSEL_HOLD_MS = 3200
+/** All photos at rest between one and the next. */
+const CAROUSEL_GAP_MS = 700
+/** Quiet time after the visitor scrolls or leaves a photo before resuming. */
+const CAROUSEL_RESUME_MS = 3000
 
 /**
- * Plays the top-left photo's hover once on its own, so visitors on a mouse
- * see that the photos respond. Any real input — moving the mouse, scrolling,
- * a key — cancels it at once.
+ * Cycles the hover state through the hero photos on its own, like a
+ * carousel, so visitors on a mouse see that they respond. It pauses while the
+ * visitor hovers a photo, scrolls, or has the hero (or the tab) out of view,
+ * and picks up again from the next photo once things are quiet.
  */
-function useHoverDemo() {
-  const [demo, setDemo] = useState(false)
+function useHoverCarousel(root: React.RefObject<HTMLElement | null>) {
+  const [active, setActive] = useState<string | null>(null)
 
   useEffect(() => {
-    if (typeof window.matchMedia !== 'function') return
+    const element = root.current
+
+    if (!element || typeof window.matchMedia !== 'function') return
 
     const canHover = window.matchMedia(
       '(hover: hover) and (pointer: fine) and (min-width: 1024px)',
@@ -40,42 +47,80 @@ function useHoverDemo() {
 
     if (!canHover || reducedMotion) return
 
-    try {
-      if (sessionStorage.getItem(DEMO_SEEN_KEY)) return
-    } catch {
-      // Storage can be unavailable (private mode); the demo just plays.
+    let next = 0
+    let timer = 0
+    let hovering = false
+    let inView = true
+    let quietUntil = 0
+
+    const isPaused = () =>
+      hovering || !inView || document.hidden || Date.now() < quietUntil
+
+    const open = () => {
+      if (isPaused()) {
+        setActive(null)
+        timer = window.setTimeout(open, 500)
+
+        return
+      }
+      setActive(CAROUSEL_ORDER[next])
+      next = (next + 1) % CAROUSEL_ORDER.length
+      timer = window.setTimeout(close, CAROUSEL_HOLD_MS)
     }
 
-    const events = ['pointermove', 'wheel', 'scroll', 'keydown'] as const
-    const timers: number[] = []
-    const stop = () => {
-      timers.forEach((timer) => window.clearTimeout(timer))
-      setDemo(false)
-      events.forEach((event) => window.removeEventListener(event, stop))
+    const close = () => {
+      setActive(null)
+      timer = window.setTimeout(open, CAROUSEL_GAP_MS)
     }
 
-    events.forEach((event) =>
-      window.addEventListener(event, stop, { passive: true, once: true }),
-    )
-    timers.push(
-      window.setTimeout(() => {
-        // Marked when it actually plays, so a cancelled run doesn't count.
-        try {
-          sessionStorage.setItem(DEMO_SEEN_KEY, '1')
-        } catch {}
-        setDemo(true)
-      }, DEMO_START_MS),
-      window.setTimeout(stop, DEMO_START_MS + DEMO_HOLD_MS),
-    )
+    // Hand over to the visitor at once: close whatever is open and wait.
+    const pause = () => {
+      window.clearTimeout(timer)
+      setActive(null)
+      timer = window.setTimeout(open, 500)
+    }
 
-    return stop
-  }, [])
+    const onPointerOver = (event: PointerEvent) => {
+      if (!(event.target as Element).closest('.hero-blob') || hovering) return
+      hovering = true
+      pause()
+    }
+    const onPointerOut = (event: PointerEvent) => {
+      const to = event.relatedTarget as Element | null
 
-  return demo
+      if (!hovering || to?.closest('.hero-blob')) return
+      hovering = false
+      quietUntil = Date.now() + CAROUSEL_RESUME_MS
+    }
+    const onScroll = () => {
+      quietUntil = Date.now() + CAROUSEL_RESUME_MS
+      pause()
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+    })
+
+    element.addEventListener('pointerover', onPointerOver)
+    element.addEventListener('pointerout', onPointerOut)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    observer.observe(element)
+    timer = window.setTimeout(open, CAROUSEL_START_MS)
+
+    return () => {
+      window.clearTimeout(timer)
+      element.removeEventListener('pointerover', onPointerOver)
+      element.removeEventListener('pointerout', onPointerOut)
+      window.removeEventListener('scroll', onScroll)
+      observer.disconnect()
+    }
+  }, [root])
+
+  return active
 }
 
 export function HeroImages() {
-  const demo = useHoverDemo()
+  const desktop = useRef<HTMLDivElement>(null)
+  const active = useHoverCarousel(desktop)
 
   return (
     <>
@@ -104,13 +149,16 @@ export function HeroImages() {
         </HeroImageScroller>
       </div>
 
-      <div className="relative mt-8 hidden h-full w-full flex-col items-center justify-between gap-16 lg:mt-6 lg:flex lg:flex-row lg:items-stretch lg:gap-0 lg:px-0">
+      <div
+        ref={desktop}
+        className="relative mt-8 hidden h-full w-full flex-col items-center justify-between gap-16 lg:mt-6 lg:flex lg:flex-row lg:items-stretch lg:gap-0 lg:px-0"
+      >
         <div className="flex w-full flex-col items-center gap-16 lg:w-auto lg:items-start lg:gap-0 lg:pt-7.75 lg:pl-16.25">
           <div className="relative mx-auto w-fit lg:mx-0">
             <HeroBlob
               priority
               cluster={clusterOne}
-              demo={demo}
+              demo={active === clusterOne.id}
               enterDelay={160}
               size={HERO_IMAGE_SIZE.desktop}
             />
@@ -119,6 +167,7 @@ export function HeroImages() {
           <div className="relative mx-auto mt-16 w-fit lg:mx-0 lg:mt-2.5 lg:ml-21.25">
             <HeroBlob
               cluster={clusterTwo}
+              demo={active === clusterTwo.id}
               enterDelay={280}
               size={HERO_IMAGE_SIZE.desktop}
             />
@@ -129,6 +178,7 @@ export function HeroImages() {
           <div className="relative mx-auto w-fit lg:mx-0 lg:-mt-12.5">
             <HeroBlob
               cluster={clusterThree}
+              demo={active === clusterThree.id}
               enterDelay={220}
               size={HERO_IMAGE_SIZE.desktop}
             />
@@ -137,6 +187,7 @@ export function HeroImages() {
           <div className="relative mx-auto w-fit lg:mx-0 lg:mt-20 lg:-ml-17.5">
             <HeroBlob
               cluster={clusterFour}
+              demo={active === clusterFour.id}
               enterDelay={340}
               size={HERO_IMAGE_SIZE.desktop}
             />
