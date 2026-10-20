@@ -25,95 +25,154 @@ const CAROUSEL_GAP_MS = 700
 const CAROUSEL_RESUME_MS = 3000
 
 /**
+ * True while the carousel should run: a mouse-driven desktop layout without
+ * reduced motion. Tracks changes, so widening the window or toggling the
+ * motion preference starts or stops it.
+ */
+function useCarouselEnabled() {
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return
+
+    const desktop = window.matchMedia(
+      '(hover: hover) and (pointer: fine) and (min-width: 1024px)',
+    )
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setEnabled(desktop.matches && !reducedMotion.matches)
+
+    update()
+    desktop.addEventListener('change', update)
+    reducedMotion.addEventListener('change', update)
+
+    return () => {
+      desktop.removeEventListener('change', update)
+      reducedMotion.removeEventListener('change', update)
+    }
+  }, [])
+
+  return enabled
+}
+
+/**
  * Cycles the hover state through the hero photos on its own, like a
- * carousel, so visitors on a mouse see that they respond. It pauses while the
- * visitor hovers a photo, scrolls, or has the hero (or the tab) out of view,
- * and picks up again from the next photo once things are quiet.
+ * carousel, so visitors on a mouse see that they respond. It stops while the
+ * visitor hovers a photo or has the hero (or the tab) out of view, holds off
+ * for a few seconds after a scroll, and picks up again from the next photo.
+ * Nothing runs while it is stopped; the events that end the pause restart it.
  */
 function useHoverCarousel(root: React.RefObject<HTMLElement | null>) {
+  const enabled = useCarouselEnabled()
   const [active, setActive] = useState<string | null>(null)
 
   useEffect(() => {
     const element = root.current
 
-    if (!element || typeof window.matchMedia !== 'function') return
-
-    const canHover = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (min-width: 1024px)',
-    ).matches
-    const reducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-
-    if (!canHover || reducedMotion) return
+    if (!enabled || !element) return
 
     let next = 0
     let timer = 0
+    let isOpen = false
     let hovering = false
     let inView = true
     let quietUntil = 0
 
-    const isPaused = () =>
-      hovering || !inView || document.hidden || Date.now() < quietUntil
+    // `:hover` also catches a cursor that was resting on a photo before any
+    // pointer event fired, e.g. on load.
+    const blocked = () =>
+      hovering ||
+      !inView ||
+      document.hidden ||
+      element.querySelector('.hero-blob:hover') !== null
 
-    const open = () => {
-      if (isPaused()) {
+    const schedule = (ms: number) => {
+      window.clearTimeout(timer)
+      timer = window.setTimeout(step, ms)
+    }
+    const stop = () => {
+      window.clearTimeout(timer)
+      timer = 0
+      if (isOpen) {
+        isOpen = false
         setActive(null)
-        timer = window.setTimeout(open, 500)
+      }
+    }
+    const resume = () => {
+      if (timer || blocked()) return
+      schedule(Math.max(CAROUSEL_GAP_MS, quietUntil - Date.now()))
+    }
+
+    function step() {
+      timer = 0
+      if (isOpen) {
+        isOpen = false
+        setActive(null)
+        schedule(CAROUSEL_GAP_MS)
 
         return
       }
+      if (blocked()) return
+
+      const wait = quietUntil - Date.now()
+
+      if (wait > 0) {
+        schedule(wait)
+
+        return
+      }
+      isOpen = true
       setActive(CAROUSEL_ORDER[next])
       next = (next + 1) % CAROUSEL_ORDER.length
-      timer = window.setTimeout(close, CAROUSEL_HOLD_MS)
+      schedule(CAROUSEL_HOLD_MS)
     }
 
-    const close = () => {
-      setActive(null)
-      timer = window.setTimeout(open, CAROUSEL_GAP_MS)
-    }
+    const inPhoto = (target: EventTarget | null) =>
+      target instanceof Element && target.closest('.hero-blob') !== null
 
     // Hand over to the visitor at once: close whatever is open and wait.
-    const pause = () => {
-      window.clearTimeout(timer)
-      setActive(null)
-      timer = window.setTimeout(open, 500)
-    }
-
     const onPointerOver = (event: PointerEvent) => {
-      if (!(event.target as Element).closest('.hero-blob') || hovering) return
+      if (hovering || !inPhoto(event.target)) return
       hovering = true
-      pause()
+      stop()
     }
     const onPointerOut = (event: PointerEvent) => {
-      const to = event.relatedTarget as Element | null
-
-      if (!hovering || to?.closest('.hero-blob')) return
+      if (!inPhoto(event.target) || inPhoto(event.relatedTarget)) return
       hovering = false
       quietUntil = Date.now() + CAROUSEL_RESUME_MS
+      resume()
     }
+    // Cheap per event: a pending step reads `quietUntil` and waits it out.
     const onScroll = () => {
       quietUntil = Date.now() + CAROUSEL_RESUME_MS
-      pause()
+      if (isOpen) {
+        isOpen = false
+        setActive(null)
+        schedule(CAROUSEL_RESUME_MS)
+      }
     }
+    const onVisibility = () => (document.hidden ? stop() : resume())
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting
+      if (inView) resume()
+      else stop()
     })
 
     element.addEventListener('pointerover', onPointerOver)
     element.addEventListener('pointerout', onPointerOut)
     window.addEventListener('scroll', onScroll, { passive: true })
+    document.addEventListener('visibilitychange', onVisibility)
     observer.observe(element)
-    timer = window.setTimeout(open, CAROUSEL_START_MS)
+    schedule(CAROUSEL_START_MS)
 
     return () => {
-      window.clearTimeout(timer)
+      stop()
       element.removeEventListener('pointerover', onPointerOver)
       element.removeEventListener('pointerout', onPointerOut)
       window.removeEventListener('scroll', onScroll)
+      document.removeEventListener('visibilitychange', onVisibility)
       observer.disconnect()
     }
-  }, [root])
+  }, [enabled, root])
 
   return active
 }
