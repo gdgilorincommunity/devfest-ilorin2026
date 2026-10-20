@@ -1,8 +1,9 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import { AppFrameLoader, useHydrated } from '@/components/app-frame-loader'
 import config from '@/config'
 
 /** Sent by the CLI app when the visitor closes it (× or `exit`). */
@@ -25,6 +26,8 @@ const EXIT_ACK_TYPE = 'devfest-cli:exit-ack'
 export function CliFrame() {
   const frameRef = useRef<HTMLIFrameElement>(null)
   const router = useRouter()
+  const [loaded, setLoaded] = useState(false)
+  const hydrated = useHydrated()
 
   useEffect(() => {
     const cliOrigin = new URL(config.cliUrl).origin
@@ -45,12 +48,18 @@ export function CliFrame() {
   }, [router])
 
   return (
-    <iframe
-      ref={frameRef}
-      allow="clipboard-write; fullscreen"
-      className="fixed inset-0 h-dvh w-screen border-0"
-      src={config.cliUrl}
-      title={`${config.appName} CLI`}
-    />
+    <>
+      {hydrated && (
+        <iframe
+          ref={frameRef}
+          allow="clipboard-write; fullscreen"
+          className="fixed inset-0 h-dvh w-screen border-0"
+          src={config.cliUrl}
+          title={`${config.appName} CLI`}
+          onLoad={() => setLoaded(true)}
+        />
+      )}
+      <AppFrameLoader app="cli" loaded={loaded} />
+    </>
   )
 }

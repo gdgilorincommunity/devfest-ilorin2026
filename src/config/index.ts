@@ -12,6 +12,8 @@ const config: IConfig = {
   dinnerTicketUrl: process.env.NEXT_PUBLIC_DINNER_TICKET_URL ?? '',
   cliUrl: process.env.NEXT_PUBLIC_CLI_URL ?? 'https://devfest-cli.web.app',
   mapUrl: process.env.NEXT_PUBLIC_MAP_URL ?? 'https://devfest-map.web.app',
+  typeraceUrl:
+    process.env.NEXT_PUBLIC_TYPERACE_URL ?? 'https://devfest-typerace.web.app',
   // DevFest Map's public read API, for a shared chapter's link preview on
   // /map. The publishable key is public by design (it ships in the map).
   mapApiUrl:
