@@ -28,19 +28,46 @@ describe('AppsPage', () => {
     }
   })
 
-  it('credits every author and idea credit with a link to their GitHub profile', () => {
+  it('credits a single contributor by name, with a link to their GitHub profile', () => {
     render(<AppsPage />)
     const grid = screen.getByRole('region', { name: /All apps/i })
 
-    for (const app of APPS) {
+    for (const app of APPS.filter((a) => a.contributors.length === 1)) {
       const card = within(grid)
         .getByRole('heading', { level: 2, name: app.name })
         .closest('article') as HTMLElement
+      const [person] = app.contributors
 
-      for (const author of [...app.authors, ...(app.credits ?? [])]) {
-        expect(
-          within(card).getByRole('link', { name: author.name }),
-        ).toHaveAttribute('href', `https://github.com/${author.github}`)
+      expect(
+        within(card).getByRole('link', { name: person.name }),
+      ).toHaveAttribute('href', `https://github.com/${person.github}`)
+    }
+  })
+
+  it('groups several contributors and shows who did what on tap', () => {
+    render(<AppsPage />)
+    const grid = screen.getByRole('region', { name: /All apps/i })
+
+    for (const app of APPS.filter((a) => a.contributors.length > 1)) {
+      const card = within(grid)
+        .getByRole('heading', { level: 2, name: app.name })
+        .closest('article') as HTMLElement
+      const button = within(card).getByRole('button', { name: /Contributors/ })
+
+      expect(button).toHaveAttribute('aria-expanded', 'false')
+      fireEvent.click(button)
+      expect(button).toHaveAttribute('aria-expanded', 'true')
+
+      for (const person of app.contributors) {
+        const link = within(card).getByRole('link', {
+          name: new RegExp(person.name.replace(/[()]/g, '\\$&')),
+        })
+
+        expect(link).toHaveAttribute(
+          'href',
+          `https://github.com/${person.github}`,
+        )
+        if (person.role) expect(link).toHaveTextContent(person.role)
       }
     }
   })

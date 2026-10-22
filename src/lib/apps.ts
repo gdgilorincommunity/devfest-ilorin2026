@@ -1,9 +1,11 @@
 import config from '@/config'
 
-export type AppAuthor = {
+export type AppContributor = {
   name: string
   /** GitHub username; the credit links to the profile and shows its avatar. */
   github: string
+  /** What they did, shown when the app has more than one contributor. */
+  role?: string
 }
 
 export type App = {
@@ -18,14 +20,12 @@ export type App = {
   /** The app page's own 1200x630 social card, reused as its preview. */
   image: string
   imageAlt: string
-  /** Everyone credited for building the app, in display order. */
-  authors: AppAuthor[]
-  /** Everyone credited for the idea behind the app, in display order. */
-  credits?: AppAuthor[]
+  /** Everyone credited for the app, in display order. */
+  contributors: AppContributor[]
 }
 
-const AHMZYJAZZY: AppAuthor = { name: 'Ahmzyjazzy', github: 'Ahmzyjazzy' }
-const TWENTY4: AppAuthor = {
+const AHMZYJAZZY: AppContributor = { name: 'Ahmzyjazzy', github: 'Ahmzyjazzy' }
+const TWENTY4: AppContributor = {
   name: 'Imam Bashir (Twenty4)',
   github: 'Imambash6',
 }
@@ -34,11 +34,11 @@ export function isExternalApp(app: App) {
   return /^https?:\/\//.test(app.href)
 }
 
-export function githubProfileUrl(author: AppAuthor) {
+export function githubProfileUrl(author: AppContributor) {
   return `https://github.com/${author.github}`
 }
 
-export function githubAvatarUrl(author: AppAuthor) {
+export function githubAvatarUrl(author: AppContributor) {
   return `https://avatars.githubusercontent.com/${author.github}?s=64`
 }
 
@@ -55,8 +55,10 @@ export const APPS: App[] = [
     href: config.faajiUrl,
     image: '/images/og/faaji.png',
     imageAlt: 'Faaji: Adé the crowned crane with the GDG Ilorin team.',
-    authors: [AHMZYJAZZY],
-    credits: [TWENTY4],
+    contributors: [
+      { ...AHMZYJAZZY, role: 'Design, engineering and custom assets' },
+      { ...TWENTY4, role: 'Idea and MVP' },
+    ],
   },
   {
     id: 'typerace',
@@ -67,7 +69,7 @@ export const APPS: App[] = [
     image: '/images/og/typerace.png',
     imageAlt:
       'DevFest TypeRace: TYPE RACE in GDG-coloured keycaps over a line of words being typed.',
-    authors: [AHMZYJAZZY],
+    contributors: [AHMZYJAZZY],
   },
   {
     id: 'cli',
@@ -78,7 +80,7 @@ export const APPS: App[] = [
     image: '/images/og/cli.png',
     imageAlt:
       'The DevFest CLI running in a terminal, showing the DevFest banner and the tournament.',
-    authors: [AHMZYJAZZY],
+    contributors: [AHMZYJAZZY],
   },
   {
     id: 'map',
@@ -89,6 +91,6 @@ export const APPS: App[] = [
     image: '/images/og/map.png',
     imageAlt:
       'DevFest Map: a satellite globe dotted with GDG chapters, centred on Ilorin, Nigeria.',
-    authors: [AHMZYJAZZY],
+    contributors: [AHMZYJAZZY],
   },
 ]
