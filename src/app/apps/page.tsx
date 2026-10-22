@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, ExternalLink } from 'lucide-react'
 
 import { AppSubmitDrawer } from '@/components/app-submit-drawer'
 import Footer from '@/components/footer'
@@ -116,6 +116,11 @@ export default function AppsPage() {
                       <p className="text-base font-medium text-[#1E1E1E]/60">
                         {app.tagline}
                       </p>
+                      {isExternalApp(app) && (
+                        <p className="text-sm font-semibold text-[#1E1E1E]/60">
+                          {new URL(app.href).host}
+                        </p>
+                      )}
 
                       {app.authors.length > 0 && (
                         <p className="relative z-10 mt-2 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm font-medium text-[#1E1E1E]/60">
@@ -151,7 +156,11 @@ export default function AppsPage() {
                       aria-hidden
                       className="ease-out-strong pointer-events-none flex size-11 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform duration-150 group-hover:scale-[1.06]"
                     >
-                      <ArrowUpRight className="size-5 stroke-[2.5]" />
+                      {isExternalApp(app) ? (
+                        <ExternalLink className="size-5 stroke-[2.5]" />
+                      ) : (
+                        <ArrowUpRight className="size-5 stroke-[2.5]" />
+                      )}
                     </span>
                   </div>
                 </article>

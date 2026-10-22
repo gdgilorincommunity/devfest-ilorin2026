@@ -14,6 +14,7 @@ const config: IConfig = {
   mapUrl: process.env.NEXT_PUBLIC_MAP_URL ?? 'https://devfest-map.web.app',
   typeraceUrl:
     process.env.NEXT_PUBLIC_TYPERACE_URL ?? 'https://devfest-typerace.web.app',
+  faajiUrl: process.env.NEXT_PUBLIC_FAAJI_URL ?? 'https://faaji.web.app',
   // DevFest Map's public read API, for a shared chapter's link preview on
   // /map. The publishable key is public by design (it ships in the map).
   mapApiUrl:

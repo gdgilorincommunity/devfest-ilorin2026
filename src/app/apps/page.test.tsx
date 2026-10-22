@@ -13,7 +13,7 @@ describe('AppsPage', () => {
     ).toBeInTheDocument()
   })
 
-  it('links every app to its own route with its preview image', () => {
+  it('links every app to its own site in a new tab with its preview image', () => {
     render(<AppsPage />)
     const grid = screen.getByRole('region', { name: /All apps/i })
 
@@ -23,6 +23,7 @@ describe('AppsPage', () => {
       })
 
       expect(link).toHaveAttribute('href', app.href)
+      expect(link).toHaveAttribute('target', '_blank')
       expect(within(grid).getByAltText(app.imageAlt)).toBeInTheDocument()
     }
   })

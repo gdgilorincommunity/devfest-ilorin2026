@@ -4,12 +4,13 @@ import { useEffect, useState, useSyncExternalStore } from 'react'
 
 import { cn } from '@/lib/utils'
 
-export type EmbeddedApp = 'cli' | 'map' | 'typerace'
+export type EmbeddedApp = 'cli' | 'map' | 'typerace' | 'faaji'
 
 const NAMES: Record<EmbeddedApp, string> = {
   cli: 'DevFest CLI',
   map: 'DevFest Map',
   typerace: 'DevFest TypeRace',
+  faaji: 'Faaji',
 }
 
 /** How long the fade takes before the loader leaves the page. */
@@ -79,6 +80,8 @@ export function AppFrameLoader({
           'bg-[#1b3fa8] bg-[radial-gradient(120%_120%_at_50%_0%,#3186ff_0%,#2453c9_45%,#142e7a_100%)]',
         app === 'typerace' &&
           'bg-[#fcf4f4] bg-[radial-gradient(85.98%_85.98%_at_50%_17.07%,#fcf4f4_52%,#fff7fa_76%,#ffc4c2_100%)] [@media(prefers-color-scheme:dark)]:bg-[#141214] [@media(prefers-color-scheme:dark)]:bg-[radial-gradient(85.98%_85.98%_at_50%_17.07%,#141214_52%,#171316_76%,#4a1d26_100%)]',
+        app === 'faaji' &&
+          'bg-[#fcf4f4] [@media(prefers-color-scheme:dark)]:bg-[#141214]',
       )}
       role="status"
     >
@@ -86,6 +89,7 @@ export function AppFrameLoader({
       {app === 'cli' && <CliSkeleton />}
       {app === 'map' && <MapSkeleton />}
       {app === 'typerace' && <TyperaceSkeleton />}
+      {app === 'faaji' && <FaajiSkeleton />}
     </div>
   )
 }
@@ -186,6 +190,20 @@ function TyperaceSkeleton() {
         <Line className="h-4 w-11/12 bg-[#1e1e1e]/10 [@media(prefers-color-scheme:dark)]:bg-white/10" />
         <Line className="h-4 w-4/5 bg-[#1e1e1e]/10 [@media(prefers-color-scheme:dark)]:bg-white/10" />
       </div>
+    </div>
+  )
+}
+
+/** Faaji's wordmark and a quest card or two, before the app arrives. */
+function FaajiSkeleton() {
+  return (
+    <div aria-hidden className="flex w-full max-w-[560px] flex-col gap-4">
+      <span className="font-sans text-[22px] leading-none font-bold tracking-[-0.5px] text-[#1e1e1e] [@media(prefers-color-scheme:dark)]:text-[#f2eeee]">
+        Faaji
+      </span>
+      <Line className="h-24 w-full rounded-3xl bg-[#1e1e1e]/8 [@media(prefers-color-scheme:dark)]:bg-white/8" />
+      <Line className="h-24 w-full rounded-3xl bg-[#1e1e1e]/8 [@media(prefers-color-scheme:dark)]:bg-white/8" />
+      <Line className="h-4 w-2/3 bg-[#1e1e1e]/10 [@media(prefers-color-scheme:dark)]:bg-white/10" />
     </div>
   )
 }

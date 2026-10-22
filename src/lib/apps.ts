@@ -1,3 +1,5 @@
+import config from '@/config'
+
 export type AppAuthor = {
   name: string
   /** GitHub username; the credit links to the profile and shows its avatar. */
@@ -8,7 +10,10 @@ export type App = {
   id: string
   name: string
   tagline: string
-  /** A route on this site, or a full URL for an app hosted elsewhere. */
+  /**
+   * The app's own hosted site, so install and notifications work. Its
+   * embedded route on this site stays for direct visits.
+   */
   href: string
   /** The app page's own 1200x630 social card, reused as its preview. */
   image: string
@@ -32,8 +37,8 @@ export function githubAvatarUrl(author: AppAuthor) {
 }
 
 /**
- * Every app listed on /apps. Each one still lives at its own route; adding an
- * app to the page is one entry here, pointing at that route and its OG card.
+ * Every app listed on /apps. Each card opens the app's own site; adding an
+ * app to the page is one entry here, pointing at that site and its OG card.
  */
 export const APPS: App[] = [
   {
@@ -41,7 +46,7 @@ export const APPS: App[] = [
     name: 'DevFest CLI',
     tagline:
       'Play the trivia tournament from your terminal. Sign in with Google and climb the leaderboard.',
-    href: '/cli',
+    href: config.cliUrl,
     image: '/images/og/cli.png',
     imageAlt:
       'The DevFest CLI running in a terminal, showing the DevFest banner and the tournament.',
@@ -52,7 +57,7 @@ export const APPS: App[] = [
     name: 'DevFest Map',
     tagline:
       'Every GDG chapter on one globe. Drop into any DevFest, catch livestreams and take a Balloon Ride.',
-    href: '/map',
+    href: config.mapUrl,
     image: '/images/og/map.png',
     imageAlt:
       'DevFest Map: a satellite globe dotted with GDG chapters, centred on Ilorin, Nigeria.',
@@ -63,10 +68,20 @@ export const APPS: App[] = [
     name: 'DevFest TypeRace',
     tagline:
       'How fast can you type? Practise free, race the room on your phone and climb the boards.',
-    href: '/typerace',
+    href: config.typeraceUrl,
     image: '/images/og/typerace.png',
     imageAlt:
       'DevFest TypeRace: TYPE RACE in GDG-coloured keycaps over a line of words being typed.',
+    authors: [AHMZYJAZZY],
+  },
+  {
+    id: 'faaji',
+    name: 'Faaji',
+    tagline:
+      "Don't just attend. Experience it. Complete quests, earn badges and get your Faaji Wrapped.",
+    href: config.faajiUrl,
+    image: '/images/og/faaji.png',
+    imageAlt: 'Faaji: Adé the crowned crane with the GDG Ilorin team.',
     authors: [AHMZYJAZZY],
   },
 ]
