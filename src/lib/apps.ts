@@ -42,6 +42,27 @@ export function githubAvatarUrl(author: AppAuthor) {
  */
 export const APPS: App[] = [
   {
+    id: 'faaji',
+    name: 'Faaji',
+    tagline:
+      "Don't just attend. Experience it. Complete quests, earn badges and get your Faaji Wrapped.",
+    href: config.faajiUrl,
+    image: '/images/og/faaji.png',
+    imageAlt: 'Faaji: Adé the crowned crane with the GDG Ilorin team.',
+    authors: [AHMZYJAZZY],
+  },
+  {
+    id: 'typerace',
+    name: 'DevFest TypeRace',
+    tagline:
+      'How fast can you type? Practise free, race the room on your phone and climb the boards.',
+    href: config.typeraceUrl,
+    image: '/images/og/typerace.png',
+    imageAlt:
+      'DevFest TypeRace: TYPE RACE in GDG-coloured keycaps over a line of words being typed.',
+    authors: [AHMZYJAZZY],
+  },
+  {
     id: 'cli',
     name: 'DevFest CLI',
     tagline:
@@ -61,27 +82,6 @@ export const APPS: App[] = [
     image: '/images/og/map.png',
     imageAlt:
       'DevFest Map: a satellite globe dotted with GDG chapters, centred on Ilorin, Nigeria.',
-    authors: [AHMZYJAZZY],
-  },
-  {
-    id: 'typerace',
-    name: 'DevFest TypeRace',
-    tagline:
-      'How fast can you type? Practise free, race the room on your phone and climb the boards.',
-    href: config.typeraceUrl,
-    image: '/images/og/typerace.png',
-    imageAlt:
-      'DevFest TypeRace: TYPE RACE in GDG-coloured keycaps over a line of words being typed.',
-    authors: [AHMZYJAZZY],
-  },
-  {
-    id: 'faaji',
-    name: 'Faaji',
-    tagline:
-      "Don't just attend. Experience it. Complete quests, earn badges and get your Faaji Wrapped.",
-    href: config.faajiUrl,
-    image: '/images/og/faaji.png',
-    imageAlt: 'Faaji: Adé the crowned crane with the GDG Ilorin team.',
     authors: [AHMZYJAZZY],
   },
 ]
