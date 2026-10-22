@@ -56,7 +56,7 @@ export const APPS: App[] = [
     image: '/images/og/faaji.png',
     imageAlt: 'Faaji: Adé the crowned crane with the GDG Ilorin team.',
     contributors: [
-      { ...AHMZYJAZZY, role: 'Design, Engineering & Custom Assets' },
+      { ...AHMZYJAZZY, role: 'Design & Engineering' },
       { ...TWENTY4, role: 'Product Idea' },
     ],
   },
