@@ -20,9 +20,15 @@ export type App = {
   imageAlt: string
   /** Everyone credited for building the app, in display order. */
   authors: AppAuthor[]
+  /** Everyone credited for the idea behind the app, in display order. */
+  credits?: AppAuthor[]
 }
 
 const AHMZYJAZZY: AppAuthor = { name: 'Ahmzyjazzy', github: 'Ahmzyjazzy' }
+const TWENTY4: AppAuthor = {
+  name: 'Imam Bashir (Twenty4)',
+  github: 'Imambash6',
+}
 
 export function isExternalApp(app: App) {
   return /^https?:\/\//.test(app.href)
@@ -50,6 +56,7 @@ export const APPS: App[] = [
     image: '/images/og/faaji.png',
     imageAlt: 'Faaji: Adé the crowned crane with the GDG Ilorin team.',
     authors: [AHMZYJAZZY],
+    credits: [TWENTY4],
   },
   {
     id: 'typerace',

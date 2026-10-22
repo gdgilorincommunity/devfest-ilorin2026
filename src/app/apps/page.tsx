@@ -15,6 +15,7 @@ import {
   githubAvatarUrl,
   githubProfileUrl,
   isExternalApp,
+  type AppAuthor,
 } from '@/lib/apps'
 
 const title = `App Gallery - ${config.appName}`
@@ -122,29 +123,8 @@ export default function AppsPage() {
                         </p>
                       )}
 
-                      {app.authors.length > 0 && (
-                        <p className="relative z-10 mt-2 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm font-medium text-[#1E1E1E]/60">
-                          <span>By</span>
-                          {app.authors.map((author) => (
-                            <a
-                              key={author.github}
-                              className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white py-0.5 pr-3 pl-0.5 font-semibold text-[#1E1E1E] transition-colors hover:bg-black/5"
-                              href={githubProfileUrl(author)}
-                              rel="noopener noreferrer"
-                              target="_blank"
-                            >
-                              <Image
-                                alt=""
-                                className="size-6 rounded-full"
-                                height={24}
-                                src={githubAvatarUrl(author)}
-                                width={24}
-                              />
-                              {author.name}
-                            </a>
-                          ))}
-                        </p>
-                      )}
+                      <PeopleRow label="By" people={app.authors} />
+                      <PeopleRow label="Idea by" people={app.credits ?? []} />
                     </div>
 
                     {/*
@@ -172,5 +152,34 @@ export default function AppsPage() {
 
       <Footer />
     </main>
+  )
+}
+
+/** A labelled row of people, each linking to their GitHub profile. */
+function PeopleRow({ label, people }: { label: string; people: AppAuthor[] }) {
+  if (people.length === 0) return null
+
+  return (
+    <p className="relative z-10 mt-2 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm font-medium text-[#1E1E1E]/60">
+      <span>{label}</span>
+      {people.map((person) => (
+        <a
+          key={person.github}
+          className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white py-0.5 pr-3 pl-0.5 font-semibold text-[#1E1E1E] transition-colors hover:bg-black/5"
+          href={githubProfileUrl(person)}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Image
+            alt=""
+            className="size-6 rounded-full"
+            height={24}
+            src={githubAvatarUrl(person)}
+            width={24}
+          />
+          {person.name}
+        </a>
+      ))}
+    </p>
   )
 }

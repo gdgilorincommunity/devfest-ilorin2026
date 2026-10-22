@@ -28,7 +28,7 @@ describe('AppsPage', () => {
     }
   })
 
-  it('credits every author with a link to their GitHub profile', () => {
+  it('credits every author and idea credit with a link to their GitHub profile', () => {
     render(<AppsPage />)
     const grid = screen.getByRole('region', { name: /All apps/i })
 
@@ -37,7 +37,7 @@ describe('AppsPage', () => {
         .getByRole('heading', { level: 2, name: app.name })
         .closest('article') as HTMLElement
 
-      for (const author of app.authors) {
+      for (const author of [...app.authors, ...(app.credits ?? [])]) {
         expect(
           within(card).getByRole('link', { name: author.name }),
         ).toHaveAttribute('href', `https://github.com/${author.github}`)
