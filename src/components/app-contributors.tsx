@@ -26,22 +26,22 @@ export function AppContributors({
     const person = contributors[0]
 
     return (
-      <p className="relative z-10 mt-2 flex flex-wrap items-center gap-2 text-sm font-medium text-[#1E1E1E]/60">
-        <span>By</span>
+      <p className="relative z-10 mt-2 flex min-w-0 items-center gap-2 text-sm font-medium text-[#1E1E1E]/60">
+        <span className="shrink-0">By</span>
         <a
-          className={chip}
+          className={`${chip} min-w-0`}
           href={githubProfileUrl(person)}
           rel="noopener noreferrer"
           target="_blank"
         >
           <Image
             alt=""
-            className="size-6 rounded-full"
+            className="size-6 shrink-0 rounded-full"
             height={24}
             src={githubAvatarUrl(person)}
             width={24}
           />
-          {person.name}
+          <span className="truncate">{person.name}</span>
         </a>
       </p>
     )
@@ -109,7 +109,7 @@ function ContributorsPopover({
       {open && (
         <div
           aria-label="Contributors"
-          className="absolute bottom-full left-0 mb-2 w-72 max-w-[calc(100vw-4rem)] rounded-2xl border border-black/10 bg-white p-2"
+          className="absolute bottom-full left-0 mb-2 w-60 max-w-[calc(100vw-8rem)] sm:w-72 rounded-2xl border border-black/10 bg-white p-2"
           id={panelId}
           role="dialog"
         >

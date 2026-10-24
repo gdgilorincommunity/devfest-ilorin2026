@@ -1,17 +1,13 @@
 import type { Metadata } from 'next'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowUpRight, ExternalLink } from 'lucide-react'
-
-import { AppContributors } from '@/components/app-contributors'
+import { AppBrowser } from '@/components/app-browser'
 import { AppSubmitDrawer } from '@/components/app-submit-drawer'
 import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
 import RevealObserver from '@/components/reveal-observer'
 import SubpageHero from '@/components/subpage-hero'
 import config from '@/config'
-import { APPS, isExternalApp } from '@/lib/apps'
+import { APPS } from '@/lib/apps'
 
 const title = `App Gallery - ${config.appName}`
 const description = `Apps built by GDG Ilorin for ${config.appName}. Open one and play.`
@@ -63,84 +59,10 @@ export default function AppsPage() {
 
       <section
         aria-label="All apps"
-        className="w-full bg-[#FDF2F1] py-16 sm:py-20 lg:py-24"
+        className="w-full bg-[#FDF2F1] py-12 sm:py-16 lg:py-20"
       >
         <div className="mx-auto w-full max-w-378 px-4 md:px-16 lg:px-32">
-          <ul className="grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:gap-10">
-            {APPS.map((app, index) => (
-              <li
-                key={app.id}
-                data-reveal
-                style={
-                  {
-                    '--reveal-delay': `${(index % 2) * 70}ms`,
-                  } as React.CSSProperties
-                }
-              >
-                {/*
-                  The card is not one big link: the author credits are links
-                  of their own, and links can't nest. The title's link
-                  stretches over the whole card instead, and the credits sit
-                  above it.
-                */}
-                <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white transition-colors hover:border-black/25">
-                  <div className="relative aspect-[1200/630] w-full overflow-hidden border-b border-black/10 bg-black/5">
-                    <Image
-                      fill
-                      alt={app.imageAlt}
-                      className="ease-out-strong object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
-                      priority={index < 2}
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                      src={app.image}
-                    />
-                  </div>
-
-                  <div className="flex flex-1 items-start justify-between gap-6 p-6 sm:p-8">
-                    <div className="flex flex-col gap-2">
-                      <h2 className="text-2xl font-bold tracking-tight text-[#1E1E1E]">
-                        <Link
-                          className="after:absolute after:inset-0 after:rounded-3xl"
-                          href={app.href}
-                          {...(isExternalApp(app) && {
-                            rel: 'noopener noreferrer',
-                            target: '_blank',
-                          })}
-                        >
-                          {app.name}
-                        </Link>
-                      </h2>
-                      <p className="text-base font-medium text-[#1E1E1E]/60">
-                        {app.tagline}
-                      </p>
-                      {isExternalApp(app) && (
-                        <p className="text-sm font-semibold text-[#1E1E1E]/60">
-                          {new URL(app.href).host}
-                        </p>
-                      )}
-
-                      <AppContributors contributors={app.contributors} />
-                    </div>
-
-                    {/*
-                      The hover scale lifts the arrow above the title's
-                      stretched link, so it would swallow the click; it lets
-                      clicks through to the link instead.
-                    */}
-                    <span
-                      aria-hidden
-                      className="ease-out-strong pointer-events-none flex size-11 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform duration-150 group-hover:scale-[1.06]"
-                    >
-                      {isExternalApp(app) ? (
-                        <ExternalLink className="size-5 stroke-[2.5]" />
-                      ) : (
-                        <ArrowUpRight className="size-5 stroke-[2.5]" />
-                      )}
-                    </span>
-                  </div>
-                </article>
-              </li>
-            ))}
-          </ul>
+          <AppBrowser apps={APPS} />
         </div>
       </section>
 
