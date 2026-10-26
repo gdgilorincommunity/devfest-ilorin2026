@@ -58,6 +58,11 @@ const MUTAWAKKIL_YUSUF: AppContributor = {
   name: 'Mutawakkil Yusuf',
   github: 'Mutawakkil-Yusuf',
 }
+const AREOUS: AppContributor = { name: 'Areous Ahmad', github: 'itzareous' }
+const CYB3RFLEX: AppContributor = {
+  name: 'Abdulmuheez Qazeem',
+  github: 'Cyb3rflex',
+}
 
 export function isExternalApp(app: App) {
   return /^https?:\/\//.test(app.href)
@@ -202,5 +207,25 @@ export const APPS: App[] = [
     icon: '/images/apps/amaanah.png',
     category: 'Utility',
     contributors: [MUTAWAKKIL_YUSUF],
+  },
+  {
+    id: 'qorelly',
+    name: 'Qorelly',
+    tagline:
+      'Run your restaurant, spa, pharmacy or shop from one place: POS, inventory, digital menus and bookings.',
+    href: 'https://qorelly.com',
+    icon: '/images/apps/qorelly.svg',
+    category: 'Utility',
+    contributors: [AREOUS, AHMZYJAZZY],
+  },
+  {
+    id: 'roastix',
+    name: 'Roastix',
+    tagline:
+      'Paste your code and get roasted: AI flags the security holes and suggests the fixes, with savage humour.',
+    href: 'https://roastix.vercel.app',
+    icon: '/images/apps/roastix.png',
+    category: 'Utility',
+    contributors: [CYB3RFLEX],
   },
 ]
