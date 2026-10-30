@@ -171,17 +171,41 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          {/* Mirrors the desktop CTA: last year at the top, tickets once scrolling. */}
           <li className="p-2 sm:hidden">
-            <Link
-              href="https://2025.devfestilorin.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              onClick={() => setIsOpen(false)}
-            >
-              <Button showArrow className="w-full" size="pill" variant="black">
-                View 2025
-              </Button>
-            </Link>
+            {isScrolled ? (
+              <Link
+                href={config.ticketUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
+                <Button
+                  showArrow
+                  className="w-full"
+                  size="pill"
+                  variant="gradient"
+                >
+                  Get Tickets
+                </Button>
+              </Link>
+            ) : (
+              <Link
+                href="https://2025.devfestilorin.com"
+                rel="noopener noreferrer"
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
+                <Button
+                  showArrow
+                  className="w-full"
+                  size="pill"
+                  variant="black"
+                >
+                  View 2025
+                </Button>
+              </Link>
+            )}
           </li>
         </ul>
       </div>
