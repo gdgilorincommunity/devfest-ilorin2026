@@ -15,6 +15,7 @@ export interface LogoItem {
 }
 
 export interface SponsorsProps {
+  headline?: LogoItem[]
   sponsors?: LogoItem[]
   partners?: LogoItem[]
   ctaButton?: {
@@ -23,6 +24,18 @@ export interface SponsorsProps {
   }
   className?: string
 }
+
+export const DEFAULT_HEADLINE: LogoItem[] = [
+  {
+    id: 'blaaiz',
+    name: 'Blaaiz',
+    src: '/svg/sponsors/blaaiz.svg',
+    href: 'https://blaaiz.com',
+    // Intrinsic artwork is 336x73; kept at the row's 60px height.
+    width: 276,
+    height: 60,
+  },
+]
 
 export const DEFAULT_SPONSORS: LogoItem[] = [
   {
@@ -162,6 +175,7 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
  * matching the Figma frame's lavender radial cards.
  */
 export function Sponsors({
+  headline = DEFAULT_HEADLINE,
   sponsors = DEFAULT_SPONSORS,
   partners = DEFAULT_PARTNERS,
   ctaButton = { label: 'Sponsor us', href: SPONSOR_MAILTO },
@@ -177,6 +191,7 @@ export function Sponsors({
         data-reveal
         className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24"
       >
+        <LogoBoard logos={headline} title="Headline" />
         <LogoBoard logos={sponsors} title="Sponsors" />
         <LogoBoard logos={partners} title="Partners" />
 
