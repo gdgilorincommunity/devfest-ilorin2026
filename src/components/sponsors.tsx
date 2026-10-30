@@ -63,6 +63,7 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     id: 'verafy',
     name: 'Verafy',
     src: '/svg/sponsors/verafy.svg',
+    href: 'https://verafy.me',
     // Intrinsic artwork is 776x319; kept at the row's 60px height.
     width: 146,
     height: 60,
@@ -80,6 +81,7 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     id: 'celerlinks',
     name: 'Celerlinks',
     src: '/svg/sponsors/celerlinks.webp',
+    href: 'https://celerlinks.com',
     // Intrinsic artwork is 1722x320; kept at the row's 60px height.
     width: 323,
     height: 60,
@@ -88,6 +90,7 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     id: 'ilorin-innovation-hub',
     name: 'Ilorin Innovation Hub',
     src: '/svg/sponsors/ihs.webp',
+    href: 'https://iih.ng',
     // Intrinsic artwork is 700x257; kept at the row's 60px height.
     width: 163,
     height: 60,
@@ -146,7 +149,7 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
           const image = (
             <Image
               alt={logo.name}
-              className="h-8 w-auto object-contain sm:h-9 lg:h-11"
+              className="h-10 w-auto object-contain sm:h-12 lg:h-14"
               height={logo.height}
               src={logo.src}
               width={logo.width}
