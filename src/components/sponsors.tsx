@@ -131,7 +131,15 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
   },
 ]
 
-function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
+function LogoBoard({
+  logos,
+  title,
+  logoClassName = 'h-10 sm:h-12 lg:h-14',
+}: {
+  logos: LogoItem[]
+  title: string
+  logoClassName?: string
+}) {
   return (
     <div
       className={cn(
@@ -149,7 +157,7 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
           const image = (
             <Image
               alt={logo.name}
-              className="h-10 w-auto object-contain sm:h-12 lg:h-14"
+              className={cn('w-auto object-contain', logoClassName)}
               height={logo.height}
               src={logo.src}
               width={logo.width}
@@ -199,7 +207,12 @@ export function Sponsors({
         data-reveal
         className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24"
       >
-        <LogoBoard logos={headline} title="Headline" />
+        {/* The headline sponsor sits a step above every other tier. */}
+        <LogoBoard
+          logoClassName="h-12 sm:h-16 lg:h-20"
+          logos={headline}
+          title="Headline"
+        />
         <LogoBoard logos={diamond} title="Diamond" />
         <LogoBoard logos={sponsors} title="Sponsors" />
         <LogoBoard logos={partners} title="Partners" />
