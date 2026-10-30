@@ -66,6 +66,25 @@ pnpm lint         # eslint --fix
 pnpm format       # prettier --write
 ```
 
+### Get DP
+
+`/get-dp` lets visitors make their own DevFest poster from a photo. It needs
+the background removal service in [`services/remove-bg`](services/remove-bg)
+running, with `REMOVE_BG_URL` pointing at it in `.env.local`. That README
+covers running and deploying it. Without the service, the page still works
+but offers to use the photo with its background.
+
+Each design is a stack of same-sized PNGs in `public/images/get-dp`, with the
+photo slotted in between:
+
+```
+background → photo → overlay (optional bottom fade) → foreground → name and title
+```
+
+To change a design, export each layer at the full poster size with
+transparency, replace the PNGs, and update the poster size, the face position
+and the name card's position in `src/lib/get-dp/templates.ts`.
+
 ## Stack
 
 - [Next.js](https://nextjs.org/) 16 (App Router)
