@@ -140,6 +140,8 @@ function LogoBoard({
   title: string
   logoClassName?: string
 }) {
+  const isGrid = logos.length > 2
+
   return (
     <div
       className={cn(
@@ -152,12 +154,29 @@ function LogoBoard({
         {title}
       </h2>
 
-      <ul className="flex flex-nowrap items-center justify-center-safe gap-6 overflow-x-auto px-6 sm:gap-8 lg:gap-10">
+      {/*
+        On phones a row of several logos can't fit, so it becomes a
+        three-column grid with each logo scaled to its cell. From sm: up it
+        is the single centred line again.
+      */}
+      <ul
+        className={cn(
+          'items-center px-6',
+          isGrid
+            ? 'grid grid-cols-3 justify-items-center gap-x-4 gap-y-6 sm:flex sm:flex-nowrap sm:justify-center-safe sm:gap-8 sm:overflow-x-auto lg:gap-10'
+            : 'flex flex-nowrap justify-center-safe gap-6 overflow-x-auto sm:gap-8 lg:gap-10',
+        )}
+      >
         {logos.map((logo) => {
           const image = (
             <Image
               alt={logo.name}
-              className={cn('w-auto object-contain', logoClassName)}
+              className={cn(
+                'object-contain',
+                isGrid
+                  ? 'h-auto max-h-10 w-full sm:h-12 sm:max-h-none sm:w-auto lg:h-14'
+                  : cn('w-auto', logoClassName),
+              )}
               height={logo.height}
               src={logo.src}
               width={logo.width}
@@ -165,9 +184,16 @@ function LogoBoard({
           )
 
           return (
-            <li key={logo.id} className="flex shrink-0 items-center">
+            <li
+              key={logo.id}
+              className={cn(
+                'flex items-center justify-center',
+                isGrid ? 'w-full sm:w-auto sm:shrink-0' : 'shrink-0',
+              )}
+            >
               {logo.href ? (
                 <a
+                  className="flex w-full justify-center"
                   href={logo.href}
                   rel="noopener noreferrer sponsored"
                   target="_blank"
