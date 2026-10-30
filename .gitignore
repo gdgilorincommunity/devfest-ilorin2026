@@ -46,3 +46,7 @@ next-env.d.ts
 dev.sh
 settings.json
 .claude
+
+# python (services/remove-bg)
+__pycache__/
+.venv/

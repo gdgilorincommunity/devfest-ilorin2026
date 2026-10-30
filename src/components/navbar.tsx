@@ -22,6 +22,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Sponsors', href: '/#sponsors' },
   { label: 'Team', href: '/#team' },
   { label: 'Apps', href: '/apps' },
+  { label: 'Get DP', href: '/get-dp' },
 ]
 
 export default function Navbar() {

@@ -1,0 +1,8 @@
+rembg[cpu]==2.0.86
+onnxruntime==1.31.1
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+opencv-python-headless==4.14.0.94
+pillow==13.0.0
+numpy==2.5.4
