@@ -67,6 +67,14 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     width: 323,
     height: 60,
   },
+  {
+    id: 'ilorin-innovation-hub',
+    name: 'Ilorin Innovation Hub',
+    src: '/svg/sponsors/ihs.webp',
+    // Intrinsic artwork is 700x257; kept at the row's 60px height.
+    width: 163,
+    height: 60,
+  },
 ]
 
 export const DEFAULT_PARTNERS: LogoItem[] = [
@@ -116,12 +124,12 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
         {title}
       </h2>
 
-      <ul className="flex flex-nowrap items-center justify-center gap-6 overflow-x-auto px-6 sm:gap-10 lg:gap-14">
+      <ul className="flex flex-nowrap items-center justify-center-safe gap-6 overflow-x-auto px-6 sm:gap-8 lg:gap-10">
         {logos.map((logo) => {
           const image = (
             <Image
               alt={logo.name}
-              className="h-9 w-auto object-contain sm:h-10 lg:h-15"
+              className="h-8 w-auto object-contain sm:h-9 lg:h-11"
               height={logo.height}
               src={logo.src}
               width={logo.width}
