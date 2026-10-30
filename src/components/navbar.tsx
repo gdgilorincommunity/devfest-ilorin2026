@@ -19,7 +19,7 @@ export type NavLink = {
 export const NAV_LINKS: NavLink[] = [
   { label: 'Speakers', href: '/speakers' },
   { label: 'Schedule', href: '/schedule' },
-  { label: 'Sponsors', href: '/#sponsors' },
+  { label: 'Sponsors', href: '/sponsors' },
   { label: 'Team', href: '/#team' },
   { label: 'Apps', href: '/apps' },
   { label: 'Get DP', href: '/get-dp' },

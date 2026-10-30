@@ -16,6 +16,7 @@ export interface LogoItem {
 
 export interface SponsorsProps {
   headline?: LogoItem[]
+  diamond?: LogoItem[]
   sponsors?: LogoItem[]
   partners?: LogoItem[]
   ctaButton?: {
@@ -37,7 +38,7 @@ export const DEFAULT_HEADLINE: LogoItem[] = [
   },
 ]
 
-export const DEFAULT_SPONSORS: LogoItem[] = [
+export const DEFAULT_DIAMOND: LogoItem[] = [
   {
     id: 'qorelly',
     name: 'Qorelly',
@@ -46,6 +47,9 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     width: 244,
     height: 60,
   },
+]
+
+export const DEFAULT_SPONSORS: LogoItem[] = [
   {
     id: 'malhub',
     name: 'MalHub',
@@ -176,6 +180,7 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
  */
 export function Sponsors({
   headline = DEFAULT_HEADLINE,
+  diamond = DEFAULT_DIAMOND,
   sponsors = DEFAULT_SPONSORS,
   partners = DEFAULT_PARTNERS,
   ctaButton = { label: 'Sponsor us', href: SPONSOR_MAILTO },
@@ -192,6 +197,7 @@ export function Sponsors({
         className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24"
       >
         <LogoBoard logos={headline} title="Headline" />
+        <LogoBoard logos={diamond} title="Diamond" />
         <LogoBoard logos={sponsors} title="Sponsors" />
         <LogoBoard logos={partners} title="Partners" />
 
