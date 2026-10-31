@@ -10,7 +10,7 @@ const title = `Get your DP - ${config.appName}`
 const description = `Make your own ${config.appName} poster: add your photo and name, then download it and share that you'll be there on November 6th and 7th.`
 
 const ogImage = {
-  url: '/images/og/get-dp.png',
+  url: '/images/og/get-dp-sample.png',
   width: 1200,
   height: 630,
   alt: 'Get your DP at devfestilorin.com/get-dp: two sample DevFest Ilorin 2026 "I’ll be attending!" posters, one with the background removed and one in a round frame.',
