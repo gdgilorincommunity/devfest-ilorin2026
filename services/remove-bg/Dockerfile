@@ -18,4 +18,10 @@ RUN python -c "import os; from rembg import new_session; new_session(os.environ[
 
 COPY main.py .
 
+EXPOSE 8080
+# The slim image has no curl or wget, so check health with Python. The start
+# period covers loading the model.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+    CMD ["python", "-c", "import os, urllib.request; urllib.request.urlopen('http://localhost:%s/health' % os.environ.get('PORT', '8080'), timeout=4)"]
+
 CMD exec uvicorn main:app --host 0.0.0.0 --port ${PORT}
