@@ -69,6 +69,15 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     height: 60,
   },
   {
+    id: 'ilorin-innovation-hub',
+    name: 'Ilorin Innovation Hub',
+    src: '/svg/sponsors/ihs.webp',
+    href: 'https://iih.ng',
+    // Intrinsic artwork is 700x257; kept at the row's 60px height.
+    width: 163,
+    height: 60,
+  },
+  {
     id: 'sqaleup',
     name: 'SqaleUp',
     src: '/svg/sponsors/sqaleup.svg',
@@ -84,15 +93,6 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     href: 'https://celerlinks.com',
     // Intrinsic artwork is 1722x320; kept at the row's 60px height.
     width: 323,
-    height: 60,
-  },
-  {
-    id: 'ilorin-innovation-hub',
-    name: 'Ilorin Innovation Hub',
-    src: '/svg/sponsors/ihs.webp',
-    href: 'https://iih.ng',
-    // Intrinsic artwork is 700x257; kept at the row's 60px height.
-    width: 163,
     height: 60,
   },
 ]
@@ -155,15 +155,15 @@ function LogoBoard({
       </h2>
 
       {/*
-        On phones a row of several logos can't fit, so it becomes a
-        three-column grid with each logo scaled to its cell. From sm: up it
-        is the single centred line again.
+        On phones a row of several logos can't fit, so it wraps three to a
+        row with each logo scaled to its cell, and a short last row stays
+        centred. From sm: up it is the single centred line again.
       */}
       <ul
         className={cn(
           'items-center px-6',
           isGrid
-            ? 'grid grid-cols-3 justify-items-center gap-x-4 gap-y-6 sm:flex sm:flex-nowrap sm:justify-center-safe sm:gap-8 sm:overflow-x-auto lg:gap-10'
+            ? 'flex flex-wrap justify-center gap-x-4 gap-y-6 sm:flex-nowrap sm:justify-center-safe sm:gap-8 sm:overflow-x-auto lg:gap-10'
             : 'flex flex-nowrap justify-center-safe gap-6 overflow-x-auto sm:gap-8 lg:gap-10',
         )}
       >
@@ -188,7 +188,9 @@ function LogoBoard({
               key={logo.id}
               className={cn(
                 'flex items-center justify-center',
-                isGrid ? 'w-full sm:w-auto sm:shrink-0' : 'shrink-0',
+                isGrid
+                  ? 'w-[calc((100%-2rem)/3)] sm:w-auto sm:shrink-0'
+                  : 'shrink-0',
               )}
             >
               {logo.href ? (
