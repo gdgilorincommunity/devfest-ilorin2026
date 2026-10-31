@@ -1,5 +1,6 @@
 import {
   autoPlace,
+  fitCircle,
   fitText,
   parseFaceBox,
   posterFileName,
@@ -144,5 +145,24 @@ describe('posterFileName', () => {
 
   it('falls back when the name has nothing usable', () => {
     expect(posterFileName('  ')).toBe('devfest-ilorin-2026-dp.png')
+  })
+})
+
+describe('fitCircle', () => {
+  const { circle } = DP_TEMPLATES[0]
+
+  it('covers the circle with a portrait photo, centred', () => {
+    const placement = fitCircle({ width: 800, height: 1200 }, circle)
+
+    // The short side spans the circle exactly.
+    expect(800 * placement.scale).toBeCloseTo(circle.radius * 2)
+    expect(placement.x + 400 * placement.scale).toBeCloseTo(circle.x)
+    expect(placement.y + 600 * placement.scale).toBeCloseTo(circle.y)
+  })
+
+  it('covers the circle with a landscape photo', () => {
+    const placement = fitCircle({ width: 1600, height: 900 }, circle)
+
+    expect(900 * placement.scale).toBeCloseTo(circle.radius * 2)
   })
 })

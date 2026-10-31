@@ -42,6 +42,19 @@ export interface DpPhotoSlot {
   headTop: number
 }
 
+/**
+ * The round frame used when the visitor keeps their photo's own background:
+ * the photo is clipped to the circle and ringed in their chosen colour.
+ */
+export interface DpCircleSlot {
+  /** Centre of the circle. */
+  x: number
+  y: number
+  radius: number
+  /** Width of the coloured ring drawn around it. */
+  ring: number
+}
+
 export interface DpTextSlot {
   /** Centre of the text. */
   x: number
@@ -66,6 +79,7 @@ export interface DpTemplate {
   backdrops: DpBackdrop[]
   foreground: string
   photo: DpPhotoSlot
+  circle: DpCircleSlot
   name: DpTextSlot
   title: DpTextSlot
   titlePlaceholder: string
@@ -104,6 +118,22 @@ const BACKDROPS: DpBackdrop[] = [
   },
 ]
 
+export interface DpRingColor {
+  id: string
+  label: string
+  value: string
+}
+
+/** Colours offered for the circle frame's ring. */
+export const RING_COLORS: DpRingColor[] = [
+  { id: 'blue', label: 'Blue', value: '#3186FF' },
+  { id: 'green', label: 'Green', value: '#34A853' },
+  { id: 'yellow', label: 'Yellow', value: '#FBBC04' },
+  { id: 'red', label: 'Red', value: '#EA4335' },
+  { id: 'white', label: 'White', value: '#FFFFFF' },
+  { id: 'black', label: 'Black', value: '#1E1E1E' },
+]
+
 // Both designs share the poster size and the name card.
 const LAYOUT = {
   width: 1080,
@@ -115,6 +145,13 @@ const LAYOUT = {
     faceWidth: 300,
     minBottom: 1210,
     headTop: 270,
+  },
+  // Sits between the headline and the sponsor card, clear of both.
+  circle: {
+    x: 540,
+    y: 590,
+    radius: 290,
+    ring: 16,
   },
   name: {
     x: 324,

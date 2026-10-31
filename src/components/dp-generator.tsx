@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button'
 import {
   autoPlace,
   drawPoster,
+  fitCircle,
   MAX_ZOOM,
   MIN_ZOOM,
   parseFaceBox,
@@ -26,10 +27,28 @@ import {
   type Subject,
 } from '@/lib/get-dp/compose'
 import { canvasToBlob, loadLayer, preparePhoto } from '@/lib/get-dp/photo'
-import { DP_TEMPLATES } from '@/lib/get-dp/templates'
+import { DP_TEMPLATES, RING_COLORS } from '@/lib/get-dp/templates'
 import { cn } from '@/lib/utils'
 
 type Photo = Subject & { image: ImageBitmap }
+
+/**
+ * `cutout` removes the photo's background so the visitor stands in the
+ * poster; `circle` keeps it and frames the photo in a ringed circle.
+ */
+type PhotoStyle = 'cutout' | 'circle'
+
+/** The uploaded photo, and each style's version of it once made. */
+interface Source {
+  blob: Blob
+  cutout?: Photo
+  circle?: Photo
+}
+
+const PHOTO_STYLES: { id: PhotoStyle; label: string }[] = [
+  { id: 'cutout', label: 'Remove background' },
+  { id: 'circle', label: 'Keep background' },
+]
 
 interface Layers {
   background: HTMLImageElement
@@ -57,6 +76,10 @@ export function DpGenerator() {
   const backdrop =
     template.backdrops.find((b) => b.id === backdropId) ?? template.backdrops[0]
 
+  const [photoStyle, setPhotoStyle] = useState<PhotoStyle>('cutout')
+  const [ringColor, setRingColor] = useState(RING_COLORS[0].value)
+  const isCircle = photoStyle === 'circle'
+
   const [layers, setLayers] = useState<Layers | null>(null)
   const [photo, setPhoto] = useState<Photo | null>(null)
   const [placement, setPlacement] = useState<Placement | null>(null)
@@ -71,17 +94,22 @@ export function DpGenerator() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const photoRef = useRef<Photo | null>(null)
-  // Each upload takes a number, so a slow earlier upload can't replace a
-  // later one when it finally answers.
+  const sourceRef = useRef<Source | null>(null)
+  // Each upload or style change takes a number, so a slow earlier one can't
+  // replace a later one when it finally answers.
   const uploadRef = useRef(0)
   const pointersRef = useRef(new Map<number, { x: number; y: number }>())
 
-  const fit = useMemo(
-    () => (photo ? autoPlace(photo, template) : null),
-    [photo, template],
-  )
-  const minScale = (fit?.scale ?? 1) * MIN_ZOOM
+  const fit = useMemo(() => {
+    if (!photo) return null
+
+    return isCircle
+      ? fitCircle(photo, template.circle)
+      : autoPlace(photo, template)
+  }, [photo, template, isCircle])
+  // A circle photo zoomed out past its fit would leave gaps in the frame.
+  const minZoom = isCircle ? 1 : MIN_ZOOM
+  const minScale = (fit?.scale ?? 1) * minZoom
   const maxScale = (fit?.scale ?? 1) * MAX_ZOOM
   const clampScale = (scale: number) =>
     Math.min(maxScale, Math.max(minScale, scale))
@@ -132,7 +160,7 @@ export function DpGenerator() {
       .catch(() => null)
       .then(() => setFontsLoaded(true))
 
-    return () => photoRef.current?.image.close()
+    return () => closeSource(sourceRef.current)
   }, [])
 
   const scene = (preview: boolean): PosterScene | null => {
@@ -150,6 +178,7 @@ export function DpGenerator() {
               placement,
             }
           : null,
+      ringColor: isCircle ? ringColor : null,
       name,
       title,
       fontFamily,
@@ -164,7 +193,17 @@ export function DpGenerator() {
     const preview = scene(true)
 
     if (ctx && preview) drawPoster(ctx, preview)
-  }, [layers, photo, placement, name, title, fontFamily, fontsLoaded])
+  }, [
+    layers,
+    photo,
+    placement,
+    ringColor,
+    isCircle,
+    name,
+    title,
+    fontFamily,
+    fontsLoaded,
+  ])
 
   // Trackpad pinches arrive as wheel events with Ctrl held. Plain scrolling
   // is left alone so the page still scrolls over the poster. React listens
@@ -209,8 +248,6 @@ export function DpGenerator() {
   }
 
   function showPhoto(next: Photo) {
-    photoRef.current?.image.close()
-    photoRef.current = next
     setPhoto(next)
     setStatus({ kind: 'ready' })
   }
@@ -219,16 +256,15 @@ export function DpGenerator() {
     if (!file) return
 
     const upload = ++uploadRef.current
-    const isCurrent = () => upload === uploadRef.current
 
     setStatus({ kind: 'working' })
 
-    let prepared: Blob
+    let blob: Blob
 
     try {
-      prepared = await preparePhoto(file)
+      blob = await preparePhoto(file)
     } catch {
-      if (isCurrent()) {
+      if (upload === uploadRef.current) {
         setStatus({
           kind: 'error',
           message: 'We couldn’t open that photo. Try a JPG or PNG.',
@@ -239,12 +275,52 @@ export function DpGenerator() {
       return
     }
 
+    if (upload !== uploadRef.current) return
+
+    closeSource(sourceRef.current)
+    sourceRef.current = { blob }
+    setPhoto(null)
+
+    await applyStyle(photoStyle)
+  }
+
+  /** Shows the current upload in `style`, making that version if needed. */
+  async function applyStyle(style: PhotoStyle) {
+    const source = sourceRef.current
+
+    if (!source) return
+
+    const upload = ++uploadRef.current
+    const ready = source[style]
+
+    if (ready) return showPhoto(ready)
+
+    setStatus({ kind: 'working' })
+
+    if (style === 'circle') {
+      const image = await createImageBitmap(source.blob)
+
+      // Keep it for this upload even if the visitor has moved on.
+      if (sourceRef.current !== source) return image.close()
+
+      source.circle = {
+        image,
+        width: image.width,
+        height: image.height,
+        face: null,
+      }
+
+      if (upload === uploadRef.current) showPhoto(source.circle)
+
+      return
+    }
+
     let message = 'Something went wrong. Please try again.'
 
     try {
       const body = new FormData()
 
-      body.append('image', prepared, 'photo.jpg')
+      body.append('image', source.blob, 'photo.jpg')
 
       const response = await fetch('/api/remove-bg', { method: 'POST', body })
 
@@ -252,14 +328,18 @@ export function DpGenerator() {
         const face = parseFaceBox(response.headers.get('X-Face-Box'))
         const image = await createImageBitmap(await response.blob())
 
-        if (!isCurrent()) return image.close()
+        if (sourceRef.current !== source) return image.close()
 
-        return showPhoto({
+        source.cutout = {
           image,
           width: image.width,
           height: image.height,
           face,
-        })
+        }
+
+        if (upload === uploadRef.current) showPhoto(source.cutout)
+
+        return
       }
 
       const json = (await response.json().catch(() => null)) as {
@@ -271,13 +351,17 @@ export function DpGenerator() {
       message = 'We couldn’t reach the server. Check your connection and retry.'
     }
 
-    if (isCurrent()) setStatus({ kind: 'error', message, original: prepared })
+    if (upload === uploadRef.current) {
+      setStatus({ kind: 'error', message, original: source.blob })
+    }
   }
 
-  async function keepOriginal(original: Blob) {
-    const image = await createImageBitmap(original)
+  function chooseStyle(style: PhotoStyle) {
+    if (style === photoStyle) return
 
-    showPhoto({ image, width: image.width, height: image.height, face: null })
+    setPhotoStyle(style)
+    setPhoto(null)
+    applyStyle(style)
   }
 
   function onPointerDown(event: React.PointerEvent<HTMLCanvasElement>) {
@@ -364,9 +448,13 @@ export function DpGenerator() {
   }
 
   function zoomTo(scale: number) {
-    const { faceX, faceY } = template.photo
+    const anchor = isCircle
+      ? template.circle
+      : { x: template.photo.faceX, y: template.photo.faceY }
 
-    setPlacement((p) => p && zoomPlacement(p, clampScale(scale), faceX, faceY))
+    setPlacement(
+      (p) => p && zoomPlacement(p, clampScale(scale), anchor.x, anchor.y),
+    )
   }
 
   function zoomBy(ratio: number) {
@@ -484,7 +572,14 @@ export function DpGenerator() {
 
             {!photo && !isWorking && (
               <button
-                className="absolute inset-x-[22%] top-[27%] bottom-[30%] flex cursor-pointer flex-col items-center justify-center gap-3 rounded-[28px] border-2 border-dashed border-[#1E1E1E]/25 bg-white/60 px-4 text-center backdrop-blur-sm transition-colors hover:border-[#1E1E1E]/50 hover:bg-white/75"
+                className={cn(
+                  'absolute flex cursor-pointer flex-col items-center justify-center gap-3 border-2 border-dashed border-[#1E1E1E]/25 bg-white/60 px-4 text-center backdrop-blur-sm transition-colors hover:border-[#1E1E1E]/50 hover:bg-white/75',
+                  // Matches the circle frame: 580px across, centred at
+                  // (540, 590) on the 1080 × 1210 poster.
+                  isCircle
+                    ? 'top-[24.8%] left-[23.15%] aspect-square w-[53.7%] rounded-full'
+                    : 'inset-x-[22%] top-[27%] bottom-[30%] rounded-[28px]',
+                )}
                 type="button"
                 onClick={() => inputRef.current?.click()}
               >
@@ -504,7 +599,9 @@ export function DpGenerator() {
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/60 backdrop-blur-sm">
                 <LoaderCircle className="size-9 animate-spin text-[#1E1E1E]" />
                 <span className="text-base font-bold text-[#1E1E1E]">
-                  Removing the background…
+                  {isCircle
+                    ? 'Opening your photo…'
+                    : 'Removing the background…'}
                 </span>
               </div>
             )}
@@ -586,6 +683,61 @@ export function DpGenerator() {
           </Step>
 
           <Step number={2} title="Add your photo">
+            <div
+              aria-label="Photo style"
+              className="mb-4 flex flex-wrap gap-2"
+              role="group"
+            >
+              {PHOTO_STYLES.map((option) => (
+                <button
+                  key={option.id}
+                  aria-pressed={option.id === photoStyle}
+                  className={cn(
+                    'cursor-pointer rounded-full border px-5 py-2.5 text-sm font-bold transition-colors',
+                    option.id === photoStyle
+                      ? 'border-black bg-black text-white'
+                      : 'border-black/10 bg-white text-[#1E1E1E]/70 hover:text-[#1E1E1E]',
+                  )}
+                  disabled={isWorking}
+                  type="button"
+                  onClick={() => chooseStyle(option.id)}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+
+            {isCircle && (
+              <div className="mb-5 flex items-center gap-3">
+                <span className="text-sm font-bold text-[#1E1E1E]/60">
+                  Border
+                </span>
+                <div
+                  aria-label="Border colour"
+                  className="flex flex-wrap gap-2.5"
+                  role="group"
+                >
+                  {RING_COLORS.map((color) => (
+                    <button
+                      key={color.id}
+                      aria-label={color.label}
+                      aria-pressed={color.value === ringColor}
+                      className={cn(
+                        'size-9 cursor-pointer rounded-full border-[3px] border-white ring-2 transition-shadow',
+                        color.value === ringColor
+                          ? 'ring-[#1E1E1E]'
+                          : 'ring-black/10 hover:ring-black/30',
+                      )}
+                      style={{ background: color.value }}
+                      title={color.label}
+                      type="button"
+                      onClick={() => setRingColor(color.value)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
             <input
               ref={inputRef}
               accept="image/*"
@@ -623,7 +775,7 @@ export function DpGenerator() {
             </div>
 
             <div aria-live="polite">
-              {isWorking && (
+              {isWorking && !isCircle && (
                 <p className="mt-3 text-sm font-medium text-[#1E1E1E]/60">
                   Removing the background. This takes a few seconds.
                 </p>
@@ -638,11 +790,9 @@ export function DpGenerator() {
                       <button
                         className="cursor-pointer font-bold underline underline-offset-4"
                         type="button"
-                        onClick={() =>
-                          status.original && keepOriginal(status.original)
-                        }
+                        onClick={() => chooseStyle('circle')}
                       >
-                        Use my photo without removing the background
+                        Keep my background, in a circle frame
                       </button>
                     )}
                   </div>
@@ -664,7 +814,7 @@ export function DpGenerator() {
                   aria-label="Zoom"
                   className="h-1.5 w-full cursor-pointer accent-[#1E1E1E]"
                   max={MAX_ZOOM}
-                  min={MIN_ZOOM}
+                  min={minZoom}
                   step={0.01}
                   type="range"
                   value={zoom}
@@ -777,6 +927,11 @@ function Step({
       {children}
     </div>
   )
+}
+
+function closeSource(source: Source | null) {
+  source?.cutout?.image.close()
+  source?.circle?.image.close()
 }
 
 function saveBlob(blob: Blob, fileName: string) {

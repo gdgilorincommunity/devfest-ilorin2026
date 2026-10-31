@@ -1,4 +1,4 @@
-import type { DpTemplate, DpTextSlot } from './templates'
+import type { DpCircleSlot, DpTemplate, DpTextSlot } from './templates'
 
 export interface Box {
   x: number
@@ -79,6 +79,24 @@ export function autoPlace(
     scale,
     x: slot.faceX - faceX * scale,
     y: slot.minBottom - subject.height * scale,
+  }
+}
+
+/**
+ * Sizes the photo to just cover the circle frame, centred in it. The
+ * background stays, so there is no face to line up: the visitor drags it
+ * into place.
+ */
+export function fitCircle(
+  subject: Pick<Subject, 'width' | 'height'>,
+  circle: DpCircleSlot,
+): Placement {
+  const scale = (circle.radius * 2) / Math.min(subject.width, subject.height)
+
+  return {
+    scale,
+    x: circle.x - (subject.width * scale) / 2,
+    y: circle.y - (subject.height * scale) / 2,
   }
 }
 
@@ -213,6 +231,11 @@ export interface PosterScene {
     height: number
     placement: Placement
   } | null
+  /**
+   * When set, the photo keeps its own background and is clipped to the
+   * template's circle, ringed in this colour.
+   */
+  ringColor?: string | null
   name: string
   title: string
   /** Shown faintly in place of an empty name or title, in the preview only. */
@@ -229,8 +252,18 @@ export function drawPoster(ctx: CanvasRenderingContext2D, scene: PosterScene) {
   ctx.clearRect(0, 0, width, height)
   ctx.drawImage(scene.background, 0, 0, width, height)
 
+  const circle = scene.ringColor ? template.circle : null
+
   if (scene.photo) {
     const { image, placement } = scene.photo
+
+    ctx.save()
+
+    if (circle) {
+      ctx.beginPath()
+      ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2)
+      ctx.clip()
+    }
 
     ctx.imageSmoothingEnabled = true
     ctx.imageSmoothingQuality = 'high'
@@ -241,9 +274,20 @@ export function drawPoster(ctx: CanvasRenderingContext2D, scene: PosterScene) {
       scene.photo.width * placement.scale,
       scene.photo.height * placement.scale,
     )
+    ctx.restore()
   }
 
-  if (scene.overlay) ctx.drawImage(scene.overlay, 0, 0, width, height)
+  if (circle && scene.ringColor) {
+    // Drawn before the foreground so its stickers still sit on top.
+    ctx.beginPath()
+    ctx.arc(circle.x, circle.y, circle.radius + circle.ring / 2, 0, Math.PI * 2)
+    ctx.lineWidth = circle.ring
+    ctx.strokeStyle = scene.ringColor
+    ctx.stroke()
+  } else if (scene.overlay) {
+    // The fade only blends a cut-out's lower edge into the background.
+    ctx.drawImage(scene.overlay, 0, 0, width, height)
+  }
 
   ctx.drawImage(scene.foreground, 0, 0, width, height)
 
