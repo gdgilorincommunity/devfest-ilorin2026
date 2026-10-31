@@ -24,27 +24,27 @@ export default function Hero() {
     >
       <div className="relative flex min-h-0 w-full max-w-378 flex-1 flex-col items-center justify-center gap-8 overflow-hidden px-4 lg:px-0">
         <div className="pointer-events-none z-10 mt-12 flex w-full flex-col items-center justify-center gap-6 lg:absolute lg:inset-0 lg:mt-0 lg:gap-8">
-          {/* Headline sponsor lockup — hidden until a headline sponsor is confirmed */}
+          {/* Headline sponsor lockup */}
           <div
-            className="hero-enter pointer-events-auto hidden flex-col items-center gap-2"
+            className="hero-enter pointer-events-auto flex flex-col items-center gap-2"
             style={{ '--enter-delay': '80ms' } as React.CSSProperties}
           >
             <span className="text-sm font-bold text-[#1E1E1E]/70 lg:text-base">
               Headline Sponsor
             </span>
             <a
-              aria-label="Qorelly — headline sponsor"
-              href="https://qorelly.com"
+              aria-label="Blaaiz — headline sponsor"
+              href="https://blaaiz.com"
               rel="noopener noreferrer sponsored"
               target="_blank"
             >
               <Image
                 priority
-                alt="Qorelly"
+                alt="Blaaiz"
                 className="h-7.5 w-auto transition-transform duration-300 hover:scale-105 lg:h-9.25"
                 height={37}
-                src="/svg/sponsors/qorelly-blue.svg"
-                width={150}
+                src="/svg/sponsors/blaaiz.svg"
+                width={170}
               />
             </a>
           </div>

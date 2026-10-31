@@ -19,9 +19,10 @@ export type NavLink = {
 export const NAV_LINKS: NavLink[] = [
   { label: 'Speakers', href: '/speakers' },
   { label: 'Schedule', href: '/schedule' },
-  { label: 'Sponsors', href: '/#sponsors' },
+  { label: 'Sponsors', href: '/sponsors' },
   { label: 'Team', href: '/#team' },
   { label: 'Apps', href: '/apps' },
+  { label: 'Get DP', href: '/get-dp' },
 ]
 
 export default function Navbar() {
@@ -170,17 +171,41 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          {/* Mirrors the desktop CTA: last year at the top, tickets once scrolling. */}
           <li className="p-2 sm:hidden">
-            <Link
-              href="https://2025.devfestilorin.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              onClick={() => setIsOpen(false)}
-            >
-              <Button showArrow className="w-full" size="pill" variant="black">
-                View 2025
-              </Button>
-            </Link>
+            {isScrolled ? (
+              <Link
+                href={config.ticketUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
+                <Button
+                  showArrow
+                  className="w-full"
+                  size="pill"
+                  variant="gradient"
+                >
+                  Get Tickets
+                </Button>
+              </Link>
+            ) : (
+              <Link
+                href="https://2025.devfestilorin.com"
+                rel="noopener noreferrer"
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
+                <Button
+                  showArrow
+                  className="w-full"
+                  size="pill"
+                  variant="black"
+                >
+                  View 2025
+                </Button>
+              </Link>
+            )}
           </li>
         </ul>
       </div>

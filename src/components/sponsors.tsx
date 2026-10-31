@@ -15,6 +15,8 @@ export interface LogoItem {
 }
 
 export interface SponsorsProps {
+  headline?: LogoItem[]
+  diamond?: LogoItem[]
   sponsors?: LogoItem[]
   partners?: LogoItem[]
   ctaButton?: {
@@ -24,7 +26,19 @@ export interface SponsorsProps {
   className?: string
 }
 
-export const DEFAULT_SPONSORS: LogoItem[] = [
+export const DEFAULT_HEADLINE: LogoItem[] = [
+  {
+    id: 'blaaiz',
+    name: 'Blaaiz',
+    src: '/svg/sponsors/blaaiz.svg',
+    href: 'https://blaaiz.com',
+    // Intrinsic artwork is 336x73; kept at the row's 60px height.
+    width: 276,
+    height: 60,
+  },
+]
+
+export const DEFAULT_DIAMOND: LogoItem[] = [
   {
     id: 'qorelly',
     name: 'Qorelly',
@@ -33,6 +47,9 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     width: 244,
     height: 60,
   },
+]
+
+export const DEFAULT_SPONSORS: LogoItem[] = [
   {
     id: 'malhub',
     name: 'MalHub',
@@ -46,8 +63,18 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     id: 'verafy',
     name: 'Verafy',
     src: '/svg/sponsors/verafy.svg',
+    href: 'https://verafy.me',
     // Intrinsic artwork is 776x319; kept at the row's 60px height.
     width: 146,
+    height: 60,
+  },
+  {
+    id: 'ilorin-innovation-hub',
+    name: 'Ilorin Innovation Hub',
+    src: '/svg/sponsors/ihs.webp',
+    href: 'https://iih.ng',
+    // Intrinsic artwork is 700x257; kept at the row's 60px height.
+    width: 163,
     height: 60,
   },
   {
@@ -63,6 +90,7 @@ export const DEFAULT_SPONSORS: LogoItem[] = [
     id: 'celerlinks',
     name: 'Celerlinks',
     src: '/svg/sponsors/celerlinks.webp',
+    href: 'https://celerlinks.com',
     // Intrinsic artwork is 1722x320; kept at the row's 60px height.
     width: 323,
     height: 60,
@@ -76,6 +104,14 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     // Intrinsic artwork is 351x141; kept at the row's 60px height.
     src: '/svg/partners/fuskar.svg',
     width: 149,
+    height: 60,
+  },
+  {
+    id: 'exploit-forge',
+    name: 'Exploit-Forge',
+    src: '/svg/partners/exploitforge.webp',
+    // Trimmed artwork is 1271x255; kept at the row's 60px height.
+    width: 299,
     height: 60,
   },
   {
@@ -101,9 +137,27 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     width: 179,
     height: 60,
   },
+  {
+    id: 'campusx',
+    name: 'CampusX',
+    src: '/svg/partners/campusx.webp',
+    // Trimmed artwork is 1925x422; kept at the row's 60px height.
+    width: 274,
+    height: 60,
+  },
 ]
 
-function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
+function LogoBoard({
+  logos,
+  title,
+  logoClassName = 'h-10 sm:h-12 lg:h-14',
+}: {
+  logos: LogoItem[]
+  title: string
+  logoClassName?: string
+}) {
+  const isGrid = logos.length > 2
+
   return (
     <div
       className={cn(
@@ -116,12 +170,29 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
         {title}
       </h2>
 
-      <ul className="flex flex-nowrap items-center justify-center gap-6 overflow-x-auto px-6 sm:gap-10 lg:gap-14">
+      {/*
+        Several logos wrap onto centred rows rather than scrolling sideways:
+        three to a row on phones, each scaled to its cell, and as many as fit
+        at their full height from sm: up.
+      */}
+      <ul
+        className={cn(
+          'items-center px-6',
+          isGrid
+            ? 'flex flex-wrap justify-center gap-x-4 gap-y-6 sm:gap-x-8 sm:gap-y-8 lg:gap-x-10'
+            : 'flex flex-nowrap justify-center-safe gap-6 overflow-x-auto sm:gap-8 lg:gap-10',
+        )}
+      >
         {logos.map((logo) => {
           const image = (
             <Image
               alt={logo.name}
-              className="h-9 w-auto object-contain sm:h-10 lg:h-15"
+              className={cn(
+                'object-contain',
+                isGrid
+                  ? 'h-auto max-h-10 w-full sm:h-12 sm:max-h-none sm:w-auto lg:h-14'
+                  : cn('w-auto', logoClassName),
+              )}
               height={logo.height}
               src={logo.src}
               width={logo.width}
@@ -129,9 +200,18 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
           )
 
           return (
-            <li key={logo.id} className="flex shrink-0 items-center">
+            <li
+              key={logo.id}
+              className={cn(
+                'flex items-center justify-center',
+                isGrid
+                  ? 'w-[calc((100%-2rem)/3)] sm:w-auto sm:shrink-0'
+                  : 'shrink-0',
+              )}
+            >
               {logo.href ? (
                 <a
+                  className="flex w-full justify-center"
                   href={logo.href}
                   rel="noopener noreferrer sponsored"
                   target="_blank"
@@ -154,6 +234,8 @@ function LogoBoard({ logos, title }: { logos: LogoItem[]; title: string }) {
  * matching the Figma frame's lavender radial cards.
  */
 export function Sponsors({
+  headline = DEFAULT_HEADLINE,
+  diamond = DEFAULT_DIAMOND,
   sponsors = DEFAULT_SPONSORS,
   partners = DEFAULT_PARTNERS,
   ctaButton = { label: 'Sponsor us', href: SPONSOR_MAILTO },
@@ -169,6 +251,13 @@ export function Sponsors({
         data-reveal
         className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 md:px-16 lg:gap-8 lg:px-24"
       >
+        {/* The headline sponsor sits a step above every other tier. */}
+        <LogoBoard
+          logoClassName="h-12 sm:h-16 lg:h-20"
+          logos={headline}
+          title="Headline"
+        />
+        <LogoBoard logos={diamond} title="Diamond" />
         <LogoBoard logos={sponsors} title="Sponsors" />
         <LogoBoard logos={partners} title="Partners" />
 

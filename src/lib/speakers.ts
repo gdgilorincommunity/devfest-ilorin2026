@@ -43,6 +43,7 @@ const HAS_PHOTO = new Set<string>([
   'lateefah-bello',
   'mileke-kolawole',
   'abdulmalik-salawu',
+  'imam-abubakar',
 ])
 
 type SpeakerSeed = Omit<Speaker, 'badge' | 'image'>
@@ -215,6 +216,11 @@ export const SPEAKERS: Speaker[] = withBadges([
     id: 'abdulmalik-salawu',
     name: 'Abdulmalik Salawu',
     role: 'Senior DevSecOps Engineer, Bluebulb Financials',
+  },
+  {
+    id: 'imam-abubakar',
+    name: 'Imam Abubakar',
+    role: 'CEO, Sqaleup Inc',
   },
 ])
 
