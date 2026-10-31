@@ -60,19 +60,70 @@ without a GPU.
 ## Deploy
 
 Any host that runs a Docker container works. The image includes the model,
-so new instances don't download it. On Google Cloud Run, from the repository
-root:
+so new instances don't download it, and it checks its own health through
+`/health`.
+
+### Production: Coolify on the VPS
+
+The live service is `https://getdp.devfestilorin.com`, a Coolify app on the
+Contabo VPS (`164.68.105.57`). The server's nginx and certbot handle HTTPS,
+not Coolify's proxy, so leave the proxy stopped: it would fight nginx for
+ports 80 and 443.
+
+| Setting         | Value                                                                  |
+| --------------- | ---------------------------------------------------------------------- |
+| Source          | Public repository `gdgilorincommunity/devfest-ilorin2026`, branch `main` |
+| Build pack      | Dockerfile, base directory `/services/remove-bg`, Dockerfile `/Dockerfile` |
+| Ports exposes   | `8080`                                                                 |
+| Port mappings   | `127.0.0.1:8090:8080`                                                  |
+| Domains         | none                                                                   |
+| Health check    | off in Coolify. The image's own `HEALTHCHECK` reports it               |
+| Resource limits | CPU `2`, memory `2g`, memory and swap `2g` (no swap)                   |
+| Env vars        | `API_TOKEN` only                                                       |
+
+The source is a public repository, so pushes don't redeploy it. Press
+Redeploy in Coolify after a change here is merged.
+
+The nginx site, `/etc/nginx/sites-available/getdp.devfestilorin.com`:
+
+```nginx
+server {
+    listen 80;
+    server_name getdp.devfestilorin.com;
+
+    client_max_body_size 11m;
+    proxy_read_timeout 60s;
+
+    location / {
+        proxy_pass http://127.0.0.1:8090;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+Enabled with `ln -s` into `sites-enabled`, then
+`certbot --nginx -d getdp.devfestilorin.com`, which also renews it. The DNS
+record is proxied through Cloudflare. Its SSL mode must be Full (strict), as
+Flexible loops on certbot's redirect. Switch the record to DNS only if a
+certificate ever has to be issued again by hand.
+
+### Google Cloud Run
+
+From the repository root:
 
 ```bash
 gcloud run deploy devfest-remove-bg --source services/remove-bg --memory 2Gi --cpu 2 --allow-unauthenticated --set-env-vars API_TOKEN=CHANGE_ME
 ```
 
 `--allow-unauthenticated` lets the website reach the service without Google
-sign-in. The token keeps everyone else out. Use a long random value, for
-example from `openssl rand -hex 32`.
+sign-in. The token keeps everyone else out.
 
-Then set these on the website's host (Vercel) and redeploy it:
+### The website
 
-- `REMOVE_BG_URL`: the service's URL, such as
-  `https://devfest-remove-bg-xxxxx.a.run.app`
+Use a long random token, for example from `openssl rand -hex 32`. Set these on
+the website's host and redeploy it:
+
+- `REMOVE_BG_URL`: the service's URL, `https://getdp.devfestilorin.com`
 - `REMOVE_BG_TOKEN`: the same value as `API_TOKEN`
