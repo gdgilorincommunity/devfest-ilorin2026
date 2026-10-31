@@ -107,6 +107,14 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     height: 60,
   },
   {
+    id: 'exploit-forge',
+    name: 'Exploit-Forge',
+    src: '/svg/partners/exploitforge.webp',
+    // Trimmed artwork is 1271x255; kept at the row's 60px height.
+    width: 299,
+    height: 60,
+  },
+  {
     id: 'pixel-pioneer',
     name: 'Pixel Pioneer',
     src: '/svg/sponsors/pixel-pioneer.svg',
@@ -127,6 +135,14 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
     src: '/svg/partners/unovialogo.svg',
     // Intrinsic artwork is 829x278; kept at the row's 60px height.
     width: 179,
+    height: 60,
+  },
+  {
+    id: 'campusx',
+    name: 'CampusX',
+    src: '/svg/partners/campusx.webp',
+    // Trimmed artwork is 1925x422; kept at the row's 60px height.
+    width: 274,
     height: 60,
   },
 ]
@@ -155,15 +171,15 @@ function LogoBoard({
       </h2>
 
       {/*
-        On phones a row of several logos can't fit, so it wraps three to a
-        row with each logo scaled to its cell, and a short last row stays
-        centred. From sm: up it is the single centred line again.
+        Several logos wrap onto centred rows rather than scrolling sideways:
+        three to a row on phones, each scaled to its cell, and as many as fit
+        at their full height from sm: up.
       */}
       <ul
         className={cn(
           'items-center px-6',
           isGrid
-            ? 'flex flex-wrap justify-center gap-x-4 gap-y-6 sm:flex-nowrap sm:justify-center-safe sm:gap-8 sm:overflow-x-auto lg:gap-10'
+            ? 'flex flex-wrap justify-center gap-x-4 gap-y-6 sm:gap-x-8 sm:gap-y-8 lg:gap-x-10'
             : 'flex flex-nowrap justify-center-safe gap-6 overflow-x-auto sm:gap-8 lg:gap-10',
         )}
       >
