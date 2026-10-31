@@ -15,7 +15,7 @@
 export interface DpBackdrop {
   id: string
   label: string
-  /** Colour for the picker swatch. */
+  /** CSS background for the picker swatch: a colour or a gradient. */
   swatch: string
   background: string
   /** Optional layer over the photo that fades its bottom into the background. */
@@ -87,6 +87,20 @@ const BACKDROPS: DpBackdrop[] = [
     swatch: '#FF6FA2',
     background: '/images/get-dp/background-pink.png',
     overlay: '/images/get-dp/fade-pink.png',
+  },
+  {
+    id: 'teal',
+    label: 'Teal',
+    swatch: 'linear-gradient(135deg, #78C9FF, #3CBCAB)',
+    background: '/images/get-dp/background-teal.png',
+    overlay: '/images/get-dp/fade-teal.png',
+  },
+  {
+    id: 'yellow',
+    label: 'Yellow',
+    swatch: 'linear-gradient(135deg, #FFEE48, #FFDD24)',
+    background: '/images/get-dp/background-yellow.png',
+    overlay: '/images/get-dp/fade-yellow.png',
   },
 ]
 
