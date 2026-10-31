@@ -633,10 +633,10 @@ export function DpGenerator() {
                     key={t.id}
                     aria-pressed={t.id === template.id}
                     className={cn(
-                      'cursor-pointer rounded-full border px-5 py-2.5 text-sm font-bold transition-colors',
+                      'cursor-pointer rounded-full border-2 bg-white px-5 py-2.5 text-sm font-bold transition-colors',
                       t.id === template.id
-                        ? 'border-black bg-black text-white'
-                        : 'border-black/10 bg-white text-[#1E1E1E]/70 hover:text-[#1E1E1E]',
+                        ? 'border-black text-[#1E1E1E]'
+                        : 'border-black/10 text-[#1E1E1E]/60 hover:border-black/30 hover:text-[#1E1E1E]',
                     )}
                     type="button"
                     onClick={() => setTemplateId(t.id)}
@@ -693,10 +693,10 @@ export function DpGenerator() {
                   key={option.id}
                   aria-pressed={option.id === photoStyle}
                   className={cn(
-                    'cursor-pointer rounded-full border px-5 py-2.5 text-sm font-bold transition-colors',
+                    'cursor-pointer rounded-full border-2 bg-white px-5 py-2.5 text-sm font-bold transition-colors',
                     option.id === photoStyle
-                      ? 'border-black bg-black text-white'
-                      : 'border-black/10 bg-white text-[#1E1E1E]/70 hover:text-[#1E1E1E]',
+                      ? 'border-black text-[#1E1E1E]'
+                      : 'border-black/10 text-[#1E1E1E]/60 hover:border-black/30 hover:text-[#1E1E1E]',
                   )}
                   disabled={isWorking}
                   type="button"
