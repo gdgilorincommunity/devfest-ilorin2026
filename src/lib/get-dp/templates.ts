@@ -139,13 +139,4 @@ export const DP_TEMPLATES: DpTemplate[] = [
       'I’ll be at DevFest Ilorin 2026, November 6 – 7! Get your DP at devfestilorin.com/get-dp #devfestilorin26 #DevFest2026',
     ...LAYOUT,
   },
-  {
-    id: 'speaker',
-    label: 'Speaker',
-    foreground: '/images/get-dp/foreground-speaker.png',
-    titlePlaceholder: 'Senior Software Engineer, Fincra',
-    shareText:
-      'I’m speaking at DevFest Ilorin 2026, November 6 – 7! #devfestilorin26 #DevFest2026',
-    ...LAYOUT,
-  },
 ]

@@ -518,31 +518,44 @@ export function DpGenerator() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Step number={1} title="Pick a design">
-            <div
-              aria-label="Design"
-              className="flex flex-wrap gap-2"
-              role="group"
-            >
-              {DP_TEMPLATES.map((t) => (
-                <button
-                  key={t.id}
-                  aria-pressed={t.id === template.id}
-                  className={cn(
-                    'cursor-pointer rounded-full border px-5 py-2.5 text-sm font-bold transition-colors',
-                    t.id === template.id
-                      ? 'border-black bg-black text-white'
-                      : 'border-black/10 bg-white text-[#1E1E1E]/70 hover:text-[#1E1E1E]',
-                  )}
-                  type="button"
-                  onClick={() => setTemplateId(t.id)}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
+          <Step
+            number={1}
+            title={
+              DP_TEMPLATES.length > 1 ? 'Pick a design' : 'Pick a background'
+            }
+          >
+            {/* With a single design there is nothing to pick. */}
+            {DP_TEMPLATES.length > 1 && (
+              <div
+                aria-label="Design"
+                className="flex flex-wrap gap-2"
+                role="group"
+              >
+                {DP_TEMPLATES.map((t) => (
+                  <button
+                    key={t.id}
+                    aria-pressed={t.id === template.id}
+                    className={cn(
+                      'cursor-pointer rounded-full border px-5 py-2.5 text-sm font-bold transition-colors',
+                      t.id === template.id
+                        ? 'border-black bg-black text-white'
+                        : 'border-black/10 bg-white text-[#1E1E1E]/70 hover:text-[#1E1E1E]',
+                    )}
+                    type="button"
+                    onClick={() => setTemplateId(t.id)}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            )}
 
-            <div className="mt-5 flex items-center gap-3">
+            <div
+              className={cn(
+                'flex items-center gap-3',
+                DP_TEMPLATES.length > 1 && 'mt-5',
+              )}
+            >
               <span className="text-sm font-bold text-[#1E1E1E]/60">
                 Background
               </span>
