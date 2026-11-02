@@ -108,10 +108,10 @@ export const DEFAULT_PARTNERS: LogoItem[] = [
   },
   {
     id: 'exploit-forge',
-    name: 'Exploit-Forge',
-    src: '/svg/partners/exploitforge.webp',
-    // Trimmed artwork is 1271x255; kept at the row's 60px height.
-    width: 299,
+    name: 'Exploit Forge Academy',
+    src: '/svg/partners/exploitforge-academy.webp',
+    // Trimmed artwork is 1446x364; kept at the row's 60px height.
+    width: 238,
     height: 60,
   },
   {
