@@ -215,7 +215,7 @@ export const SPEAKERS: Speaker[] = withBadges([
   {
     id: 'abdulmalik-salawu',
     name: 'Abdulmalik Salawu',
-    role: 'Senior DevSecOps Engineer, Bluebulb Financials',
+    role: 'AI Security Engineer, Threatmind AI',
   },
   {
     id: 'imam-abubakar',
