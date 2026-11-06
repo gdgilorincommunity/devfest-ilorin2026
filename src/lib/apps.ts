@@ -63,6 +63,10 @@ const CYB3RFLEX: AppContributor = {
   name: 'Abdulmuheez Qazeem',
   github: 'Cyb3rflex',
 }
+const ANJOLA_PROG: AppContributor = {
+  name: 'Saka Shukurat Anjola',
+  github: 'Anjola-prog',
+}
 
 export function isExternalApp(app: App) {
   return /^https?:\/\//.test(app.href)
@@ -165,6 +169,16 @@ export const APPS: App[] = [
     icon: '/images/apps/awaplay.png',
     category: 'Game',
     contributors: [BILEFRESH],
+  },
+  {
+    id: 'flipr',
+    name: 'Flipr',
+    tagline:
+      'Convert, compress, edit and sign your files with simple, private tools that get it done.',
+    href: 'https://flipr.flipr.workers.dev',
+    icon: '/images/apps/flipr.svg',
+    category: 'Utility',
+    contributors: [ANJOLA_PROG],
   },
   {
     id: 'giftcanvas',
