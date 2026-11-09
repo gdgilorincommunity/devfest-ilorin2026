@@ -3,11 +3,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import Agenda from '@/components/agenda'
-import { Button } from '@/components/ui/button'
 import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
 import RevealObserver from '@/components/reveal-observer'
 import SubpageHero from '@/components/subpage-hero'
+import ThankYou from '@/components/thank-you'
 import config from '@/config'
 import { AGENDA } from '@/lib/agenda'
 
@@ -54,37 +54,7 @@ export default function SchedulePage() {
         <Agenda />
       </section>
 
-      <section
-        aria-label="Tickets"
-        className="w-full border-t-[3px] border-black bg-[#FCF4F4] py-16 sm:py-20"
-      >
-        <div
-          data-reveal
-          className="mx-auto flex w-full max-w-378 flex-col items-center gap-6 px-4 text-center md:px-16"
-        >
-          <h2 className="font-sans text-3xl font-bold tracking-tight text-[#1E1E1E] sm:text-4xl lg:text-[44px]">
-            Ready to join us?
-          </h2>
-          <p className="max-w-130 text-base font-medium text-[#1E1E1E]/60">
-            Day 1 and Day 2 are free to attend. Grab your ticket and pick your
-            sessions.
-          </p>
-          <Button
-            showArrow
-            render={
-              <a
-                href={config.ticketUrl}
-                rel="noopener noreferrer"
-                target="_blank"
-              />
-            }
-            size="pill"
-            variant="gradient"
-          >
-            Get Tickets
-          </Button>
-        </div>
-      </section>
+      <ThankYou />
 
       <Footer />
     </main>

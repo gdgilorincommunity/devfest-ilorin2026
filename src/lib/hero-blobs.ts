@@ -50,7 +50,7 @@ export interface HeroBlobCluster {
 export const HERO_BLOB_CLUSTERS: HeroBlobCluster[] = [
   {
     id: 'one',
-    alt: 'DevFest Ilorin attendees posing together',
+    alt: 'Two DevFest Ilorin attendees posing by the DevFest sign',
     caption: {
       title: 'Networking',
       description: 'Meet the tech leaders and builders in the room',
@@ -61,10 +61,10 @@ export const HERO_BLOB_CLUSTERS: HeroBlobCluster[] = [
   },
   {
     id: 'two',
-    alt: 'A speaker presenting beside the About screen',
+    alt: 'The DevFest Ilorin 2026 banner outside Ilorin Innovation Hub',
     caption: {
-      title: 'Workshops',
-      description: 'Hands-on sessions led by GDEs and engineers',
+      title: 'The venue',
+      description: 'Two days at Ilorin Innovation Hub',
     },
     deco: '/svg/hero/deco-two.svg',
     shape: HERO_BLOB_SHAPES.two,
@@ -72,7 +72,7 @@ export const HERO_BLOB_CLUSTERS: HeroBlobCluster[] = [
   },
   {
     id: 'three',
-    alt: 'The DevFest Ilorin main hall filled with attendees',
+    alt: 'Attendees following a session in the DevFest Ilorin main hall',
     caption: {
       title: 'Conference day',
       description: 'A full day of keynotes, talks and panels on the main stage',
@@ -83,7 +83,7 @@ export const HERO_BLOB_CLUSTERS: HeroBlobCluster[] = [
   },
   {
     id: 'four',
-    alt: 'A DevFest Ilorin session in progress at Ilorin Innovation Hub',
+    alt: 'A speaker with a microphone on the DevFest Ilorin stage',
     caption: {
       title: 'Tech talks',
       description: "Speakers sharing what they've built and learned",

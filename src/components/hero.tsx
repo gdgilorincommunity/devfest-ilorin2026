@@ -65,11 +65,13 @@ export default function Hero() {
           </div>
 
           <p
-            className="hero-enter pointer-events-auto max-w-130 text-center text-base font-medium text-[#1E1E1E]/60 lg:text-lg"
+            className="hero-enter pointer-events-auto max-w-115 text-center text-base font-medium text-[#1E1E1E]/60 lg:text-lg"
             style={{ '--enter-delay': '240ms' } as React.CSSProperties}
           >
-            Join us at DevFest Ilorin 2026 on November 6th &ndash; 7th.
-            Ilorin&apos;s largest tech celebration of the year!
+            <span className="block font-bold text-[#1E1E1E]">
+              Thank you for attending!
+            </span>
+            Relive the two days in photos.
           </p>
 
           <div
@@ -80,7 +82,7 @@ export default function Hero() {
               showArrow
               render={
                 <a
-                  href={config.ticketUrl}
+                  href={config.photosUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                 />
@@ -88,7 +90,7 @@ export default function Hero() {
               size="pill"
               variant="gradient"
             >
-              Get Tickets
+              View Photos
             </Button>
 
             <Button

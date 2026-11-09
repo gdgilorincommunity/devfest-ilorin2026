@@ -27,7 +27,8 @@ export interface VenuesProps {
  * Venues Section Component
  *
  * Showcases the event venue (Ilorin Innovation Hub) with crisp SVG vector artwork,
- * date pill badge, and action CTA buttons for workshop and dinner tickets.
+ * date pill badge, and action CTA buttons. With the event over, the ticket
+ * buttons gave way to a single link to the photos.
  */
 export function Venues({
   title = 'Venues',
@@ -37,13 +38,10 @@ export function Venues({
   },
   date = '6th - 7th Nov 2026',
   workshopTicket = {
-    label: 'Get Workshop Ticket',
-    href: config.ticketUrl,
+    label: 'View Photos',
+    href: config.photosUrl,
   },
-  dinnerTicket = {
-    label: 'Get your dinner',
-    href: config.dinnerTicketUrl,
-  },
+  dinnerTicket,
   className,
 }: VenuesProps) {
   return (
