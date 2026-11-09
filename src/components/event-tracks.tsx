@@ -61,8 +61,8 @@ export function EventTracks({
   title = 'Devfest Ilorin 2026',
   tracks = DEFAULT_TRACKS,
   ticketButton = {
-    label: 'Get Tickets',
-    href: config.ticketUrl,
+    label: 'View Photos',
+    href: config.photosUrl,
   },
   className,
 }: EventTracksProps) {
@@ -128,7 +128,7 @@ export function EventTracks({
           ))}
         </div>
 
-        {/* Get Tickets CTA Button */}
+        {/* Photos CTA Button */}
         {ticketButton && (
           <div data-reveal className="mt-12 flex justify-center lg:mt-16">
             <Link

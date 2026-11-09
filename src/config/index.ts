@@ -10,6 +10,10 @@ const config: IConfig = {
     process.env.NEXT_PUBLIC_TICKET_URL ??
     'https://gdg.community.dev/events/details/google-gdg-ilorin-presents-devfest-ilorin-2026/',
   dinnerTicketUrl: process.env.NEXT_PUBLIC_DINNER_TICKET_URL ?? '',
+  // The event photo gallery, shared now that DevFest Ilorin 2026 is over.
+  photosUrl:
+    process.env.NEXT_PUBLIC_PHOTOS_URL ??
+    'https://photos.fuskar.app/devfest-ilorin?collection=87ccec23-15b5-470e-92ad-94e21bff72f2',
   cliUrl: process.env.NEXT_PUBLIC_CLI_URL ?? 'https://devfest-cli.web.app',
   mapUrl: process.env.NEXT_PUBLIC_MAP_URL ?? 'https://devfest-map.web.app',
   typeraceUrl:

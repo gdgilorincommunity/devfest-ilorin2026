@@ -97,7 +97,7 @@ export default function Navbar() {
 
           {/*
             At the top the CTA points back at last year; once the visitor is
-            scrolling it becomes the ticket link. Both sit in the same grid
+            scrolling it becomes the photos link. Both sit in the same grid
             cell so the swap cross-fades without the bar reflowing, and the
             hidden one is inert for pointer, keyboard and assistive tech.
           */}
@@ -128,13 +128,13 @@ export default function Navbar() {
                   ? 'translate-y-0 opacity-100'
                   : 'pointer-events-none translate-y-1 opacity-0',
               )}
-              href={config.ticketUrl}
+              href={config.photosUrl}
               rel="noopener noreferrer"
               tabIndex={isScrolled ? undefined : -1}
               target="_blank"
             >
               <Button showArrow size="pill" variant="gradient">
-                Get Tickets
+                View Photos
               </Button>
             </Link>
           </div>
@@ -171,11 +171,11 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-          {/* Mirrors the desktop CTA: last year at the top, tickets once scrolling. */}
+          {/* Mirrors the desktop CTA: last year at the top, photos once scrolling. */}
           <li className="p-2 sm:hidden">
             {isScrolled ? (
               <Link
-                href={config.ticketUrl}
+                href={config.photosUrl}
                 rel="noopener noreferrer"
                 target="_blank"
                 onClick={() => setIsOpen(false)}
@@ -186,7 +186,7 @@ export default function Navbar() {
                   size="pill"
                   variant="gradient"
                 >
-                  Get Tickets
+                  View Photos
                 </Button>
               </Link>
             ) : (
