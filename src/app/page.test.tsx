@@ -36,8 +36,8 @@ describe('Home', () => {
       .getByRole('heading', { name: /Venues/i })
       .closest('section') as HTMLElement
 
-    expect(screen.getByText(/Innovation/i)).toBeInTheDocument()
-    expect(screen.getByText(/hub Ilorin/i)).toBeInTheDocument()
+    expect(within(venues).getByText(/^Innovation$/i)).toBeInTheDocument()
+    expect(within(venues).getByText(/^hub Ilorin$/i)).toBeInTheDocument()
     expect(
       within(venues).getByRole('link', { name: /View Photos/i }),
     ).toHaveAttribute('href', config.photosUrl)
