@@ -6,6 +6,7 @@ export interface IConfig {
   ticketUrl: string
   dinnerTicketUrl: string
   photosUrl: string
+  day1PhotosUrl: string
   cliUrl: string
   mapUrl: string
   typeraceUrl: string

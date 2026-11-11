@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { HeroImages } from '@/components/hero-images'
 import config from '@/config'
-import { SPONSOR_MAILTO } from '@/lib/sponsor'
 import { cn } from '@/lib/utils'
 
 export default function Hero() {
@@ -82,7 +81,7 @@ export default function Hero() {
               showArrow
               render={
                 <a
-                  href={config.photosUrl}
+                  href={config.day1PhotosUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                 />
@@ -90,16 +89,22 @@ export default function Hero() {
               size="pill"
               variant="gradient"
             >
-              View Photos
+              Day 1 Photos
             </Button>
 
             <Button
               showArrow
-              render={<a href={SPONSOR_MAILTO} />}
+              render={
+                <a
+                  href={config.photosUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                />
+              }
               size="pill"
               variant="black"
             >
-              Sponsor Us
+              Day 2 Photos
             </Button>
           </div>
         </div>
