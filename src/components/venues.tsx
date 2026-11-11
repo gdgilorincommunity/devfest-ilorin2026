@@ -85,18 +85,18 @@ export function Venues({
             )}
           </div>
 
-          {/* IIH Vector Artwork (Takes >= 40% of white container on mobile) */}
-          <div className="pointer-events-none absolute right-0 bottom-0 z-0 flex h-[44%] min-h-[195px] w-[155%] max-w-none justify-end select-none sm:h-[48%] sm:w-[110%] md:h-auto md:w-[90%] lg:w-[82%]">
-            <Image
-              priority
-              alt="Ilorin Innovation Hub Architecture"
-              className="h-full w-auto object-contain object-bottom-right sm:h-[250px] sm:w-full md:h-auto"
-              height={303}
-              quality={90}
-              src="/images/IIH-vector.svg"
-              width={1007}
-            />
-          </div>
+          {/* Venue photo from DevFest Ilorin 2026, filling the card. It sits
+              low so the DevFest banner stays in view, under a white fade that
+              keeps the title readable over the building. */}
+          <Image
+            fill
+            alt="The DevFest Ilorin 2026 banner outside Ilorin Innovation Hub"
+            className="pointer-events-none z-0 object-cover object-[50%_85%] select-none"
+            quality={85}
+            sizes="(max-width: 1256px) 100vw, 1256px"
+            src="/images/venue/iih-2026.webp"
+          />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[60%] bg-gradient-to-b from-white/90 via-white/50 to-transparent" />
 
           {/* Desktop Date Badge (Bottom-left corner with +2px vertical padding) */}
           {date && (
