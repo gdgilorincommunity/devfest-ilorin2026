@@ -31,19 +31,19 @@ export const DEFAULT_TRACKS: EventTrackItem[] = [
   {
     id: 'workshop',
     title: 'Workshop',
-    image: '/images/tracks/workshop.jpg',
+    image: '/images/tracks/workshop-2026.jpg',
     borderClass: 'border-[#00AF57]',
   },
   {
     id: 'conference',
     title: 'Conference',
-    image: '/images/tracks/conference.jpg',
+    image: '/images/tracks/conference-day2.jpg',
     borderClass: 'border-[#FC413D]',
   },
   {
     id: 'dinner',
     title: 'Dinner',
-    image: '/images/tracks/dinner.jpg',
+    image: '/images/tracks/dinner-2026.jpg',
     borderClass: 'border-[#3186FF]',
   },
 ]

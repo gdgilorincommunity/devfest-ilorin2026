@@ -27,7 +27,7 @@ export interface ScrollableProps {
   items?: ScrollItem[]
   /**
    * Section title displayed centered above the gallery.
-   * @default 'Previous Devfest Recaps:'
+   * @default 'Devfest 2026 Recaps:'
    */
   title?: string
   /**
@@ -73,71 +73,73 @@ export interface ScrollableProps {
   className?: string
 }
 
+// Photos from DevFest Ilorin 2026 (Day 1 and Day 2) in the recap frame,
+// between the stat cards.
 export const DEFAULT_RECAP_ITEMS: ScrollItem[] = [
   {
-    id: 'speaker-frame-1',
-    image: '/images/recap-images/Speaker-frame-1.webp',
-    label: 'DevFest Recap Speaker Frame 1',
+    id: 'recap-photo-1',
+    image: '/images/recap-2026/photo-1.webp',
+    label: 'Two attendees smiling by the DevFest sign',
   },
   {
-    id: 'speaker-frame-2',
+    id: 'recap-stat-2',
     image: '/images/recap-images/Speaker-frame-2.svg',
-    label: 'DevFest Recap Speaker Frame 2',
+    label: '3000+ attendees',
   },
   {
-    id: 'speaker-frame-3',
-    image: '/images/recap-images/Speaker-frame-3.webp',
-    label: 'DevFest Recap Speaker Frame 3',
+    id: 'recap-photo-3',
+    image: '/images/recap-2026/photo-3.webp',
+    label: 'A speaker running a Day 1 workshop at his laptop',
   },
   {
-    id: 'speaker-frame-4',
-    image: '/images/recap-images/Speaker-frame-4.webp',
-    label: 'DevFest Recap Speaker Frame 4',
+    id: 'recap-photo-4',
+    image: '/images/recap-2026/photo-4.webp',
+    label: 'An attendee asking a question during a Day 2 session',
   },
   {
-    id: 'speaker-frame-5',
-    image: '/images/recap-images/Speaker-frame-5.svg',
-    label: 'DevFest Recap Speaker Frame 5',
+    id: 'recap-stat-5',
+    image: '/images/recap-2026/stat-days.webp',
+    label: '2 days of DevFest 2026',
   },
   {
-    id: 'speaker-frame-6',
-    image: '/images/recap-images/Speaker-frame-6.webp',
-    label: 'DevFest Recap Speaker Frame 6',
+    id: 'recap-photo-6',
+    image: '/images/recap-2026/photo-6.webp',
+    label: 'Two attendees posing outside the venue on Day 1',
   },
   {
-    id: 'speaker-frame-7',
-    image: '/images/recap-images/Speaker-frame-7.webp',
-    label: 'DevFest Recap Speaker Frame 7',
+    id: 'recap-photo-7',
+    image: '/images/recap-2026/photo-7.webp',
+    label: 'Attendees smiling and waving in the main hall',
   },
   {
-    id: 'speaker-frame-8',
-    image: '/images/recap-images/Speaker-frame-8.webp',
-    label: 'DevFest Recap Speaker Frame 8',
+    id: 'recap-photo-8',
+    image: '/images/recap-2026/photo-8.webp',
+    label: 'Attendees working on laptops during a Day 1 workshop',
   },
   {
-    id: 'speaker-frame-9',
+    id: 'recap-stat-9',
     image: '/images/recap-images/Speaker-frame-9.svg',
-    label: 'DevFest Recap Speaker Frame 9',
+    label: '15+ sponsors and partners',
   },
   {
-    id: 'speaker-frame-10',
-    image: '/images/recap-images/Speaker-frame-10.webp',
-    label: 'DevFest Recap Speaker Frame 10',
+    id: 'recap-photo-10',
+    image: '/images/recap-2026/photo-10.webp',
+    label: 'A speaker taking the mic on Day 2',
   },
   {
-    id: 'speaker-frame-11',
-    image: '/images/recap-images/Speaker-frame-11.webp',
-    label: 'DevFest Recap Speaker Frame 11',
+    id: 'recap-photo-11',
+    image: '/images/recap-2026/photo-11.webp',
+    label: 'Two attendees in front of the DevFest Ilorin backdrop',
   },
   {
-    id: 'speaker-frame-12',
+    id: 'recap-stat-12',
     image: '/images/recap-images/Speaker-frame-12.svg',
-    label: 'DevFest Recap Speaker Frame 12',
+    label: '40+ speakers',
   },
   {
-    id: 'speaker-frame-13',
-    image: '/images/recap-images/Speaker-frame-13.webp',
-    label: 'DevFest Recap Speaker Frame 13',
+    id: 'recap-photo-13',
+    image: '/images/recap-2026/photo-13.webp',
+    label: 'A packed main hall under the DevFest Ilorin 2026 screen',
   },
 ]
 
@@ -250,7 +252,7 @@ export const DEFAULT_TAGS: TagItem[] = [
  */
 export function Scrollable({
   items = DEFAULT_RECAP_ITEMS,
-  title = 'Previous Devfest Recaps:',
+  title = 'Devfest 2026 Recaps:',
   tags = DEFAULT_TAGS,
   ctaButton = { label: 'View 2025', href: 'https://2025.devfestilorin.com' },
   speed = 45,
